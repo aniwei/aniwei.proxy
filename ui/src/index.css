@@ -1,0 +1,15 @@
+body,html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: STHeiti;
+}
+
+.view__root {
+  height: 100%;
+}
+
+.view__app {
+  box-sizing: border-box;
+  height: 100%;
+}

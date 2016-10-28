@@ -1,0 +1,62 @@
+{
+  "name": "aniwei.proxy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "anw": "./bin/www"
+  },
+  "author": "aniwei",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.2",
+    "body-parser": "^1.15.1",
+    "buffer-concat": "^1.0.0",
+    "color": "^0.11.3",
+    "commander": "^2.9.0",
+    "cookie-parser": "^1.4.2",
+    "express": "^4.14.0",
+    "lodash": "^4.13.1",
+    "material-ui": "^0.16.0-rc2",
+    "morgan": "^1.7.0",
+    "node-forge": "^0.6.39",
+    "pinyin": "^2.8.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.6.0",
+    "request": "^2.72.0",
+    "socket.io": "^1.5.1",
+    "websocket": "^1.0.23",
+    "whatwg-fetch": "^1.0.0"
+  },
+  "repository": "",
+  "publishConfig": {
+    "registry": "http://registry.npm.alibaba-inc.com"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.1",
+    "clarify": "^2.0.0",
+    "commander": "^2.9.0",
+    "cookie-parser": "^1.4.2",
+    "superagent": "^2.0.0-alpha.3",
+    "trace": "^2.3.3",
+    "webpack": "^1.13.2",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.24.0",
+    "image-loader": "0.0.1",
+    "jsx-loader": "^0.13.2",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7"
+  },
+  "organization": "aniwei.studio",
+  "organizationUnit": "Created by aniwei.tech"
+}

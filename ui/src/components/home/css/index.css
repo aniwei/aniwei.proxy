@@ -1,0 +1,50 @@
+.view__home {
+  height: 100%;
+}
+
+.view__home-logo {
+  margin: 100px auto auto auto;
+}
+
+.view__home-logo-image {
+  margin: auto;
+  height: 100px;
+  width: 100px;
+  background-size: 100px 100px;
+}
+
+.view__home-logo-text {
+  display: block;
+  text-align: center;
+  color: #2dbe60;
+  font-size: 20px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+.view__home-progress {
+  text-align: center;
+  height: 400px;
+  width: 100%;
+  top: 0;
+}
+
+.view__home-progress-circular {
+  position: absolute!important;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.view__home-drawer {
+  padding-top: 104px;
+  box-sizing: border-box;
+  background: linear-gradient(37deg, #20a6a5 0, #5bc583 100%);
+}
+
+.view__home-drawer-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
