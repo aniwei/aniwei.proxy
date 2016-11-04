@@ -15,17 +15,26 @@ import {
 import { fade } from '../util/colormanipulator'
 
 const colors = {
-  primary: '#2dbe60',
-  secondary: '#2dbe60',
-  background: 'background: linear-gradient(37deg, #20a6a5 0, #5bc583 100%)'
+  primary: '#20a6a5',
+  secondary: '#20a6a5',
+  background: 'linear-gradient(37deg, #20a6a5 0, #5bc583 100%)'
 };
 
 export default {
   spacing: space,
   fontFamily: 'Roboto, sans-serif',
   appBar: {
-    background: colors.backgroundColor,
+    background: colors.background,
     fontSize: 18
+  },
+  tableHeaderColumn: {
+    height: 48
+  },
+  tableRow: {
+    height: 42
+  },
+  tableRowColumn: {
+    height: 42
   },
   palette: {
     primary1Color: colors.primary,

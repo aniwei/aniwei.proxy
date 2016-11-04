@@ -5,14 +5,20 @@ var main = {
     {icon: 'settings', label: '设置', scene: 'Setting', title: 'Setting'},
     {icon: 'account_circle', label: '关于', scene: 'About', title: 'About'}
   ],
-  navigationItem: 0
+  navigationItem: 0,
+  home: {}
 }
 
 module.exports = function (req, res) {
   var app     = req.app,
       context = app.context,
       about   = {},
-      explore = [];
+      explore = [],
+      headers = req.headers,
+      agent   = JSON.parse(req.query.agent || ''),
+      angle   = agent.orientation,
+      height,
+      width;
 
   ['author', 'version', 'organization', 'organizationUnit', 'project'].forEach(function(key){
     var value = context.config(key);
@@ -22,6 +28,22 @@ module.exports = function (req, res) {
       value: value
     }
   });
+
+  if (angle == 0 || angle == 180 || angle == -180) {
+    width   = agent.width;
+    height  = agent.height;
+  } else {
+    width   = agent.hegiht;
+    height  = agent.height; 
+  }
+
+  if (width > 768) {
+    main.width      = 768;
+    main.home.table = ['ID', 'STATUS','URL', 'HOST', 'IP' ];
+  } else {
+    main.width = width;
+    main.home.table = ['ID', 'STATUS','URL'];
+  }
 
   about.moreMenuItem = [
     {text: '下载证书', value: 'Download'},

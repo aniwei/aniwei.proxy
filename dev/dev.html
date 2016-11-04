@@ -6,11 +6,46 @@
 </head>
 <body>
 </body>
+<script type="text/tpl" id="plist">
+  <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>__selector</key>
+    <string>_rpc_getConnectedApplications:</string>
+    <key>__argument</key>
+    <dict>
+      <key>WIRConnectionIdentifierKey</key>
+      <string>3b417e9a-9635-4059-a63e-ca88c98744bf</string>
+    </dict>
+  </dict>
+</plist>
+</script>
 <script>
   var aw     = require('../index');
 
   var app = aw();
 
-  app.listen(8888)
+  app.listen(8888);
+
+  var net = require('net');
+
+  var socket = net.connect('/var/run/usbmuxx', function () {
+    //socket.write(document.getElementById('plist').innerText);
+    socket.write('Hello');
+  });
+
+  socket.on('data', function (data) {
+    console.log(data.toString())
+  })
+
+socket.on('error', function (data) {
+    console.log(data.toString())
+  })
+
+  socket.on('close', function (data) {
+    console.log(data.toString())
+  })
+
 </script>
 </html>

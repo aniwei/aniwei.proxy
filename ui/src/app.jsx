@@ -22,6 +22,14 @@ import { SOCKET } from './constants'
 
 injectTapEventPlugin();
 
+const screen = window.screen;
+
+const agent = {
+  width: screen.width,
+  height: screen.height,
+  orientation: screen.orientation.angle
+}
+
 class App extends React.Component {
   render () {
     return <div className="view__app">
@@ -31,7 +39,7 @@ class App extends React.Component {
   }
 }
 
-fetch('/main', {
+fetch('/main?agent=' + JSON.stringify(agent), {
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -57,7 +65,11 @@ fetch('/main', {
   socket.io.on('proxy.request', function () {
     console.log(arguments);
   })
-  socket.io.on('error', function () {
+
+  socket.io.on('error', reconnnect);
+  socket.io.on('disconnect', reconnnect);
+
+  function reconnnect () {
     fetch('/socket', {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -77,7 +89,7 @@ fetch('/main', {
     .catch(function (err) {
       throw err;
     })
-  })
+  }
 
   const store = createStore(reducers, data);
 

@@ -2,35 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import {List, ListItem} from 'material-ui/List';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import Divider from 'material-ui/Divider';
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 import './css/index.css'
 import * as actions from '../../actions';
 import Drawer from './drawer';
+import AppBar from '../appbar';
 
 class Home extends React.Component {
   constructor (props, context) {
     super();
 
     this.state = {
-      proxyRequest:   [],
-      proxyResponse:  [],
-      hashTable: {}
+      general:   [],
+      hashTable: {},
+      current: null
     }
 
     this.onRowSelection = this.onRowSelection.bind(this)
@@ -48,103 +40,95 @@ class Home extends React.Component {
     socket.io.off('proxy');
   }
 
-  onProxy (req) {
-    let { proxyRequest, proxyResponse } = this.state;
+  onProxy (gen) {
+    const { onItemTouchTap } = this.props;
+    let { general, current } = this.state,
+        cur;
 
-    req.type == 'request' ?
-      proxyRequest.push(req.data) :
-      proxyResponse.push(req.data);
+    if (!general.some((g, i) => {
+      if (g.id === gen.id) {
+        cur        = i;
+        general[i] = gen;
+
+        return true;
+      }
+    })) {
+      general.push(gen)
+    } else {
+      if (current === cur) {
+        onItemTouchTap(gen);
+      }
+    }
+
 
     this.setState({
-      proxyRequest:   proxyRequest,
-      proxyResponse:  proxyResponse
+      general: general
     });
   }
 
   onRowSelection (id) {
     const { onItemTouchTap } = this.props;
-    const { hashTable } = this.state;
-    let packet;
+    let { hashTable, general } = this.state,
+        packet;
 
     id = id.pop();
     packet = hashTable[id];
 
     if (!packet) {
-      packet = {
-        request: this.search('request', id),
-        response: this.search('response', id)
-      }
+      packet = general[id]
+      hashTable[packet.id] = packet;
     }
 
-    if (!packet.request) {
-      packet.request = this.search('request', id)
-    }
-
-    if (!packet.response) {
-      packet.response = this.search('response', id)
-    }
-
-    hashTable[id] = packet;
+    this.current = id;
 
     onItemTouchTap(packet);
   }
 
-  search (type, id) {
-    let { proxyRequest, proxyResponse } = this.state,
-        proxy = type == 'request' ? proxyRequest : proxyResponse,
-        hold  = proxy[id],
-        rid;
-
-    if (type == 'request') {
-      return hold;
-    }
-
-    rid = (proxyRequest[id] || {}).id;
-
-    if (!(rid === undefined)) {
-      proxy.some((proxy) => {
-        if (rid === proxy.id) {
-          return hold = proxy;
-        }
-      });
-    }
+  search (id) {
+    let { general } = this.state,
+        hold;
+       
+    general.some((proxy) => {
+      if (id === proxy.id) {
+        return hold = proxy;
+      }
+    });
 
     return hold;
   }
 
   drawersRender () {
-    const { drawer, onItemTouchTap } = this.props
+    const { drawer, onItemTouchTap } = this.props;
 
     return <Drawer
       open={!!drawer}
       onItemTouchTap={onItemTouchTap}
-      packet={drawer}
+      {...drawer}
     />
   }
 
   tableRender () {
     const { onItemTouchTap } = this.props;
-    const { proxyRequest, proxyResponse, hashTable } = this.state;
+    const { general, hashTable } = this.state;
+    const serialStyle = {
+      width: '50px',
+      padding: '0',
+      textAlign: 'center'
+    }
+    const hrefStyle = {
+      paddingLeft: '0'
+    }
 
-    let content = proxyRequest.map((req, i) =>
-      <TableRow key={req.id} rowNumber={req.id}>
-        <TableRowColumn>{i + 1}</TableRowColumn>
-        <TableRowColumn>{req.href}</TableRowColumn>
+    let content = general.map((gen, i) =>
+      <TableRow key={gen.id} rowNumber={gen.id}>
+        <TableRowColumn style={serialStyle}>{i + 1}</TableRowColumn>
+        <TableRowColumn style={hrefStyle}>{gen.url}</TableRowColumn>
       </TableRow>
     )
 
     return <Table
       onRowSelection={this.onRowSelection}
     >
-      <TableHeader
-        displaySelectAll={false}
-        adjustForCheckbox={false}
-      >
-        <TableRow>
-          <TableHeaderColumn>ID</TableHeaderColumn>
-          <TableHeaderColumn>URL</TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
       <TableBody
         displayRowCheckbox={false}
       >
