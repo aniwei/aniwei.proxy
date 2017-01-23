@@ -1,0 +1,9 @@
+.app__toolbar {
+  height: 40px;
+  padding: 0 10px;
+}
+
+.app__toolbar-item {
+  color: #888;
+  font-size: 18px;
+}

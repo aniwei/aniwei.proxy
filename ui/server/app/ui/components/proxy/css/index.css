@@ -1,0 +1,76 @@
+.app__proxy {
+  margin: 15px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  overflow: scroll;
+  transition: all .3s;
+}
+
+.app__sidebar-active .app__proxy {
+  left: 414px;
+}
+
+.app__proxy-content {
+  background-color: #fff;
+  box-shadow: 0 0 30px #ddd;
+}
+
+.app__proxy-scroll {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  border: 1px solid #e5e5e5;
+}
+
+.app__proxy-hd-table {
+  height: 48px;
+  color: #aaa;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.app__proxy-hd-thd {
+  font-size: 10px;
+}
+
+.app__proxy-hd-th {
+  font-weight: normal;
+  padding: 15px;
+  text-align: left;
+  text-overflow: ellipsis;		  
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.app__proxy-bd-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.app__proxy-bd-td {
+  line-height: 1.2;
+  color: #888;
+  font-size: 14px;
+  padding: 15px;
+  text-overflow: ellipsis;		  
+	overflow: hidden;
+	white-space: nowrap;
+
+}
+
+.app__proxy-bd-tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.app__proxy-bd-tr:hover {
+  background-color: #20a6a5;
+}
+
+.app__proxy-bd-tr:hover .app__proxy-bd-td {
+  color: #ffffff;
+}
+
+

@@ -2,44 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import themes from './common/themes';
-
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
+import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router'
 
 import 'whatwg-fetch';
 import './index.css';
+import './common/iconfont/index.css';
+import './common/reset/index.css';
+import './common/weui/index.css';
 
 import components from './components'
 import reducers from './reducers';
 import io from 'socket.io-client';
 
-const { Navigation, Scene } = components;
-import { SOCKET } from './constants'
+import type from './constants';
 
-injectTapEventPlugin();
+const { Navigator, Scene, Proxy, Sidebar, Plugin, Setting, Midway } = components;
+const { Mock, Replace, Host } = Midway;
 
-const screen = window.screen;
-
-const agent = {
-  width: screen.width,
-  height: screen.height,
-  orientation: screen.orientation.angle
-}
-
-class App extends React.Component {
-  render () {
-    return <div className="view__app">
-        <Scene />
-        <Navigation />
-    </div>
-  }
-}
-
-fetch('/main?agent=' + JSON.stringify(agent), {
+fetch('/main', {
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -49,10 +29,7 @@ fetch('/main?agent=' + JSON.stringify(agent), {
     return res.json()
   }
 }).then(function(res){
-  let data        = res.data,
-      navigation  = data.navigation;
-
-  navigation.forEach((nav) => nav.scene = React.createElement(components[nav.scene], nav));
+  let data = res.data;
 
   return data;
 }).then(function(data){
@@ -87,17 +64,50 @@ fetch('/main?agent=' + JSON.stringify(agent), {
       }
     })
     .catch(function (err) {
-      throw err;
+      //
     })
   }
 
   const store = createStore(reducers, data);
+  let item = data.navigationItem,
+      nav;
+
+  if (!(item == '')) {
+    data.navigation.some((n, i) => {
+      if (n.key === item) {
+        return nav = n;
+      }
+    });
+
+    store.dispatch({
+      type: type.SIDEBAR_ACTIVE,
+      active: nav.className
+    });  
+  }
+
+  class App extends React.Component {
+    render () {
+      return <div className="view__app">
+          <Navigator />
+          <Scene>
+            <Sidebar>
+              <Plugin>
+                <Mock name="mock"/>
+                <Host name="host"/>
+                <Replace name="replace"/>
+              </Plugin>             
+              <Setting />
+            </Sidebar>
+            <Proxy />
+          </Scene>
+      </div>
+    }
+  }
+
 
   ReactDOM.render(
     <Provider store={store}>
-      <MuiThemeProvider muiTheme={getMuiTheme(themes.studio)}>
-        <App />
-      </MuiThemeProvider>
+      <App />
     </Provider>,
     document.getElementById('app')
   );

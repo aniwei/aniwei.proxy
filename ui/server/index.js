@@ -1,15 +1,24 @@
+require('babel-register');
+
 var express = require('express'),
     path    = require('path'),
-    router  = require('./router');
+    fs      = require('fs');
 
 module.exports = function (context) {
-  var app = express();
+  var app     = express(),
+      router  = require('./app'),
+      dict    = context.config('store.path');
 
   app.code    = require('./common/code');
   app.format  = require('./common/format') ;
   app.context = context;
 
-  app.use(express.static(path.join(__dirname,'../static')));
+  app.use(require('./common/complie'));
+  
+  if (fs.existsSync(dict)) {
+    app.set('store', require(dict));
+  }
+
   app.use(router);
 
   return app;

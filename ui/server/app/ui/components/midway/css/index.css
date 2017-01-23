@@ -1,0 +1,75 @@
+.app__plugin {
+  overflow: hidden;
+  transition: all .3s;
+  height: 100%;
+  width: 828px;
+}
+
+.app__plugin-title {
+  background-color: #f8f8f8;
+  /*background: linear-gradient(37deg, #281511 0, #40311a, #15222a 100%);*/
+  /*background: linear-gradient(37deg, #5bc583, #20a6a5 100%);*/
+  padding: 40px;
+  width: 414px;
+  position: relative;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.app__plugin-title-desc {
+  margin-top: 20px;
+  color: #888;
+  font-size: 12px;
+}
+
+.app__plugin-icon {
+  margin-top: 20px;
+  font-size: 26px;
+  display: block;
+  text-align: center;
+}
+
+.app__plugin-text {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 10px;
+  color: #888;
+} 
+
+.app__plugin-icon-cert {
+  color: #5bc583
+}
+
+.app__plugin-icon-json {
+  color: #5bc583
+}
+
+.app__plugin-icon-replace {
+  color: #20a6a5
+}
+
+
+.app__plugin-icon-host {
+  color: #20a6a5
+}
+
+.app__plugin-editor,
+.app__plugin-preview {
+  float: left;
+  width: 414px;
+  height: 100%;
+}
+
+.app__plugin_selected {
+  transform: translateX(-50%)
+}
+
+.app__plugin-back {
+  font-size: 12px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

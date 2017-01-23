@@ -2,18 +2,21 @@ import type from '../constants'
 import { clone } from 'lodash'
 
 export function home (state = {}, action) {
+  state = clone(state, true);
+
   switch (action.type) {
     case type.HOME:
-      return action.home
+      break;
     case type.HOME_ITEM:
-      state = clone(state, true);
       state.drawer = action.drawer;
-      return state;
+      break
     case type.HOME_SOCKET:
-      state = clone(state, true);
       state.socket = action.socket;
-      return state;
-    default:
-      return state;
+      break;
+    case type.SIDEBAR_ACTIVE:
+      state.active = action.active;
+      break;
   }
+
+  return state;
 }

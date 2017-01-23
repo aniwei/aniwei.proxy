@@ -1,0 +1,41 @@
+.app__navigator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  /*background: linear-gradient(37deg, #281511 0, #40311a, #15222a 100%);*/
+  /*background: linear-gradient(37deg, #5bc583, #20a6a5 100%);*/
+  background-color: #f8f8f8;
+  box-shadow: 0 0 30px #ddd;
+  z-index: 1000;
+  border-right: 1px solid #e5e5e5;
+}
+
+.app__navigator-menu-config {
+  position: absolute;
+  bottom: 15px;
+}
+
+.app__navigator-menu-item {
+  margin-top: 30px;
+  transition: all .3s;
+}
+
+.app__navigator-menu-item:last-child {
+  position: absolute;
+  bottom: 15px;
+}
+
+.app__navigator-menu-item_current .app__navigator-menu-icon {
+  color: #20a6a5;
+}
+
+.app__navigator-menu-icon {
+  font-size: 24px;
+  color: #888; 
+}
+
+.app__navigator-menu-item:hover .app__navigator-menu-icon{
+  color: #20a6a5;
+}

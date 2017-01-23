@@ -1,0 +1,127 @@
+.app__midway {
+  background-color: #f1f1f1;
+  height: 100%;
+  overflow: scroll;
+  padding-bottom: 40px;
+}
+
+.app__midway-title {
+  padding: 40px;
+  font-size: 14px;
+  position: relative;
+  height: 102px;
+}
+
+.app__midway-close {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.app__midway-listview {
+  background-color: #fff;
+}
+
+.app__midway-listview-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.app__midway-textarea {
+  font-size: 13px;
+}
+
+.weui_textarea_counter {
+  display: none;
+}
+
+.app__midway-form {
+  margin-top: 0;
+  margin-left: 15px;
+  color: #999;
+}
+
+.app__midway-box .app__midway-box-header {
+  position: relative;
+  width: 23px;
+  height: auto;
+}
+
+.app__midway-box-header .app__midway-form {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  margin-left: 0;
+}
+
+.app__midway-form .app__midway-form-cell {
+  padding: 0;
+}
+
+.app__midway-box-header .app__midway-form:before,
+.app__midway-box-header .app__midway-form:after {
+  display: none;
+}
+
+.app__midway-cell {
+  padding-left: 0;
+}
+
+.app__midway-cell-body {
+  font-size: 14px;
+}
+
+.app__midway-box-body .app__midway-box-title {
+  width: 100%;
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  padding-bottom: 5px;
+}
+
+.app__midway-extra-box {
+  padding-top: 0;
+}
+
+.app__midway-box-label {
+  width: 40px;
+  text-align: right;
+  color: #999;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.app__midway-textarea {
+  font-size: 14px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.app__midway .weui-textarea-counter {
+  display: none;
+}
+
+.app__midway-box-info {
+  font-size: 14px;
+  color: #999;
+}
+
+.app__midway-box-info .app__midway-iconfont {
+  font-size: 14px;
+}
+
+.app__midway-protocol-cell {
+  font-size: 14px;
+}
+
+.app__midway-protocol-desc {
+  font-size: 12px;
+  color: #888;
+}

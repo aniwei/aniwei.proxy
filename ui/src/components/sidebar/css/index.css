@@ -1,0 +1,24 @@
+.app__sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  transition: all .3s;
+  box-shadow: 0 0 30px #ddd;
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
+}
+
+.app__sidebar-active .app__sidebar{
+  width: 375px;
+  overflow: hidden;
+}
+
+.app__sidebar-plugin .app__plugin{
+  display: block;
+}
+
+.app__sidebar-plugin .app__setting{
+  display: block;
+}

@@ -29,23 +29,9 @@
   app.listen(8888);
 
   var net = require('net');
+  var plist = require('plist')
 
-  var socket = net.connect('/var/run/usbmuxx', function () {
-    //socket.write(document.getElementById('plist').innerText);
-    socket.write('Hello');
-  });
-
-  socket.on('data', function (data) {
-    console.log(data.toString())
-  })
-
-socket.on('error', function (data) {
-    console.log(data.toString())
-  })
-
-  socket.on('close', function (data) {
-    console.log(data.toString())
-  })
+  net.connect()
 
 </script>
 </html>

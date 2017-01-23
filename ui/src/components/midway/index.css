@@ -1,0 +1,42 @@
+.app__midway {
+  background-color: #f1f1f1;
+  height: 100%;
+  overflow: scroll;
+  padding-bottom: 40px;
+}
+
+.app__midway-title {
+  padding: 40px;
+  font-size: 14px;
+  position: relative;
+  height: 102px;
+}
+
+.app__midway-close {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.app__midway-listview {
+  background-color: #fff;
+}
+
+.app__midway-listview-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.app__midway-cell {
+  padding: 0;
+}
+.app__midway-textarea {
+  font-size: 13px;
+}
+
+.weui_textarea_counter {
+  display: none;
+}

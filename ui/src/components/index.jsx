@@ -1,15 +1,17 @@
-import Navigation from './navigation';
+import Navigator from './navigator';
 import Scene from './scene';
-import About from './about';
-import Home from './home';
-import Explore from './explore';
+import Proxy from './proxy';
+import Sidebar from './sidebar';
+import Plugin from './plugin';
 import Setting from './setting';
+import Midway from './midway';
 
 export default {
-  Navigation,
-  Home,
-  Explore,
+  Navigator,
+  Scene,
+  Proxy,
+  Sidebar,
+  Plugin,
   Setting,
-  About,
-  Scene
+  Midway
 }

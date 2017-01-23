@@ -1,0 +1,10 @@
+.app__modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  padding: 20px;
+  box-shadow: 0 0 30px #ddd;
+  background: #fff;
+}

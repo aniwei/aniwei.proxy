@@ -4,16 +4,15 @@ import { navigationItem, navigation } from './navigation';
 
 import { home } from './home'
 import { socket } from './socket'
-import { about } from './about'
-import { progressDisplay } from './progress'
-import { explore } from './explore'
+import { plugin, pluginItem } from './plugin'
+import { proxy } from './proxy'
 
 export default combineReducers({
   navigationItem,
   navigation,
-  progressDisplay,
-  explore,
+  pluginItem,
   home,
   socket,
-  about
+  proxy,
+  plugin
 })

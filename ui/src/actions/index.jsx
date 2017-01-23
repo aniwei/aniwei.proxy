@@ -5,12 +5,27 @@ export function navigationTouchTap (current) {
     type: type.NAVIGATION_ITEM,
     navigationItem: current
   }
+
 }
 
-export function aboutMoreTouchTap (drawer) {
+export function sidebarActive (active) {
   return {
-    type:   type.ABOUT_MORE_MENU_ITEM,
-    drawer:  drawer
+    type: type.SIDEBAR_ACTIVE,
+    active
+  }
+}
+
+export function pluginUpdate (plugin) {
+  return {
+    type:   type.PLUGIN_UPDATE,
+    plugin
+  }
+}
+
+export function pluginSelected (plugin) {
+  return {
+    type:   type.PLUGIN_TYPE,
+    plugin
   }
 }
 
