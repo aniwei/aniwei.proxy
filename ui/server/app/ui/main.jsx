@@ -15,7 +15,7 @@ import midway from './midway';
 
 const initialState = window.__INITIAL_STATE__;
 
-const connection = io(initialState.socket.uri);
+//const connection = io(initialState.socket.uri);
 
 initialState.socket.connection = connection;
 initialState.midway = midway;

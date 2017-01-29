@@ -1,3 +1,3 @@
-var app = require('./lib/app');
+var app = require('./lib/application');
 
 module.exports = app;
