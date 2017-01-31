@@ -63,12 +63,16 @@
 					<string>aniwei.tech</string>
 					<key>shortName</key>
 					<string>OU</string>
+					<key>valueTagClass</key>
+					<integer>12</integer>
 				</dict>
 				<dict>
 					<key>name</key>
 					<string>organizationName</string>
 					<key>value</key>
-					<string>aniwei.studio</string>
+					<string>Created by aniwei.studio</string>
+					<key>valueTagClass</key>
+					<integer>12</integer>
 				</dict>
 			</array>
 		</dict>
