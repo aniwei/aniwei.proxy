@@ -2,6 +2,50 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>user-interface-configure</key>
+	<dict>
+		<key>key</key>
+		<string>user-interface-configure</string>
+		<key>text-cn</key>
+		<string>图形界面</string>
+		<key>text-en</key>
+		<string>User Interface</string>
+		<key>value</key>
+		<dict>
+			<key>hostname</key>
+			<string>aniwei.proxy</string>
+			<key>root</key>
+			<string>ui</string>
+			<key>static</key>
+			<string>ui/static</string>
+			<key>source</key>
+			<string>ui/src</string>
+			<key>server</key>
+			<string>ui/server</string>
+		</dict>
+	</dict>
+	<key>websocket-dynamic</key>
+	<dict>
+		<key>key</key>
+		<string>websocket-dynamic</string>
+		<key>text-cn</key>
+		<string>WebSocket 动态端口</string>
+		<key>text-en</key>
+		<string>WebSocket Dynamic Port Number</string>
+		<key>value</key>
+		<false/>
+	</dict>
+	<key>websocket-port-number</key>
+	<dict>
+		<key>key</key>
+		<string>websocket-port-number</string>
+		<key>text-cn</key>
+		<string>WebSocket 端口</string>
+		<key>text-en</key>
+		<string>WebSocket Port Number</string>
+		<key>value</key>
+		<integer>8888</integer>
+	</dict>
 	<key>certificate-configure</key>
 	<dict>
 		<key>key</key>
