@@ -26,6 +26,18 @@
 			<string>format</string>
 		</dict>
 	</dict>
+  <key>component-ui</key>
+  <dict>
+		<key>key</key>
+		<string>component-ui</string>
+		<key>brief</key>
+		<dict>
+			<key>text</key>
+			<string>地址格式化</string>
+			<key>icon</key>
+			<string>format</string>
+		</dict>
+	</dict>
   <key>component-ip</key>
 	<dict>
 		<key>key</key>
