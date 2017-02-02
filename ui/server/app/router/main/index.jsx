@@ -15,11 +15,11 @@ export default function main (req, res) {
   let app = req.app;
   let context = app.context;
   let initial = clone(initialState, app.get('store'));
-  let plugin = context.config('the components');
+  let plugin = [];
 
   plugin = plugin.filter((plg) => !plg.hidden);
   
-  initial.socket = context.config('socket');
+  initial.socket = {}
   initial.scene.plugin = {
     item: plugin.map((plg) => {
       return {

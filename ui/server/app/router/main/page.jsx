@@ -9,7 +9,7 @@ export default function htmlPage (html, initialState) {
 
           ;new WebSocket('ws://127.0.0.1:8888');
         </script>
-        
+        <script src="/dist/app.js"></script>
       </head>
       <body>
         <div id="root">${html}</div>

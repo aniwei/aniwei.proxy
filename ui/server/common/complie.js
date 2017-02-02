@@ -1,11 +1,10 @@
 var webpack = require('webpack'),
-    config  = require('../app/webpack.config.js'),
+    //config  = require('../app/webpack.config.js'),
     isComplied;
 
 module.exports = function (req, res, next) {
   var app     = req.app,
-      context = app.context,
-      complie = context.config('complie.jsx');
+      context = app.context;
 
   return next();
 

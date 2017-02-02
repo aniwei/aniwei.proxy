@@ -57,4 +57,4 @@ defaultConfig = {
 
 module.exports = function (config) {
     return _.clone(defaultConfig, config)
-}()
+}
