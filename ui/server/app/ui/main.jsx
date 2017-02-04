@@ -11,18 +11,15 @@ import actions from './actions';
 import constants from './constants';
 
 import App from './app';
-import midway from './midway';
 
 const initialState = window.__INITIAL_STATE__;
 
 //const connection = io(initialState.socket.uri);
 
-initialState.socket.connection = connection;
-initialState.midway = midway;
+//initialState.socket.connection = connection;
+//initialState.midway = midway;
 
 const store = createStore(reducers, initialState);
-const state = store.getState();
-
 
 document.addEventListener('DOMContentLoaded', () => {
   render(

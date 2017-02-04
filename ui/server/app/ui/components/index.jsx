@@ -3,7 +3,7 @@ import Scene from './scene';
 import Proxy from './proxy';
 import Sidebar from './sidebar';
 import Setting from './setting';
-import Midway from './midway';
+import Components from './components';
 import Modal from './modal';
 
 export default {
@@ -12,6 +12,6 @@ export default {
   Proxy,
   Sidebar,
   Setting,
-  Midway,
+  Components,
   Modal
 }

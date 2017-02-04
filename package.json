@@ -86,7 +86,7 @@
     "trace": "^2.3.3",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2",
+    "webpack-dev-server": "^1.16.3",
     "webpack-isomorphic-tools": "^2.6.4"
   },
   "organization": "aniwei.studio",
@@ -94,6 +94,6 @@
   "keyword": [],
   "scripts": {
     "commit": "git add . && git commit -m '${info}' && git push origin dev/0.0.11",
-    "dev": "electron dev/main.js"
+    "dev": "webpack-dev-server --config --port 8888 ui/server/app/webpack.config.js"
   }
 }
