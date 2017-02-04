@@ -1,12 +1,13 @@
 import express from 'express';
 import main from './main';
-import plugin from './plugin';
+import getssl from './getssl';
 
 
 const router = express.Router();
 
+
+router.get('/aniwei.proxy-ssl.pem', getssl);
 router.get('/', main);
-router.get('/midway/:name', plugin);
 
 export default router;
 
