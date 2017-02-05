@@ -14,21 +14,21 @@ import App from './app';
 
 const initialState = window.__INITIAL_STATE__;
 
-//const connection = io(initialState.socket.uri);
+const connection = io(initialState.socket.uri, {
+  transports: ['websocket']
+});
 
-//initialState.socket.connection = connection;
-//initialState.midway = midway;
+initialState.socket.connection = connection;
 
 const store = createStore(reducers, initialState);
 
-document.addEventListener('DOMContentLoaded', () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('root')
-  );
-}, false);
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
 
 
 

@@ -49,8 +49,8 @@ class AppRouter extends React.Component {
     const { components } = this.props
     let route;
 
-    route = Object.keys(components).map((m) => {
-      return <Route path={m} component={components[m]}/>
+    route = Object.keys(components).map((m, i) => {
+      return <Route path={m} component={components[m]} key={i}/>
     });
 
     return (

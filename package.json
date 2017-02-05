@@ -93,7 +93,6 @@
   "organizationUnit": "Created by aniwei",
   "keyword": [],
   "scripts": {
-    "commit": "git add . && git commit -m '${info}' && git push origin dev/0.0.11",
-    "dev": "webpack-dev-server --config --port 8888 ui/server/app/webpack.config.js"
+    "commit": "git add . && git commit -m ${info} && git push origin dev/0.0.11"
   }
 }

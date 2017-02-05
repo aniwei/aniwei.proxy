@@ -9,7 +9,7 @@ import Preview from './preview';
 import Editor from './editor';
 
 
-class Midway extends React.Component {
+class Components extends React.Component {
   render () {
     const { className, children, item } = this.props;
     let classes = children ? 'app__plugin app__plugin_selected' : 'app__plugin';
@@ -26,11 +26,11 @@ class Midway extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let plugin = state.scene.plugin;
+  let components = state.components;
 
   return {
-    item: plugin.item
+    item: components.item
   }
 }
 
-export default connect(mapStateToProps)(Midway);
+export default connect(mapStateToProps)(Components);
