@@ -3,7 +3,7 @@ export default function htmlPage (html, initialState) {
     <!doctype html>
     <html>
       <head>
-        <title>Fie Proxy</title>
+        <title>aniwei.proxy</title>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState, null, 2)}
 
