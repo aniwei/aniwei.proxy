@@ -11,9 +11,9 @@
       {
         "icon": "app", 
         "label": "中间件", 
-        "key": "midway", 
-        "title": "Midway",
-        "route": "midway"
+        "key": "components", 
+        "title": "Components",
+        "route": "components"
       },
       {
         "icon": "config", 

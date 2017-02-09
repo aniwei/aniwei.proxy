@@ -16,11 +16,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrage:before { content: "\e64b"; }
+
 .icon-config:before { content: "\e641"; }
 
 .icon-edit:before { content: "\e61c"; }
 
-.icon-plugin:before { content: "\e6d3"; }
+.icon-socket:before { content: "\e6d3"; }
 
 .icon-remove:before { content: "\e870"; }
 

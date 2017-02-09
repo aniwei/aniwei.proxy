@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <key>component-websocket</key>
+  <dict>
+		<key>key</key>
+		<string>component-websocket</string>
+		<key>brief</key>
+		<dict>
+			<key>text</key>
+			<string>地址格式化</string>
+			<key>icon</key>
+			<string>format</string>
+		</dict>
+	</dict>
 	<key>component-url-formatter</key>
 	<dict>
 		<key>key</key>
@@ -14,16 +26,16 @@
 			<string>format</string>
 		</dict>
 	</dict>
-  <key>component-websocket</key>
+	<key>component-devtool</key>
   <dict>
 		<key>key</key>
-		<string>component-websocket</string>
+		<string>component-devtool</string>
 		<key>brief</key>
 		<dict>
 			<key>text</key>
-			<string>地址格式化</string>
+			<string>调试工具</string>
 			<key>icon</key>
-			<string>format</string>
+			<string>devtool</string>
 		</dict>
 	</dict>
   <key>component-ui</key>

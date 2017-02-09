@@ -11,27 +11,24 @@ import actions from './actions';
 import constants from './constants';
 
 import App from './app';
-import midway from './midway';
 
 const initialState = window.__INITIAL_STATE__;
 
-//const connection = io(initialState.socket.uri);
+const connection = io(initialState.socket.uri, {
+  transports: ['websocket']
+});
 
 initialState.socket.connection = connection;
-initialState.midway = midway;
 
 const store = createStore(reducers, initialState);
-const state = store.getState();
 
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 
-document.addEventListener('DOMContentLoaded', () => {
-  render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('root')
-  );
-}, false);
 
 
 

@@ -3,12 +3,12 @@ import navigator from './navigator';
 import scene from './scene';
 import proxy from './proxy';
 import socket from './socket';
-import midway from './midway';
+import components from './components';
 
 export default combineReducers({
   navigator,
   scene,
   proxy,
   socket,
-  midway
+  components
 });

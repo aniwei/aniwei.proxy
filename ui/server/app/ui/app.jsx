@@ -15,7 +15,7 @@ import io from 'socket.io-client';
 
 import type from './constants';
 
-const { Navigator, Scene, Proxy, Sidebar, Setting, Midway, Modal, Header } = components;
+const { Navigator, Scene, Proxy, Sidebar, Setting, Components, Modal, Header } = components;
 
 
 class App extends React.Component {
@@ -46,18 +46,18 @@ App = withRouter(App);
 
 class AppRouter extends React.Component {
   render () {
-    const { midway } = this.props
+    const { components } = this.props
     let route;
 
-    route = Object.keys(midway).map((m) => {
-      return <Route path={m} component={midway[m]}/>
+    route = Object.keys(components).map((m, i) => {
+      return <Route path={m} component={components[m]} key={i}/>
     });
 
     return (
       <Router history={hashHistory}>
         <Route path="/proxy" component={App}/>
         <Route path="/" component={App}>
-          <Route path="midway" component={Midway}>
+          <Route path="components" component={Components}>
             {route}
           </Route>
           <Route path="config" component={Setting}/>
@@ -70,7 +70,7 @@ class AppRouter extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    midway: state.midway
+    components: state.components
   }
 }
 

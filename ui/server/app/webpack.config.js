@@ -1,17 +1,16 @@
-var path    = require('path'),
-    entry   = path.join(__dirname, './ui/main.jsx'),
-    statics = path.join(__dirname, './static/dist/'),
-    webpack = require('webpack'),
-    _       = require('lodash'),
-    WebpackIsomorphicToolsPlugin,
-    webpackIsomorphicToolsPlugin,
-    defaultConfig;
-
-WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
-webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack.isomorphic.tools'));
+var path            = require('path'),
+    entry           = path.join(__dirname, './ui/main.jsx'),
+    statics         = path.join(__dirname, './static/dist/'),
+    webpack         = require('webpack'),
+    webpackServer   = require("webpack-dev-server"),
+    _               = require('lodash'),
+    complier,
+    defaultConfig,
+    app;
 
 defaultConfig = {
     entry: [
+        'webpack-dev-server/client?http://localhost:9091',
         entry
     ],
     output: {
@@ -24,8 +23,7 @@ defaultConfig = {
         extensions: ['', '.js', '.jsx']
     },
     plugins: [
-        new webpack.NoErrorsPlugin(),
-        webpackIsomorphicToolsPlugin.development()
+        new webpack.NoErrorsPlugin()
     ],
     devtool: 'source-map',
     module: {
@@ -55,6 +53,11 @@ defaultConfig = {
     }
 }
 
-module.exports = function (config) {
-    return _.clone(defaultConfig, config)
-}()
+complier = webpack(defaultConfig);
+
+app = new webpackServer(complier, {
+    publicPath: defaultConfig.output.publicPath
+});
+
+module.exports = app;
+

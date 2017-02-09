@@ -45,11 +45,11 @@ class Container extends React.Component {
     }
 
     return (
-      <div className="app__midway">
-        <div className="app__midway-title">
+      <div className="app__components">
+        <div className="app__components-title">
           {query.title}
           <Link to="/midway">
-            <i className="iconfont icon-close app__midway-close"></i>
+            <i className="iconfont icon-close app__components-close"></i>
           </Link>
         </div>
         {element}

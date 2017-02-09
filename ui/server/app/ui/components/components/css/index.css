@@ -1,11 +1,11 @@
-.app__plugin {
+.app__components {
   overflow: hidden;
   transition: all .3s;
   height: 100%;
   width: 828px;
 }
 
-.app__plugin-title {
+.app__components-title {
   background-color: #f8f8f8;
   /*background: linear-gradient(37deg, #281511 0, #40311a, #15222a 100%);*/
   /*background: linear-gradient(37deg, #5bc583, #20a6a5 100%);*/
@@ -16,60 +16,54 @@
   box-sizing: border-box;
 }
 
-.app__plugin-title-desc {
+.app__components-title-desc {
   margin-top: 20px;
   color: #888;
   font-size: 12px;
 }
 
-.app__plugin-icon {
-  margin-top: 20px;
-  font-size: 26px;
+.app__components-icon {
+  margin-top: 10px;
+  font-size: 36px;
   display: block;
   text-align: center;
+  color: #20a6a5;
 }
 
-.app__plugin-text {
+.app__components-text {
   display: block;
   text-align: center;
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 20px;
   color: #888;
 } 
 
-.app__plugin-icon-cert {
-  color: #5bc583
-}
-
-.app__plugin-icon-json {
-  color: #5bc583
-}
-
-.app__plugin-icon-replace {
-  color: #20a6a5
-}
-
-
-.app__plugin-icon-host {
-  color: #20a6a5
-}
-
-.app__plugin-editor,
-.app__plugin-preview {
+.app__components-editor,
+.app__components-preview {
   float: left;
   width: 414px;
   height: 100%;
 }
 
-.app__plugin_selected {
+.app__components_selected {
   transform: translateX(-50%)
 }
 
-.app__plugin-back {
+.app__components-back {
   font-size: 12px;
   position: absolute;
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+ /* reset */
+.weui-grid__icon {
+  margin-top: 10px;
+  font-size: 36px;
+  height: 36px;
+  display: block;
+  text-align: center;
+  width: auto;
 }
