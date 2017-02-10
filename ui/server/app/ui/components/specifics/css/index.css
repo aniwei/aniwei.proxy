@@ -1,0 +1,36 @@
+.app__specifics {
+  height: 400px;
+  padding: 0 35px 35px 35px;
+  box-shadow: 0 0 20px #ddd inset;
+  margin: 0 -20px;
+}
+
+.app__specifics-tabs {
+  height: 48px;
+  line-height: 48px;
+  border-bottom: 1px solid #e5e5e5;
+  width: 100%;
+}
+
+.app__specifics-tab_current {
+  color: #20a6a5;
+  position: relative;
+}
+
+.app__specifics-tab_current:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  width: calc(100% + 2 * 1px);
+  height: 2px;
+  background-color: #30A7B7;
+}
+
+.app__specifics-tab {
+  height: 48px;
+  line-height: 48px;
+  padding: 0 15px;
+  display: inline-block;
+  cursor: pointer;
+}

@@ -16,7 +16,7 @@ import reducers from './reducers';
 import type from './constants';
 import Socket from './common/socket';
 
-const { Navigator, Scene, Proxy, Sidebar, Setting, Components, Modal, Header } = components;
+const { Navigator, Scene, Proxy, Specifics, Sidebar, Setting, Components, Modal, Header } = components;
 
 
 class App extends React.Component {
@@ -66,7 +66,9 @@ class AppRouter extends React.Component {
 
     return (
       <Router history={hashHistory}>
-        <Route path="/proxy" component={App}/>
+        <Route path="/proxy" component={App}>
+          <Route path="specifics" component={Specifics} />
+        </Route>
         <Route path="/" component={App}>
           <Route path="components" component={Components}>
             {route}
