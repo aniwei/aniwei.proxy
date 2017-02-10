@@ -10,7 +10,7 @@ export default class Editor extends React.Component {
     const { children } = this.props;
 
     return (
-      <div className="app__plugin-editor">
+      <div className="app__components-editor">
         <Container>
           {children}
         </Container>

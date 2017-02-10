@@ -1,5 +1,6 @@
 import React, { createElement } from 'react';
 import { connect } from 'react-redux';
+import { flatten } from 'lodash';
 
 import Toolbar from '../toolbar';
 
@@ -10,7 +11,8 @@ class Proxy extends React.Component {
     super();
 
     this.state = {
-      proxy: []
+      proxy: [],
+      current: null
     };
   }
 
@@ -38,6 +40,27 @@ class Proxy extends React.Component {
     this.setState({
       proxy: proxy
     });
+  }
+
+  onRowClick (i, prx, e) {
+    this.setState({
+      current: {
+        position: i,
+        proxy:    prx
+      }
+    });
+  }
+
+  specificsRender (length) {
+    const { children } = this.props;
+    let specificsElement;
+
+    if (children) {
+      specificsElement = React.cloneElement(children, {
+      });
+    }
+
+    return specificsElement;
   }
 
   headerRender () {
@@ -79,20 +102,37 @@ class Proxy extends React.Component {
           break;
       }
 
-      return <td key={i} className="app__proxy-bd-td" width={hd.width} title={value}>{value}</td>
+      return <td key={i} className="app__proxy-bd-td" width={hd.width} title={value}>{value}</td>;
     });
   }
 
   rowRender () {
-    const { proxy } = this.state;
+    const { proxy, current } = this.state;
+    const { header } = this.props;
+    const { length } = header;
 
-    return proxy.map((prx, i) => {
-      return (
-        <tr key={i} className="app__proxy-bd-tr">
-          {this.columnRender(prx, i)}
-        </tr>
-      );
-    });
+    return flatten(proxy.map((prx, i) => {
+      let specifics;
+
+      if (current.position === i) {
+        specifics = this.specificsRender();
+      }
+
+      return [
+        (
+          <tr key={i} className="app__proxy-bd-tr" onClick={e => this.onRowClick(i, prx, e)}>
+            {this.columnRender(prx, i)}
+          </tr>
+        ),
+        (
+          <tr>
+            <td colSpan={length} className={`app__proxy-specifics${specifics ? '_expand' : ''}`}>
+              {specifics}
+            </td>
+          </tr>
+        )
+      ];
+    }));
   }
 
   tableRender () {

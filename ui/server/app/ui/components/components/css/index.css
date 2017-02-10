@@ -2,7 +2,7 @@
   overflow: hidden;
   transition: all .3s;
   height: 100%;
-  width: 828px;
+  width: 1100px;
 }
 
 .app__components-title {
@@ -10,7 +10,7 @@
   /*background: linear-gradient(37deg, #281511 0, #40311a, #15222a 100%);*/
   /*background: linear-gradient(37deg, #5bc583, #20a6a5 100%);*/
   padding: 40px;
-  width: 414px;
+  width: 550px;
   position: relative;
   font-size: 14px;
   box-sizing: border-box;
@@ -41,7 +41,7 @@
 .app__components-editor,
 .app__components-preview {
   float: left;
-  width: 414px;
+  width: 550px;
   height: 100%;
 }
 
