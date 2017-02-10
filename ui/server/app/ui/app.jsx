@@ -1,24 +1,35 @@
-import React, { createElement } from 'react';
+import React, { createElement, PropTypes } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 import { Router, Route, Link, hashHistory, IndexRoute, withRouter } from 'react-router'
 
+import io from 'socket.io-client';
 import 'whatwg-fetch';
-import './index.css';
+
 import './common/iconfont/index.css';
 import './common/reset/index.css';
 import './common/weui/index.css';
+import './index.css';
 
 import components from './components'
 import reducers from './reducers';
-import io from 'socket.io-client';
-
 import type from './constants';
+import Socket from './common/socket';
 
 const { Navigator, Scene, Proxy, Sidebar, Setting, Components, Modal, Header } = components;
 
 
 class App extends React.Component {
+  static childContextTypes = {
+    Socket: PropTypes.func
+  }
+
+  getChildContext () {
+    return {
+      Socket: Socket
+    }
+  }
+
   render () {
     const { location } = this.props;
     let name = location.pathname.slice(1),

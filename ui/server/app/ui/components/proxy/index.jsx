@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import React, { createElement, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Toolbar from '../toolbar';
@@ -6,6 +6,10 @@ import Toolbar from '../toolbar';
 import './css/index.css';
 
 class Proxy extends React.Component {
+  static contextTypes = {
+    Socket: PropTypes.func
+  }
+
   constructor (props) {
     super();
 
@@ -16,27 +20,54 @@ class Proxy extends React.Component {
 
   componentDidMount () {
     const { connection } = this.props;
+    const { Socket } = this.context;
+    let socket;
 
-    connection.on('proxy', this.connectionHandle.bind(this));
+    this.socket = socket = new Socket('proxy', connection);
+    
+    socket.on('request', this.onSocketMessage.bind(this));
+    socket.on('response', this.onSocketMessage.bind(this));
   }
 
   componentWillUnmount () {
     const { connection } = this.props;
     
-    connection.off('proxy', this.connectionHandle);
+    socket.off('request', this.onSocketMessage);
+    socket.off('response', this.onSocketMessage);
   }
 
-  connectionHandle (data) {
-    let proxy = this.state.proxy;
+  onSocketMessage (res) {
+    const { proxy } = this.state;
 
-    if (!proxy.some((prx, i) => (
-        prx.id === data.id && (proxy[i]= data)
-    ))) {
-      proxy.push(data);
+    switch (res.type) {
+      case 'request':
+        proxy.push({
+          id:      res.id,
+          request: res.data
+        });
+        break;
+
+      case 'response':
+        proxy.some((prx, i) => {
+          if (prx.id === res.id) {
+            prx.response = res.data
+            return true;
+          }
+        });
+        break;
+
+      case 'timeline':
+        proxy.some((prx, i) => {
+          if (prx.id === res.id) {
+            prx.timeline = res.data
+            return true;
+          }
+        });
+        break;
     }
 
     this.setState({
-      proxy: proxy
+      proxy
     });
   }
 
@@ -58,6 +89,7 @@ class Proxy extends React.Component {
 
   columnRender (c, index) {
     const { header } = this.props;
+    const { request, response, timeline } = c;
     
     return header.map((hd, i) => {
       let key = hd.key,
@@ -65,17 +97,18 @@ class Proxy extends React.Component {
 
       switch (key) {
         case 'status':
-          value = c.general[key] || '-'
+
+          value = response ? response[key] : '-'; 
           break;
         case 'method':
         case 'address':
-          value = c.general[key];
+          value = request[key == 'address' ? 'ip' : key];
           break;
-        case 'number':
+        case 'serial':
           value = index + 1;
           break;
         default:
-          value = c[key];
+          value = request[key];
           break;
       }
 
