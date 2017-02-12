@@ -1,8 +1,9 @@
 .app__specifics {
-  height: 400px;
+  height: auto;
   padding: 0 35px 35px 35px;
   box-shadow: 0 0 20px #ddd inset;
   margin: 0 -20px;
+  background-color: #f1f1f1;
 }
 
 .app__specifics-tabs {
@@ -33,4 +34,6 @@
   padding: 0 15px;
   display: inline-block;
   cursor: pointer;
+  font-size: 14px;
+  color: #aaa;
 }

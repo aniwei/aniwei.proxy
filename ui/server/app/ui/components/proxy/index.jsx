@@ -1,10 +1,14 @@
 import React, { createElement, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { flatten } from 'lodash';
+import { Link, withRouter } from 'react-router';
+import { VelocityComponent } from 'velocity-react';
 
 import Toolbar from '../toolbar';
 
 import './css/index.css';
+import 'velocity-animate';
+import 'velocity-animate/velocity.ui';
 
 class Proxy extends React.Component {
   static contextTypes = {
@@ -73,22 +77,18 @@ class Proxy extends React.Component {
     });
   }
 
-  onRowClick (i, prx, e) {
-    this.setState({
-      current: {
-        position: i,
-        proxy:    prx
-      }
-    });
+  onRowClick (position, e) {
+    const { router } = this.props;
+
+    router.push(`/proxy/specifics/${position}`);
   }
 
-  specificsRender (length) {
+  specificsRender (prx) {
     const { children } = this.props;
     let specificsElement;
 
     if (children) {
-      specificsElement = React.cloneElement(children, {
-      });
+      specificsElement = React.cloneElement(children, prx || {});
     }
 
     return specificsElement;
@@ -140,27 +140,36 @@ class Proxy extends React.Component {
   }
 
   rowRender () {
-    const { proxy, current } = this.state;
-    const { header } = this.props;
+    const { proxy } = this.state;
+    const { header, params } = this.props;
     const { length } = header;
+    let position;
+
+    if (!(params.id === undefined)) {
+       position = parseInt(params.id, 10);
+    }
 
     return flatten(proxy.map((prx, i) => {
       let specifics;
 
-      if (current.position === i) {
-        specifics = this.specificsRender();
+      if (position) {
+        if (position === i) {
+          specifics = this.specificsRender(prx);
+        }
       }
 
       return [
         (
-          <tr key={i} className="app__proxy-bd-tr" onClick={e => this.onRowClick(i, prx, e)}>
+          <tr key={i} className="app__proxy-bd-tr" onClick={e => this.onRowClick(i, e)}>
             {this.columnRender(prx, i)}
           </tr>
         ),
         (
           <tr>
-            <td colSpan={length} className={`app__proxy-specifics${specifics ? '_expand' : ''}`}>
-              {specifics}
+            <td colSpan={length} className={`app__proxy-specifics${specifics ? ' app__proxy-specifics_expand' : ''}`}>
+              <VelocityComponent animation={`transition.${specifics ? 'In' : 'Out'}`}>
+                {specifics}
+              </VelocityComponent>
             </td>
           </tr>
         )
@@ -210,4 +219,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Proxy);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Proxy));

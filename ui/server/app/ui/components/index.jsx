@@ -5,6 +5,7 @@ import Sidebar from './sidebar';
 import Setting from './setting';
 import Components from './components';
 import Modal from './modal';
+import Specifics from './specifics';
 
 export default {
   Navigator,
@@ -13,5 +14,6 @@ export default {
   Sidebar,
   Setting,
   Components,
+  Specifics,
   Modal
 }

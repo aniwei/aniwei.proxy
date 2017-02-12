@@ -10,12 +10,12 @@ class Specifics extends React.Component {
 
   render () {
     return (
-      <div className="app__proxy-specifics">
-        <div className="app__proxy-specifics-tabs">
-          <div className="app__proxy-specifics-tab app__proxy-specifics-tab_current">Overview</div>
-          <div className="app__proxy-specifics-tab">Request</div>
-          <div className="app__proxy-specifics-tab">Response</div>
-          <div className="app__proxy-specifics-tab">Timeline</div>
+      <div className="app__specifics">
+        <div className="app__specifics-tabs">
+          <div className="app__specifics-tab app__specifics-tab_current">Overview</div>
+          <div className="app__specifics-tab">Request</div>
+          <div className="app__specifics-tab">Response</div>
+          <div className="app__specifics-tab">Timeline</div>
         </div>
       </div>
     );

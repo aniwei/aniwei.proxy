@@ -1,7 +1,7 @@
 .app__sidebar {
   position: absolute;
   top: 0;
-  left: -414px;
+  left: -550px;
   bottom: 0;
   width: 550px;
   transition: all .3s;

@@ -24,7 +24,7 @@
 
 .app__components-icon {
   margin-top: 10px;
-  font-size: 36px;
+  font-size: 48px;
   display: block;
   text-align: center;
   color: #20a6a5;
@@ -58,11 +58,15 @@
   cursor: pointer;
 }
 
+.app__components-grid {
+  padding: 30px 10px;
+}
+
  /* reset */
 .weui-grid__icon {
   margin-top: 10px;
-  font-size: 36px;
-  height: 36px;
+  font-size: 48px;
+  height: 48px;
   display: block;
   text-align: center;
   width: auto;

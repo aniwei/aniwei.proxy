@@ -16,7 +16,17 @@ import reducers from './reducers';
 import type from './constants';
 import Socket from './common/socket';
 
-const { Navigator, Scene, Proxy, Specifics, Sidebar, Setting, Components, Modal, Header } = components;
+const { 
+  Navigator, 
+  Scene, 
+  Proxy, 
+  Specifics, 
+  Sidebar, 
+  Setting, 
+  Components, 
+  Modal, 
+  Header 
+} = components;
 
 
 class App extends React.Component {
@@ -35,17 +45,18 @@ class App extends React.Component {
     let name = location.pathname.slice(1),
         element;
 
-    if (name.indexOf('header') > -1) {
-      element = <Sidebar><Header /></Sidebar>
+    if (name.indexOf('proxy') === -1) {
+      element = this.props.children;
     }
 
     return (
       <div className="view__app">
         <Navigator />
         <Scene>
-          <Sidebar>{this.props.children}</Sidebar>
-          {element}
-          <Proxy/>
+          <Sidebar>{element}</Sidebar>
+          <Proxy>
+            {this.props.children}
+          </Proxy>
         </Scene>
       </div>
     );
@@ -53,7 +64,6 @@ class App extends React.Component {
 }
 
 App = withRouter(App);
-
 
 class AppRouter extends React.Component {
   render () {
@@ -67,7 +77,7 @@ class AppRouter extends React.Component {
     return (
       <Router history={hashHistory}>
         <Route path="/proxy" component={App}>
-          <Route path="specifics" component={Specifics} />
+          <Route path="specifics/:id" component={Specifics} />
         </Route>
         <Route path="/" component={App}>
           <Route path="components" component={Components}>
