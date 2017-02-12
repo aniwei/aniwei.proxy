@@ -1,16 +1,26 @@
 .app__specifics {
   height: auto;
-  padding: 0 35px 35px 35px;
+  padding: 0 35px 15px 35px;
   box-shadow: 0 0 20px #ddd inset;
   margin: 0 -20px;
-  background-color: #f1f1f1;
+  /*background-color: #f1f1f1;*/
 }
 
 .app__specifics-tabs {
   height: 48px;
-  line-height: 48px;
   border-bottom: 1px solid #e5e5e5;
   width: 100%;
+}
+
+.app__specifics-tab {
+  height: 48px;
+  line-height: 48px;
+  padding: 0 15px;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 14px;
+  color: #aaa;
+  transition: all 0.3s;
 }
 
 .app__specifics-tab_current {
@@ -28,12 +38,40 @@
   background-color: #30A7B7;
 }
 
-.app__specifics-tab {
-  height: 48px;
-  line-height: 48px;
-  padding: 0 15px;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 14px;
-  color: #aaa;
+.app__specifics-content {
+  margin: 15px;
 }
+
+.app__specifics-content-every {
+  display: none;  
+}
+
+.app__specifics-content_current {
+  display: block;
+}
+
+.app__specifics-content-group {
+
+}
+
+.app__specifics-content-group-title {
+  margin: 15px 0 10px;
+  font-size: 14px;
+  color: #888;
+}
+
+.app__specifics-content-row {
+  font-size: 14px;
+  margin: 5px 0px 5px 5px;
+  word-break: break-all;
+}
+
+.app__specifics-content-key {
+  color: #20a6a5;
+  margin-right: 15px;
+}
+
+.app__specifics-content-value {
+  color: #888;
+}
+

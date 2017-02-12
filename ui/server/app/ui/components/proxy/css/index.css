@@ -57,18 +57,19 @@
   text-overflow: ellipsis;		  
 	overflow: hidden;
 	white-space: nowrap;
-
 }
 
 .app__proxy-bd-tr:nth-child(2n) {
   background-color: #f8f8f8;
 }
 
-.app__proxy-bd-tr:hover {
+.app__proxy-bd-tr:hover,
+.app__proxy-bd-tr_current {
   background-color: #20a6a5;
 }
 
-.app__proxy-bd-tr:hover .app__proxy-bd-td {
+.app__proxy-bd-tr:hover .app__proxy-bd-td,
+.app__proxy-bd-tr_current .app__proxy-bd-td {
   color: #ffffff;
 }
 

@@ -7,8 +7,6 @@ import { VelocityComponent } from 'velocity-react';
 import Toolbar from '../toolbar';
 
 import './css/index.css';
-import 'velocity-animate';
-import 'velocity-animate/velocity.ui';
 
 class Proxy extends React.Component {
   static contextTypes = {
@@ -77,9 +75,14 @@ class Proxy extends React.Component {
   }
 
   onRowClick (position, e) {
-    const { router } = this.props;
+    const { router, location } = this.props;
+    const pathname = `/proxy/specifics/${position}`;
 
-    router.push(`/proxy/specifics/${position}`);
+    if (location.pathname === pathname) {
+      return router.push('/proxy');
+    }
+
+    router.push(pathname);
   }
 
   specificsRender (prx) {
@@ -159,16 +162,14 @@ class Proxy extends React.Component {
 
       return [
         (
-          <tr key={i} className="app__proxy-bd-tr" onClick={e => this.onRowClick(i, e)}>
+          <tr key={i} className={`app__proxy-bd-tr${specifics ? ' app__proxy-bd-tr_current' : ''}`} onClick={e => this.onRowClick(i, e)}>
             {this.columnRender(prx, i)}
           </tr>
         ),
         (
-          <tr>
+          <tr key={`specifics_${i}`}>
             <td colSpan={length} className={`app__proxy-specifics${specifics ? ' app__proxy-specifics_expand' : ''}`}>
-              <VelocityComponent animation={`transition.${specifics ? 'In' : 'Out'}`}>
-                {specifics}
-              </VelocityComponent>
+              {specifics || null}
             </td>
           </tr>
         )
