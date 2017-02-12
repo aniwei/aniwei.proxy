@@ -19,8 +19,7 @@ class Proxy extends React.Component {
     super();
 
     this.state = {
-      proxy: [],
-      current: null
+      proxy: []
     };
   }
 
