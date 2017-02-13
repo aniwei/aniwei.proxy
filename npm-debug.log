@@ -1,0 +1,180 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/weiyanhai/.nvm/versions/node/v4.4.0/bin/node',
+1 verbose cli   '/Users/weiyanhai/.nvm/versions/node/v4.4.0/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'transform-object-rest-spread' ]
+2 info using npm@2.14.20
+3 info using node@v4.4.0
+4 verbose install initial load of /Users/weiyanhai/Desktop/AW/aniwei.proxy/package.json
+5 warn package.json aniwei.proxy@1.0.0 No description
+6 warn package.json aniwei.proxy@1.0.0 No repository field.
+7 warn package.json aniwei.proxy@1.0.0 No README data
+8 warn package.json aniwei.proxy@1.0.0 No license field.
+9 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/aniwei.usbmux/package.json
+10 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/async/package.json
+11 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel/package.json
+12 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-core/package.json
+13 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-loader/package.json
+14 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-plugin-add-module-exports/package.json
+15 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-plugin-transform-class-properties/package.json
+16 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-plugin-transform-decorators-legacy/package.json
+17 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-plugin-transform-object-assign/package.json
+18 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-plugin-transform-proto-to-assign/package.json
+19 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-plugin-transform-react-jsx/package.json
+20 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-preset-es2015/package.json
+21 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-preset-react/package.json
+22 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-preset-stage-0/package.json
+23 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-register/package.json
+24 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/babel-runtime/package.json
+25 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/body-parser/package.json
+26 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/bplist-creator/package.json
+27 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/bplist-parser/package.json
+28 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/buffer-concat/package.json
+29 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/chalk/package.json
+30 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/clarify/package.json
+31 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/color/package.json
+32 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/colors/package.json
+33 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/commander/package.json
+34 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/cookie-parser/package.json
+35 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/css-loader/package.json
+36 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/express/package.json
+37 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/file-loader/package.json
+38 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/highlight/package.json
+39 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/highlight-syntax/package.json
+40 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/highlight.js/package.json
+41 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/image-loader/package.json
+42 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/inline-style-prefixer/package.json
+43 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/json-loader/package.json
+44 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/jsx-loader/package.json
+45 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/keycode/package.json
+46 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/lodash/package.json
+47 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/lodash.merge/package.json
+48 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/lodash.throttle/package.json
+49 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/mime/package.json
+50 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/morgan/package.json
+51 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/mustache/package.json
+52 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/node-forge/package.json
+53 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/node-jsx/package.json
+54 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/pinyin/package.json
+55 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/plist/package.json
+56 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/qs/package.json
+57 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/rc-animate/package.json
+58 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react/package.json
+59 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react-dom/package.json
+60 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react-event-listener/package.json
+61 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react-redux/package.json
+62 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react-router/package.json
+63 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react-tap-event-plugin/package.json
+64 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/react-weui/package.json
+65 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/recompose/package.json
+66 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/redux/package.json
+67 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/request/package.json
+68 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/simple-assign/package.json
+69 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/socket.io/package.json
+70 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/socket.io-client/package.json
+71 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/style-loader/package.json
+72 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/superagent/package.json
+73 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/trace/package.json
+74 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/url-loader/package.json
+75 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/user-home/package.json
+76 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/velocity/package.json
+77 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/velocity-animate/package.json
+78 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/velocity-react/package.json
+79 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/warning/package.json
+80 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/webpack/package.json
+81 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/webpack-dev-server/package.json
+82 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/webpack-isomorphic/package.json
+83 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/webpack-isomorphic-tools/package.json
+84 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/websocket/package.json
+85 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/weui/package.json
+86 verbose installManyTop reading scoped package data from /Users/weiyanhai/Desktop/AW/aniwei.proxy/node_modules/whatwg-fetch/package.json
+87 info package.json aniwei.usbmux@1.0.1 No description
+88 info package.json aniwei.usbmux@1.0.1 No repository field.
+89 info package.json highlight@0.2.4 No license field.
+90 info package.json image-loader@0.0.1 No description
+91 info package.json image-loader@0.0.1 No license field.
+92 info package.json highlight-syntax@3.0.2 license should be a valid SPDX license expression
+93 info package.json mime@1.3.4 No license field.
+94 info package.json jsx-loader@0.13.2 license should be a valid SPDX license expression
+95 info package.json node-jsx@0.13.3 license should be a valid SPDX license expression
+96 info package.json react-tap-event-plugin@1.0.0 No license field.
+97 info package.json rc-animate@2.3.1 No license field.
+98 verbose readDependencies loading dependencies from /Users/weiyanhai/Desktop/AW/aniwei.proxy/package.json
+99 silly cache add args [ 'transform-object-rest-spread', null ]
+100 verbose cache add spec transform-object-rest-spread
+101 silly cache add parsed spec Result {
+101 silly cache add   raw: 'transform-object-rest-spread',
+101 silly cache add   scope: null,
+101 silly cache add   name: 'transform-object-rest-spread',
+101 silly cache add   rawSpec: '',
+101 silly cache add   spec: 'latest',
+101 silly cache add   type: 'tag' }
+102 silly addNamed transform-object-rest-spread@latest
+103 verbose addNamed "latest" is being treated as a dist-tag for transform-object-rest-spread
+104 info addNameTag [ 'transform-object-rest-spread', 'latest' ]
+105 silly mapToRegistry name transform-object-rest-spread
+106 silly mapToRegistry using default registry
+107 silly mapToRegistry registry http://registry.npmjs.org/
+108 silly mapToRegistry uri http://registry.npmjs.org/transform-object-rest-spread
+109 verbose addNameTag registry:http://registry.npmjs.org/transform-object-rest-spread not in flight; fetching
+110 verbose request uri http://registry.npmjs.org/transform-object-rest-spread
+111 verbose request no auth needed
+112 info attempt registry request try #1 at 10:07:46
+113 verbose request using bearer token for auth
+114 verbose request id 0a171b5e1bc76490
+115 http request GET http://registry.npmjs.org/transform-object-rest-spread
+116 http 404 http://registry.npmjs.org/transform-object-rest-spread
+117 verbose headers { 'content-type': 'application/json',
+117 verbose headers   'cache-control': 'max-age=0',
+117 verbose headers   'content-length': '2',
+117 verbose headers   'accept-ranges': 'bytes',
+117 verbose headers   date: 'Mon, 13 Feb 2017 02:07:48 GMT',
+117 verbose headers   via: '1.1 varnish',
+117 verbose headers   connection: 'keep-alive',
+117 verbose headers   'x-served-by': 'cache-nrt6120-NRT',
+117 verbose headers   'x-cache': 'MISS',
+117 verbose headers   'x-cache-hits': '0',
+117 verbose headers   'x-timer': 'S1486951667.106321,VS0,VE895',
+117 verbose headers   vary: 'Accept-Encoding' }
+118 silly get cb [ 404,
+118 silly get   { 'content-type': 'application/json',
+118 silly get     'cache-control': 'max-age=0',
+118 silly get     'content-length': '2',
+118 silly get     'accept-ranges': 'bytes',
+118 silly get     date: 'Mon, 13 Feb 2017 02:07:48 GMT',
+118 silly get     via: '1.1 varnish',
+118 silly get     connection: 'keep-alive',
+118 silly get     'x-served-by': 'cache-nrt6120-NRT',
+118 silly get     'x-cache': 'MISS',
+118 silly get     'x-cache-hits': '0',
+118 silly get     'x-timer': 'S1486951667.106321,VS0,VE895',
+118 silly get     vary: 'Accept-Encoding' } ]
+119 verbose stack Error: Registry returned 404 for GET on http://registry.npmjs.org/transform-object-rest-spread
+119 verbose stack     at makeError (/Users/weiyanhai/.nvm/versions/node/v4.4.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+119 verbose stack     at CachingRegistryClient.<anonymous> (/Users/weiyanhai/.nvm/versions/node/v4.4.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+119 verbose stack     at Request._callback (/Users/weiyanhai/.nvm/versions/node/v4.4.0/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+119 verbose stack     at Request.self.callback (/Users/weiyanhai/.nvm/versions/node/v4.4.0/lib/node_modules/npm/node_modules/request/request.js:199:22)
+119 verbose stack     at emitTwo (events.js:87:13)
+119 verbose stack     at Request.emit (events.js:172:7)
+119 verbose stack     at Request.<anonymous> (/Users/weiyanhai/.nvm/versions/node/v4.4.0/lib/node_modules/npm/node_modules/request/request.js:1036:10)
+119 verbose stack     at emitOne (events.js:82:20)
+119 verbose stack     at Request.emit (events.js:169:7)
+119 verbose stack     at IncomingMessage.<anonymous> (/Users/weiyanhai/.nvm/versions/node/v4.4.0/lib/node_modules/npm/node_modules/request/request.js:963:12)
+120 verbose statusCode 404
+121 verbose pkgid transform-object-rest-spread
+122 verbose cwd /Users/weiyanhai/Desktop/AW/aniwei.proxy
+123 error Darwin 16.0.0
+124 error argv "/Users/weiyanhai/.nvm/versions/node/v4.4.0/bin/node" "/Users/weiyanhai/.nvm/versions/node/v4.4.0/bin/npm" "install" "--save-dev" "transform-object-rest-spread"
+125 error node v4.4.0
+126 error npm  v2.14.20
+127 error code E404
+128 error 404 Registry returned 404 for GET on http://registry.npmjs.org/transform-object-rest-spread
+128 error 404
+128 error 404 'transform-object-rest-spread' is not in the npm registry.
+128 error 404 You should bug the author to publish it (or use the name yourself!)
+128 error 404 It was specified as a dependency of 'aniwei.proxy'
+128 error 404
+128 error 404 Note that you can also install from a
+128 error 404 tarball, folder, http url, or git url.
+129 verbose exit [ 1, true ]

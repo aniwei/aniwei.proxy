@@ -1,6 +1,5 @@
 import React, { createElement } from 'react';
 import { connect } from 'react-redux';
-import { VelocityComponent } from 'velocity-react';
 import qs from 'qs';
 
 import './css/index.css';
@@ -61,12 +60,54 @@ class Specifics extends React.Component {
             <span className="app__specifics-content-key">Remote Address:</span>
             <span className="app__specifics-content-value">{request.ip}</span>
           </div>
-        </div>
-        <div className="app__specifics-general app__specifics-content-group">
-          <h3 className="app__specifics-content-group-title">Query String Parameters</h3>
+          {this.parametersRender()}
+          {this.formDataRender()}
         </div>
       </div>
     );
+  }
+
+  parametersRender () {
+    const { request } = this.props;
+    const search = (request.search || '').slice(1);
+    const params = qs.parse(search);
+    const keys = Object.keys(params);
+    let paramesElement;
+
+    if (keys.length > 0) {
+      paramesElement = (
+        <div className="app__specifics-general app__specifics-content-group">
+          <h3 className="app__specifics-content-group-title">Query String Parameters</h3>
+          {keys.map((name, index) => {
+            return (
+              <div key={index} className="app__specifics-content-row">
+                <span className="app__specifics-content-key">{name}:</span>
+                <span className="app__specifics-content-value">{params[name]}</span>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+
+    return paramesElement;
+  }
+
+  formDataRender () {
+    const { request } = this.props;
+    const chunk = request.chunk;
+
+    if (request.method === 'POST') {
+      debugger;
+
+      return (
+        <div className="app__specifics-overview">
+          <div className="app__specifics-general app__specifics-content-group">
+            <h3 className="app__specifics-content-group-title">From Data</h3>
+          </div>
+        </div>
+      );
+    }
   }
 
   headerRender (headers) {
@@ -74,6 +115,10 @@ class Specifics extends React.Component {
 
     return keys.sort().map((name, index) => {
       const value = headers[name];
+
+      name = name.replace(/(^[a-z])|\-[a-z]/g, function ($1, $2) {
+        return $1.toUpperCase();
+      });
 
       return (
         <div key={index} className="app__specifics-content-row">
@@ -94,12 +139,33 @@ class Specifics extends React.Component {
     );
   }
 
+  requestRender () {
+    let { request } = this.props;
+
+    request = request || {};
+
+    return (
+      <div className="app__specifics-request">
+        <div className="app__specifics-general app__specifics-content-group">
+          <h3 className="app__specifics-content-group-title">Request Headers</h3>
+          {this.headerRender(request.headers || {})}
+          {this.parametersRender()}
+        </div>
+      </div>
+    );
+  }
+
   responseRender () {
-    let { request, response, timeline } = this.props;
+    let { response } = this.props;
+
+    response = response || {};
 
     return (
       <div className="app__specifics-response">
-
+        <div className="app__specifics-general app__specifics-content-group">
+          <h3 className="app__specifics-content-group-title">Response Headers</h3>
+          {this.headerRender(response.headers || {})}
+        </div>
       </div>
     );
   }
@@ -135,8 +201,6 @@ class Specifics extends React.Component {
 
     return this.tabTable.map((tab, index) => {
       const render = (this[`${tab.key}Render`] || function () {}).bind(this);
-
-      console.log(tab.key === current);
 
       return (
         <div className={`app__specifics-content-every${current === tab.key ? ' app__specifics-content_current' : ''}`}>

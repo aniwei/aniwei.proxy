@@ -2,7 +2,6 @@ import React, { createElement, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { flatten } from 'lodash';
 import { Link, withRouter } from 'react-router';
-import { VelocityComponent } from 'velocity-react';
 
 import Toolbar from '../toolbar';
 
@@ -154,7 +153,7 @@ class Proxy extends React.Component {
     return flatten(proxy.map((prx, i) => {
       let specifics;
 
-      if (position) {
+      if (!(position === undefined)) {
         if (position === i) {
           specifics = this.specificsRender(prx);
         }
