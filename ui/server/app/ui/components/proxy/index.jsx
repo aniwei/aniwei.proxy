@@ -38,6 +38,16 @@ class Proxy extends React.Component {
     socket.off('response', this.onSocketMessage);
   }
 
+  onToolSelect (tool) {
+    switch (tool) {
+      case 'clear':
+        this.setState({
+          proxy: []
+        });
+        break;
+    }
+  }
+
   onSocketMessage (res) {
     const { proxy } = this.state;
 
@@ -189,7 +199,7 @@ class Proxy extends React.Component {
   render () {
     return (
       <div className="app__proxy">
-        <Toolbar />
+        <Toolbar onSelect={this.onToolSelect.bind(this)}/>
         <div className="app__proxy-content">
           <div className="app__proxy-scroll">
             {this.headerRender()}

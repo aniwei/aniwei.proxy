@@ -6,4 +6,6 @@
 .app__toolbar-item {
   color: #888;
   font-size: 18px;
+  display: inline-block;
+  margin-right: 10px;
 }

@@ -9,7 +9,7 @@ class Specifics extends React.Component {
     super();
 
     this.tabTable = [
-      { key: 'overview', text: 'overview' },
+      { key: 'overview', text: 'Overview' },
       { key: 'request', text: 'Request' },
       { key: 'response', text: 'Response' },
       { key: 'preview', text: 'Preview' },
@@ -77,7 +77,7 @@ class Specifics extends React.Component {
     if (keys.length > 0) {
       paramesElement = (
         <div className="app__specifics-general app__specifics-content-group">
-          <h3 className="app__specifics-content-group-title">Query String Parameters</h3>
+          <h3 className="app__specifics-content-group-title">Query String Parameters ({keys.length})</h3>
           {keys.map((name, index) => {
             return (
               <div key={index} className="app__specifics-content-row">
@@ -98,12 +98,10 @@ class Specifics extends React.Component {
     const chunk = request.chunk;
 
     if (request.method === 'POST') {
-      debugger;
-
       return (
         <div className="app__specifics-overview">
           <div className="app__specifics-general app__specifics-content-group">
-            <h3 className="app__specifics-content-group-title">From Data</h3>
+            <h3 className="app__specifics-content-group-title">Request Payload</h3>
           </div>
         </div>
       );
