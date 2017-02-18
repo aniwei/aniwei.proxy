@@ -26,6 +26,18 @@
 			<string>format</string>
 		</dict>
 	</dict>
+	<key>component-open-router</key>
+  <dict>
+		<key>key</key>
+		<string>component-open-router</string>
+		<key>brief</key>
+		<dict>
+			<key>text</key>
+			<string>开发路由</string>
+			<key>icon</key>
+			<string>devtool</string>
+		</dict>
+	</dict>
 	<key>component-devtool</key>
   <dict>
 		<key>key</key>
@@ -50,16 +62,16 @@
 			<string>format</string>
 		</dict>
 	</dict>
-  <key>component-ip</key>
+  <key>component-host</key>
 	<dict>
 		<key>key</key>
-		<string>component-ip</string>
+		<string>component-host</string>
 		<key>brief</key>
 		<dict>
 			<key>text</key>
 			<string>地址格式化</string>
 			<key>icon</key>
-			<string>ip</string>
+			<string>host</string>
 		</dict>
 	</dict>
   <key>component-client</key>

@@ -77,7 +77,7 @@ class Specifics extends React.Component {
     if (keys.length > 0) {
       paramesElement = (
         <div className="app__specifics-general app__specifics-content-group">
-          <h3 className="app__specifics-content-group-title">Query String Parameters ({keys.length})</h3>
+          <h3 className="app__specifics-content-group-title">Query String Parameters <span className="app__specifics-param-badge">{keys.length}</span></h3>
           {keys.map((name, index) => {
             return (
               <div key={index} className="app__specifics-content-row">
@@ -128,7 +128,16 @@ class Specifics extends React.Component {
   }
 
   previewRender () {
-    let { request, response, timeline } = this.props;
+    let { response } = this.props;
+    let headers;
+    let contentElement;
+
+
+    if (response) {
+      headers = response.headers;
+      
+    }
+
 
     return (
       <div className="app__specifics-request">

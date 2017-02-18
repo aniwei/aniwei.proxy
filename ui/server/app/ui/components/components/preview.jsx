@@ -16,8 +16,8 @@ export default class Preview extends React.Component {
             desc = plg.brief;
 
         return (
-          <Link key={i} className="weui-grid app__components-grid" to={`/components/${desc.name}?title=${desc.text}`}>
-            <GridIcon className="">
+          <Link key={i} className="weui-grid app__components-grid" to={`/components/${desc.className}?title=${desc.text}`}>
+            <GridIcon className="app__components-grid-icon">
               <i className={`iconfont app__components-icon app__components-icon-${desc.icon} icon-${desc.icon}`}></i>
             </GridIcon>
             <GridLabel>

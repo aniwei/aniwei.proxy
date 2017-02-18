@@ -5,6 +5,4 @@ var express = require('express'),
 router.use(require('./router/index'));
 router.use(express.static(path.join(__dirname,'static')));
 
-
-
 module.exports = router;

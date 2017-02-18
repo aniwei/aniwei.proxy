@@ -15,6 +15,7 @@ import components from './components'
 import reducers from './reducers';
 import type from './constants';
 import Socket from './common/socket';
+import Classes from './classes';
 
 const { 
   Navigator, 
@@ -70,8 +71,18 @@ class AppRouter extends React.Component {
     const { components } = this.props
     let route;
 
-    route = Object.keys(components).map((m, i) => {
-      return <Route path={m} component={components[m]} key={i}/>
+    route = Object.keys(components).filter((m) => {
+      const { brief } = components[m];
+
+      if (brief) {
+        if (brief.uri) {
+          return true;
+        }
+      }
+    }).map((m, i) => {
+      const { brief } = components[m];
+
+      return <Route path={m} component={Classes[brief.className]} key={i} />;
     });
 
     return (

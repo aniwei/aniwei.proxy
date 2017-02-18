@@ -1,0 +1,5 @@
+function json () {
+
+}
+
+export default {};
