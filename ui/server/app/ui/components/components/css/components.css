@@ -5,14 +5,14 @@
   padding-bottom: 40px;
 }
 
-.app__components-title {
+.app__components-container-title {
   padding: 40px;
   font-size: 14px;
   position: relative;
   height: 102px;
 }
 
-.app__components-close {
+.app__components-container-close {
   position: absolute;
   right: 40px;
   top: 50%;

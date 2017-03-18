@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 import { Grid, GridIcon, GridLabel } from 'react-weui';
 
+import Container from './container';
 
 export default class Preview extends React.Component {
   itemRender () {
@@ -38,12 +39,11 @@ export default class Preview extends React.Component {
 
   render () {
     return (
+
       <div className="app__components-preview">
-        <div className="app__components-title">
-          组件服务
-          <p className="app__components-title-desc">Component Service</p>
-        </div>
-        {this.itemRender()}
+        <Container>
+          {this.itemRender()}
+        </Container>
       </div>
     );
   }
