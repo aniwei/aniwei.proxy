@@ -5,9 +5,9 @@
     "value": {
       "hostname": "aniwei.proxy",
       "root": "ui",
-      "static": "ui/static",
-      "source": "ui/src",
-      "server": "ui/server"
+      "static": "static",
+      "source": "src",
+      "server": "server"
     }
   },
   "websocket-dynamic": {

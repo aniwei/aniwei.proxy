@@ -1,27 +1,23 @@
-require('babel-register');
-
 var express  = require('express'),
     path     = require('path'),
     fs       = require('fs'),
-    store    = require('./store'),
-    plist    = require('plist'),
     Mustache = require('mustache');
 
 module.exports = function (root) {
   var app     = express(),
-      router  = require('./app');
-
-  root.store.set(store);
+      router  = require('./app'),
+      store   = root.store,
+      water   = root.water;
 
   app.code    = require('./common/code');
   app.format  = require('./common/format') ;
   app.root    = root;
 
-  app.use(uiRouter(root.store));
+  app.use(uiRouter(store));
   app.use(router);
 
   if (process.env.NODE_ENV == 'dev') {
-    dev(app, root.waterfall);
+    dev(app, water);
   }
 
   return app;
@@ -115,7 +111,7 @@ function uiRouter (store) {
   return router;
 }
 
-function dev (app, waterfall) {
+function dev (app, water) {
   var server    = require('./app/webpack.config.js'),
       urlParser = require('url'),
       net       = require('net'),
@@ -125,7 +121,7 @@ function dev (app, waterfall) {
 
   app.set('webpackServerPort', port);
 
-  waterfall.fall(function (done, req, socket, head) {
+  water.fall(function (done, req, socket, head) {
     var url = urlParser.parse('aniwei://' + req.url),
         sock;
 
