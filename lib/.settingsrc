@@ -1,0 +1,84 @@
+{
+  "user-interface": {
+    "key": "user-interface",
+    "text": "图形界面",
+    "value": {
+      "hostname": "aniwei.proxy",
+      "root": "ui",
+      "static": "ui/static",
+      "source": "ui/src",
+      "server": "ui/server"
+    }
+  },
+  "websocket-dynamic": {
+    "key": "websocket-dynamic",
+    "text": "WebSocket 动态端口",
+    "value": false
+  },
+  "websocket-port-number": {
+    "key": "websocket-port-number",
+    "text": "WebSocket 端口",
+    "value": 8888
+  },
+  "certificate": {
+    "key": "certificate",
+    "text": "证书配置",
+    "value": {
+      "forgeCommonExtensions": [
+        {
+          "name": "keyUsage",
+          "critical": true,
+          "digitalSignature": true,
+          "keyEncipherment": true
+        },
+        {
+          "name": "basicConstraints",
+          "critical": false,
+          "cA": false
+        },
+        {
+          "name": "extKeyUsage",
+          "serverAuth": true,
+          "clientAuth": true
+        }
+      ],
+      "commonExtensions": [
+        {
+          "name": "subjectKeyIdentifier"
+        },
+        {
+          "name": "authorityKeyIdentifier",
+          "keyIdentifier": true
+        }
+      ],
+      "size": 2048,
+      "attributes": [
+        {
+          "value": "aniwei.tech",
+          "shortName": "OU",
+          "valueTagClass": 12
+        },
+        {
+          "name": "organizationName",
+          "value": "Created by aniwei.studio",
+          "valueTagClass": 12
+        }
+      ]
+    }
+  },
+  "proxy-port-number": {
+    "key": "proxy-port-number",
+    "text": "代理端口",
+    "value": 8888
+  },
+  "temporary-root": {
+    "key": "temporary-root",
+    "text": "临时文件目录",
+    "value": "temporary"
+  },
+  "project": {
+    "key": "project",
+    "text": "项目名称",
+    "value": "aniwei.studio"
+  }
+}

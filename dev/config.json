@@ -1,0 +1,97 @@
+{
+  "user-interface-configure": {
+    "key": "user-interface-configure",
+    "text-cn": "图形界面",
+    "text-en": "User Interface",
+    "value": {
+      "hostname": "aniwei.proxy",
+      "root": "ui",
+      "static": "ui/static",
+      "source": "ui/src",
+      "server": "ui/server"
+    }
+  },
+  "websocket-dynamic": {
+    "key": "websocket-dynamic",
+    "text-cn": "WebSocket 动态端口",
+    "text-en": "WebSocket Dynamic Port Number",
+    "value": false
+  },
+  "websocket-port-number": {
+    "key": "websocket-port-number",
+    "text-cn": "WebSocket 端口",
+    "text-en": "WebSocket Port Number",
+    "value": 8888
+  },
+  "certificate-configure": {
+    "key": "certificate-configure",
+    "text-cn": "证书配置",
+    "text-en": "Certificate Configure",
+    "value": {
+      "forgeCommonExtensions": [
+        {
+          "name": "keyUsage",
+          "critical": true,
+          "digitalSignature": true,
+          "keyEncipherment": true
+        },
+        {
+          "name": "basicConstraints",
+          "critical": false,
+          "cA": false
+        },
+        {
+          "name": "extKeyUsage",
+          "serverAuth": true,
+          "clientAuth": true
+        }
+      ],
+      "commonExtensions": [
+        {
+          "name": "subjectKeyIdentifier"
+        },
+        {
+          "name": "authorityKeyIdentifier",
+          "keyIdentifier": true
+        }
+      ],
+      "size": 2048,
+      "attributes": [
+        {
+          "value": "aniwei.tech",
+          "shortName": "OU",
+          "valueTagClass": 12
+        },
+        {
+          "name": "organizationName",
+          "value": "Created by aniwei.studio",
+          "valueTagClass": 12
+        }
+      ]
+    }
+  },
+  "proxy-port-number": {
+    "key": "proxy-port-number",
+    "text-cn": "代理端口",
+    "text-en": "Proxy PortNumber",
+    "value": 8888
+  },
+  "configure-file": {
+    "key": "configure-file",
+    "text-cn": "配置文件",
+    "text-en": "Configure File",
+    "value": "configure.plist"
+  },
+  "temporary-path": {
+    "key": "temporary-path",
+    "text-cn": "临时文件目录",
+    "text-en": "Temporary Path",
+    "value": "temporary"
+  },
+  "project": {
+    "key": "project",
+    "text-cn": "项目名称",
+    "text-en": "Project Name",
+    "value": "aniwei.studio"
+  }
+}
