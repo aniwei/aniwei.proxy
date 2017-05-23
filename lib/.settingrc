@@ -4,7 +4,7 @@
     "text": "图形界面",
     "value": {
       "hostname": "aniwei.proxy",
-      "root": "ui",
+      "root": "aniwei.ui",
       "static": "static",
       "source": "src",
       "server": "server"

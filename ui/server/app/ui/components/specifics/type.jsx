@@ -1,5 +1,0 @@
-function json () {
-
-}
-
-export default {};

@@ -1,0 +1,81 @@
+@import '../../common/index.less';
+
+.app__tabs {
+  height: 34px;
+}
+
+.app__tabs-panes {
+  height: 33px;
+  margin: 0 18px;
+  border-bottom: 1px solid @global-nav-border-color;
+}
+
+.app__tabs-pane {
+  position: relative;
+  float:left;
+  height: 32px;
+  line-height: 32px;
+  width: 180px;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid @global-nav-border-color;
+  background-color: @global-nav-border-color;
+  border-bottom: none;
+}
+
+.app__tabs-pane_active {
+  display: block;
+  background-color: #3caf36;
+  color: #fff;
+}
+
+.app__tabs-pane_active:after {
+  background-color: @global-nav-background-color;
+  position: absolute;
+  content: '';
+  height: 1px;
+  left: 0;
+  right:0;
+  bottom: -2px;
+}
+
+.app__tabs-content {
+  display: none;
+}
+
+.app__tabs-content_active {
+  display: block;
+}
+
+.app__tabs-pane-close-icon {
+  color: #444444;
+  font-size: 18px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.app__tabs-pane_active .app__tabs-pane-close-icon {
+  color: #fff;
+}
+
+.app__tabs-pane-create {
+  width: 32px;
+}
+
+
+.app__tab-content-animation {
+  .app__tab-content-animation-enter {
+    -webkit-animation-name: zoomIn;
+    animation-name: zoomIn;
+  }
+
+  .app__tab-content-animation-leave {
+    -webkit-animation-name: zoomOut;
+    animation-name: zoomOut;
+  }
+}
+

@@ -1,0 +1,3 @@
+[submodule "aniwei.ui"]
+	path = aniwei.ui
+	url = https://github.com/aniwei/aniwei.ui.git

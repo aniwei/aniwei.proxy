@@ -1,0 +1,153 @@
+@import '../../common/index.less';
+
+.app__navigator {
+  background-color: #2e3238;
+
+  &-logo {
+    padding: 18px;
+
+    &-img {
+      display: inline-block;
+      vertical-align: middle;
+      background: url('../images/logo.png') center center no-repeat;
+      height: 40px;
+      width: 40px;
+      border-radius: 3px;
+      background-size: 40px 40px;
+    }
+  }
+
+  &-menu {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+
+    &_active &-button-line:nth-child(1) {
+      transform: rotate(45deg);
+    }
+
+    &_active &-button-line:nth-child(2) {
+      transform: rotate(-45deg);
+    }
+
+    &_active &-listview {
+      width: 5rem;
+    }
+
+    &-button {
+      height: 20px;
+      width: 20px;
+      margin-top: 10px;
+
+      &-line {
+        display: block;
+        height: 10px;
+        width: 20px;
+        margin: 0 auto;
+        position: relative;
+        transition: all 0.5s;
+        transform-origin: 3px 5px;
+
+        &:after {
+          content: '';
+          background-color: #5cad47;
+          height: 2px;
+          width: 20px;
+          position: absolute;
+          top: 50%;
+          margin-top: -1px;
+        }
+      }
+    }
+
+    &:after {
+      content: '';
+      border-bottom: 1px solid #24272c;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+    &-listview {
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      right: 30px;
+      width: 0;
+      flex-direction: row;
+      transition: all 0.5s;
+      display: flex;
+      border-radius: 5px;
+      background-color: #26292e;
+
+      &_active {
+        display: flex;
+      }
+    }
+
+    &-item {
+      height: 35px;
+      line-height: 35px;
+      flex: 1;
+      color: #fff;
+      text-align: center;
+      position: relative;
+
+      &-link,
+      &-link:hover,
+      &-link:visited,
+      &-link:link {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        border-left: 1px solid #939497;
+        top: 10px;
+        bottom: 8px;
+        right: 0;
+      }
+
+      &:last-child:after {
+        display: none;
+      }
+
+      &-icon {
+        font-size: 22px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-search {
+    &-bar {
+      margin: 0 18px;
+      position: relative;
+
+      &-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        color: #939497;
+      }
+
+      &-input {
+        background: @global-input-background-color;
+        height: 32px;
+        line-height: 32px;
+        font-size: 13px;
+        color: #fff;
+        border: 0;
+        outline: none;
+        width: 100%;
+        text-indent: 10px;
+      }
+    }
+  }
+
+
+}
