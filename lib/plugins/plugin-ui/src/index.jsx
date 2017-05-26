@@ -21,7 +21,7 @@ const menus = [
   {key: 'setting', route: 'settings', text: '设置', active: false, component: Settings}  
 ];
 
-const socket = SocketClient('http://127.0.0.1:' + initState.port);
+const socket = SocketClient(`http://${initState.ip}:${initState.port}`);
 
 const store = {
   menus,
