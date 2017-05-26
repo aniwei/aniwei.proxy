@@ -7,8 +7,22 @@ import './less/index.less';
 
 import SearchBar from './search';
 import Item from './item';
+import constants from '../../constants';
 
 class List extends React.Component {
+  componentDidMount () {
+    const { socket, dispatch, list, keys } = this.props;
+
+    socket.on('ui/request', (proxy) => {
+      const type = proxy.id in keys ? constants.LIST_UPDATE : constants.LIST_PUSH;
+
+      dispatch({
+        type,
+        proxy
+      });
+    });
+  }
+
   itemRender (list, group) {
     const { match, location } = this.props;
 
@@ -85,10 +99,15 @@ class List extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { list } = state;
+  const { list, socket } = state;
+  const { subjects, keys } = list;
+
+  console.log(subjects);
 
   return {
-    list
+    list: subjects,
+    keys,
+    socket
   };
 }
 

@@ -10,4 +10,10 @@ export default constants;
 actionConstants('TOOL_ACTIVE');
 actionConstants('TAB_PUSH');
 actionConstants('TAB_CLOSE');
+
 actionConstants('SOCKET_CONNECT');
+
+
+// list
+actionConstants('LIST_PUSH');
+actionConstants('LIST_UPDATE');

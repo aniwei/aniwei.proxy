@@ -11,7 +11,7 @@ import Settings from './container/settings';
 import Routing from './routing';
 
 // data
-import list from './data/list.json';
+// import list from './data/list.json';
 
 const initState = window.__initState__;
 
@@ -25,7 +25,6 @@ const socket = SocketClient('http://127.0.0.1:' + initState.port);
 
 const store = {
   menus,
-  list,
   socket
 };
 
