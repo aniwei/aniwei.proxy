@@ -40,7 +40,7 @@ export default class Item extends React.Component {
     return (
       <Link to={route}>
         <div className="app__list-item-meta">
-          <div className="app__list-item-status">{code}</div>
+          <div className="app__list-item-status">{code || '-'}</div>
           <div className="app__list-item-subject">
             <div className="app__list-item-url">
               <div className="app__list-item-hole-url">{url}</div>

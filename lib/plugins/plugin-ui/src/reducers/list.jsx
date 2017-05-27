@@ -12,7 +12,7 @@ const initState = {
 const reducers = {
   [constants.LIST_PUSH]: (state, action) => {
     const { keys, table, subjectKeys, subjects } = state;
-    const { id, hostname, path, url, method } = action.proxy;
+    const { id, hostname, path, url, method, protocol, port } = action.proxy;
 
     const newProxy = {
       id,
@@ -23,16 +23,18 @@ const reducers = {
 
     keys[id] = table.length;
     table.push(newProxy);
+    
+    const key = `${protocol}//${hostname}${port ? ':' + port : ''}`;
 
-    let index = subjectKeys[hostname];
+    let index = subjectKeys[key];
 
     if (index === undefined) {
       let ref = {
-        subject: hostname,
+        subject: key,
         list: [newProxy]
       };
 
-      subjectKeys[hostname] = subjects.length;
+      subjectKeys[key] = subjects.length;
       subjects.push(ref);
     } else {
       subjects[index].list.push(newProxy);
@@ -48,7 +50,7 @@ const reducers = {
     const ref = table[keys[id]];
 
     if (ref) {
-      ref.ip = ip;
+      assign(ref, action.proxy);
     }
 
     return clone(state);

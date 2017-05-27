@@ -18,38 +18,6 @@ import Welcome from '../welcome';
 
 import actions from '../../actions';
 
-const list = [
-  {
-    subject: 'http://www.aniwei.tech',
-    list: [
-      {
-        url: 'http://www.aniwei.tech/test',
-        code: 200,
-        method: 'GET',
-        path: '/test',
-        ip: '127.0.0.1'
-      }, {
-        url: 'http://www.aniwei.tech/test',
-        code: 200,
-        method: 'GET',
-        path: '/test',
-        ip: '127.0.0.1'
-      }
-    ]
-  }, {
-    subject: 'http://www.aniwei.tech',
-    list: [
-      {
-        url: 'http://www.aniwei.tech/test',
-        code: 200,
-        method: 'GET',
-        path: '/test',
-        ip: '127.0.0.1'
-      }
-    ]
-  }
-];
-
 class App extends React.Component {
   render () {
     const { props } = this;

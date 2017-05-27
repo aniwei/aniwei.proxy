@@ -10,6 +10,7 @@ import Item from './item';
 import constants from '../../constants';
 
 class List extends React.Component {
+
   componentDidMount () {
     const { socket, dispatch, list, keys } = this.props;
 
@@ -84,6 +85,8 @@ class List extends React.Component {
   }
 
   render () {
+    console.log('redner');
+
     return (
       <div className="app__list">
         <div className="app__list-toolbar">
@@ -101,8 +104,6 @@ class List extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const { list, socket } = state;
   const { subjects, keys } = list;
-
-  console.log(subjects);
 
   return {
     list: subjects,
