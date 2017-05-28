@@ -15,6 +15,17 @@
       border-radius: 3px;
       background-size: 40px 40px;
     }
+
+    &-motto {
+      line-height: 1.2;
+      color: #fff;
+      font-style: italic;
+      display: inline-block;
+      margin-left: 5px;
+      position: relative;
+      top: 8px;
+      font-size: 10px;
+    }
   }
 
   &-menu {
@@ -117,6 +128,10 @@
       &-icon {
         font-size: 22px;
         cursor: pointer;
+
+        &[class*="fill"] {
+          color: #5cad47;
+        }
       }
     }
   }

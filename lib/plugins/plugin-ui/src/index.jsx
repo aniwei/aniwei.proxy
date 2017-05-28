@@ -16,7 +16,7 @@ import Routing from './routing';
 const initState = window.__initState__;
 
 const menus = [
-  {key: 'message', route: 'list', text: '请求数据', active: false, component: List},
+  {key: 'send', route: 'list', text: '请求数据', active: false, component: List},
   {key: 'app', route: 'extensions', text: '设置', active: false, component: Extensions},
   {key: 'setting', route: 'settings', text: '设置', active: false, component: Settings}  
 ];

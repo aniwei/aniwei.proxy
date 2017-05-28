@@ -17,3 +17,5 @@ actionConstants('SOCKET_CONNECT');
 // list
 actionConstants('LIST_PUSH');
 actionConstants('LIST_UPDATE');
+actionConstants('LIST_TOGGLED');
+actionConstants('LIST_SEARCH_TOGGLED');

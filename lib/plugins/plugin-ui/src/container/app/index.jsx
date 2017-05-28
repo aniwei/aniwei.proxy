@@ -21,7 +21,7 @@ import actions from '../../actions';
 class App extends React.Component {
   render () {
     const { props } = this;
-
+    
     return (
       <HashRouter>
         <Route render={({ location }) => (
@@ -43,10 +43,11 @@ class App extends React.Component {
 }
 
 export default connect((state, ownProps) => {
-  const { menus } = state;
+  const { menus, list } = state;
 
   return {
-    menus
+    menus,
+    list
   };
 }, (dispatch) => {
   return bindActionCreators({

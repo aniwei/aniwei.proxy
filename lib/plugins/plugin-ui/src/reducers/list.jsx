@@ -6,16 +6,48 @@ const initState = {
   keys: {},
   table: [],
   subjectKeys: {},
-  subjects: []
+  subjects: [],
+  search: {},
+  tools: [
+    {
+      subject: '通用工具',
+      list: [
+        {
+          key: '' 
+        }
+      ]
+    }
+  ]
 }
 
 const reducers = {
+  [constants.LIST_SEARCH_TOGGLED]: (state, action) => {
+    const { search } = state;
+
+    search.toggled = !action.toggled;
+
+    return clone(state);
+  },
+
+  [constants.LIST_TOGGLED]: (state, action) => {
+    const { keys, table, subjectKeys, subjects } = state;
+    const { subject } = action.subject;
+    const ref = subjectKeys[subject];
+
+    if (typeof ref === 'number') {
+      assign(subjects[ref], subject);
+    }
+
+    return clone(state);
+  },
+
   [constants.LIST_PUSH]: (state, action) => {
     const { keys, table, subjectKeys, subjects } = state;
-    const { id, hostname, path, url, method, protocol, port } = action.proxy;
+    const { id, hostname, path, url, method, protocol, port, headers } = action.proxy;
 
     const newProxy = {
       id,
+      headers,
       method,
       path,
       url

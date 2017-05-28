@@ -1,3 +1,4 @@
+//5f4b4b
 .app__list {
   &-item {
     overflow: hidden;
@@ -5,6 +6,29 @@
     border-bottom: 1px solid #24272c;
     cursor: pointer;
     position: relative;
+    transition: background-color .3s;
+
+    &_overlayed {
+      .app__list-item-content {
+        position: fixed;
+        max-height: 100%;
+        background-color: #2e3238;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: 20px;
+        z-index: 100;
+      }
+
+      .app__list-item-overview-close-icon {
+        display: block;
+      }
+
+      .app__list-item-overview-footer {
+        display: none;
+      }
+    }
 
     &-data-title {
       color: #6b6f7c;
@@ -19,23 +43,23 @@
       flex-direction: row;
       position: relative;
       font-size: 12px;
+      margin: 3px 0;
 
       &-name {
         color: #6b6f7c;
         font-size: 12px;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 1.5rem;
+        min-width: 2rem;
         line-height: 1.5;
+        text-align: left;
       }
 
       &-value {
+        flex: 1;
         line-height: 1.5;
         display: block;
         font-size: 12px;
         color: #fff;
-        margin-left: 2rem;
+        margin-left: 20px;
         word-break: break-all;
       }
     }
@@ -45,11 +69,27 @@
       height: 40px;
     }
 
-    &-overview {
-      height: 0;
-      overflow: hidden;
+    &-content {
+      max-height: 0;
+      overflow: scroll;
       position: relative;
-      transition: all 0.3s;
+      transition: all 0.5s;
+
+      &_expand{
+        max-height: 300px;
+        margin-top: 12px;
+        padding-top: 12px;
+      }
+    }
+
+    &-overview {
+      &-close-icon {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        color: #fff;
+        display: none;
+      }
 
       &-title {
         color: #787b87;
@@ -71,12 +111,6 @@
         max-width: 10rem;
         display: flex;
       }
-    }
-
-    &_expand{
-      height: auto;
-      margin-top: 12px;
-      padding-top: 12px;
     }
 
     &_active {
@@ -119,10 +153,63 @@
         line-height: 20px;
       }
 
+      &-number {
+        height: 18px;
+        line-height: 18px;
+        border-radius: 10px;
+        padding: 0 6px;
+        background: #26292e;
+        text-align: center;
+        overflow: hidden;
+        opacity: 0;
+        display: inline-block;
+        transition: all .5s;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+
       &-subject {
-        margin-right: 120px;
+        position: relative;
+        // margin-right: 120px;
         height: 20px;
         line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 40px;
+        vertical-align: middle;
+
+        &-icon {
+          display: inline-block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 20px;
+          width: 20px;
+          text-align: center;
+          border-radius: 3px;
+          transition: all .5s;
+          font-size: 12px!important;
+          transition: all .5s;
+        }       
+      }
+
+      &_invisible {
+        .app__list-item-group {
+          &-content {
+            max-height: 0;
+          }
+
+          &-number {
+            opacity: 1;
+          }
+
+          &-subject {
+            &-icon {
+              transform: rotate(180deg);
+            }
+          }
+        }
       }
 
       &-server {
@@ -135,6 +222,10 @@
 
       &-content {
         background: #2f3239;
+        max-height: 3000px;
+        overflow: scroll;
+
+        transition: all 0.5s;
 
         .app__list-item:last-child {
           border: none;
@@ -220,31 +311,64 @@
     }
   }
 
+  &-toolbar {
+    &_toggled {
+      .app__list-toolbar-tools {
+        max-height: 200px;
+      }
+      
+    }
+
+    &-toolbar {
+      max-height: 0;
+    }
+  }
+
   &-search {
+    
+
     &-bar {
       margin: 0 18px;
       position: relative;
+      transition: all .5s;
 
       &-icon {
         position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 24px;
-        color: #939497;
+        right: 0;
+        top: 0;
+        height: 32px;
+        width: 32px;
+        text-align: right;
+        line-height: 32px;
+        font-size: 20px!important;
+        color: #888;
       }
 
-      &-input {
-        background: #26292e;
-        border-radius: 0;
-        height: 32px;
-        line-height: 32px;
-        font-size: 13px;
-        color: #fff;
-        border: 0;
-        outline: none;
-        width: 100%;
-        text-indent: 10px;
+      &-input{
+        margin-right: 32px;
+        position: relative;
+
+        &-icon {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 24px;
+          color: #939497;
+        }
+
+        &-text {
+          background: #26292e;
+          border-radius: 0;
+          height: 32px;
+          line-height: 32px;
+          font-size: 13px;
+          color: #fff;
+          border: 0;
+          outline: none;
+          width: 100%;
+          text-indent: 10px;
+        }
       }
     }
   }

@@ -7,14 +7,15 @@ class Menu extends React.Component {
   menusRender () {
     const { list, match, location } = this.props;
     const { search, pathname } = location;
-    const query = queryString.parse(location.search);    
+    const query = queryString.parse(location.search);
+    const path = pathname.slice(1)    ;
 
     const listElement = list.map(menu => {
-      const fillStyle = (menu.selected || menu.fixed ) ? 'fill' : 'line';
+      const fillStyle = path === menu.route ? 'fill' : 'line';
       const classes = classnames({
         [`iconfont`]: true,
         [`app__navigator-menu-item-icon`]: true,
-        [`icon-${menu.key}-line`]: true
+        [`icon-${menu.key}-${fillStyle}`]: true
       });  
       const url = `/${menu.route}${location.search}`;
 
