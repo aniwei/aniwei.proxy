@@ -14,16 +14,16 @@ export default class Overview extends React.Component {
             {li.subject}
           </div>
 
-          {this.listRender(li.list)}
+          {this.listRender(li.list, i)}
         </div>
       );
     });
   }
 
-  listRender (list) {
-    return list.map((li) => {
+  listRender (list, index) {
+    return list.map((li, i) => {
       return (
-        <div className="app__list-item-data-cell" key={li.key}>
+        <div className="app__list-item-data-cell" key={i}>
           <span className="app__list-item-data-cell-name">{li.text}</span>
           <span className="app__list-item-data-cell-value">{li.value}</span>
         </div>

@@ -38,12 +38,12 @@
     }
 
     &-data-cell {
-      min-height: 20px;
+      // min-height: 20px;
       display: flex;
       flex-direction: row;
       position: relative;
       font-size: 12px;
-      margin: 3px 0;
+      // margin: 3px 0;
 
       &-name {
         color: #6b6f7c;
@@ -71,18 +71,21 @@
 
     &-content {
       max-height: 0;
-      overflow: scroll;
       position: relative;
       transition: all 0.5s;
 
       &_expand{
-        max-height: 300px;
-        margin-top: 12px;
-        padding-top: 12px;
+        background: #2e3641;
+        .app__list-item-content {
+          max-height: none;
+          padding-top: 12px;
+        }
       }
     }
 
     &-overview {
+      max-width: 768px;
+
       &-close-icon {
         position: absolute;
         right: 20px;

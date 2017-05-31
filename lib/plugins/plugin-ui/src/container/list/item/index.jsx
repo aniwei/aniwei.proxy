@@ -24,46 +24,41 @@ export default class Item extends React.Component {
     return (
       <Route path="/list" render={({ location, match }) => {
         const { code, url, path, method, ip, route, message, headers } = this.props;
-        const isExpand = query.group - 0 === group && query.id - 0 === id;
 
         let classes;
         let elementView;
 
-
         if (query) {
           classes = classnames({
-            ['app__list-item-content_expand']: isExpand,
             ['app__list-item-content']: true
           });
         }
 
-        if (isExpand) {
-          const props = {
-            list: [
-              {
-                subject: 'General',
-                list: [
-                  { key: 'url', text: 'URL', value: url },
-                  { key: 'method', text: 'Method', value: method },
-                  { key: 'code', text: 'Status', value: `${code || ''} ${message || ' - '}` },
-                  { key: 'code', text: 'Address', value: ip }
-                ]
-              },
-              {
-                subject: 'Request Headers',
-                list: Object.keys(headers).map((hd, i) => {
-                  return {
-                    key: hd,
-                    text: hd,
-                    value: headers[hd]
-                  };
-                })
-              }
-            ]
-          };
+        const props = {
+          list: [
+            {
+              subject: 'General',
+              list: [
+                { key: 'url', text: 'URL', value: url },
+                { key: 'method', text: 'Method', value: method },
+                { key: 'code', text: 'Status', value: `${code || ''} ${message || ' - '}` },
+                { key: 'code', text: 'Address', value: ip }
+              ]
+            },
+            {
+              subject: 'Request Headers',
+              list: Object.keys(headers).map((hd, i) => {
+                return {
+                  key: hd,
+                  text: hd,
+                  value: headers[hd]
+                };
+              })
+            }
+          ]
+        };
 
-          elementView = <Overview {...props} location={location} />;
-        }
+        elementView = <Overview {...props} location={location} />;
 
         return (
           <div className={classes} onScroll={this.onViewScroll}>
@@ -99,11 +94,15 @@ export default class Item extends React.Component {
   }
 
   render () {
-    const { location, overlayed } = this.props;
+    const { overlayed } = this.props;
+    const { group, id, match, location } = this.props;
+    const query = queryString.parse(location.search);
+    const isExpand = query.group - 0 === group && query.id - 0 === id;
 
     const classes = classnames({
       ['app__list-item']: true,
-      ['app__list-item_overlayed']: !!overlayed
+      ['app__list-item_overlayed']: !!overlayed,
+      ['app__list-item-content_expand']: isExpand
     });
 
     return (
