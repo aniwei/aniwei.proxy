@@ -4,7 +4,9 @@ import { Route, withRouter, BrowserRouter, HashRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteTransition } from 'react-router-transition';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Scroll from 'react-iscroll';
+import iScroll from 'iscroll';
 
 
 // 公共样式
@@ -18,7 +20,9 @@ import Welcome from '../welcome';
 
 import actions from '../../actions';
 
+
 class App extends React.Component {
+
   render () {
     const { props } = this;
     
@@ -30,11 +34,13 @@ class App extends React.Component {
               className="app__navigator"
               menus={props.menus}
             />
-            <div className="app__scene">
-              <Route path="/" component={Welcome} />
-              <Route path="/list" component={List} />
-              <Route path="/extensions" component={Extensions} />
-            </div>
+            <Scroll iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+              <div ref="scene" className="app__scene">
+                <Route path="/" component={Welcome} />
+                <Route path="/list" component={List} />
+                <Route path="/extensions" component={Extensions} />
+              </div>
+            </Scroll>
           </div>  
         )} />
       </HashRouter>

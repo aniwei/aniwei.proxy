@@ -27,8 +27,6 @@ class List extends React.Component {
   groupRender () {
     const { list } = this.props;
 
-    console.log(list)
-
     const groupElement = list.map((li, index) => {
       const itemElement = this.itemRender(li.list);
 

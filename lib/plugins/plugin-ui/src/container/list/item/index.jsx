@@ -6,6 +6,10 @@ import queryString from 'query-string';
 import Overview from './overview';
 
 export default class Item extends React.Component {
+  componentDidMount () {
+    console.log('update')  ;
+  }
+
   onItemClick = () => {
 
   }
@@ -106,7 +110,7 @@ export default class Item extends React.Component {
     });
 
     return (
-      <div className={classes} onClick={this.onItemClick}>
+      <div ref="item-content" className={classes} onClick={this.onItemClick}>
         {this.metaRender()}
         {this.contentRender()}
       </div>
