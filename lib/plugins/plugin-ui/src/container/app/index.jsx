@@ -7,6 +7,7 @@ import { RouteTransition } from 'react-router-transition';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Scroll from 'react-iscroll';
 import iScroll from 'iscroll';
+import queryString from 'query-string';
 
 
 // 公共样式
@@ -14,6 +15,7 @@ import '../../components/common';
 import './less/index.less';
 
 import Navigator from '../../components/navigator';
+import Overview from '../overview';
 import List from '../list';
 import Extensions from '../extensions';
 import Welcome from '../welcome';
@@ -23,26 +25,75 @@ import actions from '../../actions';
 
 class App extends React.Component {
 
+  scrollerRefresh = () => {
+    const iscroll = this.refs.iscroll;
+
+    clearTimeout(this.scrollerTimer);
+
+    this.scrollerTimer = setTimeout(() => {
+      if (iscroll) {
+        iscroll.refresh();
+      }
+    }, 600);
+  }
+
+
+
+  componentDidMount () {
+    const getSearch = (url) => {
+      let i = url.indexOf('#');
+
+      url = url.slice(i);
+
+      i = url.indexOf('?');
+
+      return url.slice(i);
+    }
+
+    const delayRefresh = (evt) => {
+      const { newURL, oldURL } = evt;
+      const newQS = queryString.parse(getSearch(newURL));
+      const oldQS = queryString.parse(getSearch(oldURL));
+
+      if (
+        !(newQS.group === oldQS.group) ||
+        !(newQS.id === oldQS.id) ||
+        !(newQS.overviewClosed === oldQS.overviewClosed)
+      ) {
+        this.scrollerRefresh();
+      }
+    }
+
+    window.onhashchange = (e) => {
+      delayRefresh(e);
+    }
+  }
+
+  componentWillUnmount () {
+    window.onhashchange = null;
+  }
+
   render () {
     const { props } = this;
     
     return (
       <HashRouter>
-        <Route render={({ location }) => (
-          <div className="app">
-            <Navigator 
-              className="app__navigator"
-              menus={props.menus}
-            />
-            <Scroll iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
-              <div ref="scene" className="app__scene">
+        <div className="app">
+          <Navigator 
+            className="app__navigator"
+            menus={props.menus}
+          />
+          <div ref="scene" className="app__scene">
+            <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+              <div ref="sceneContent" className="app__scene-content">
                 <Route path="/" component={Welcome} />
                 <Route path="/list" component={List} />
                 <Route path="/extensions" component={Extensions} />
               </div>
             </Scroll>
-          </div>  
-        )} />
+          </div>
+          <Overview />
+        </div>  
       </HashRouter>
     );
   }

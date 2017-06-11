@@ -1,0 +1,83 @@
+.app__overview {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #2e3238;
+  max-width: 768px;
+  z-index: 11;
+  transition: opacity .5s;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+
+  &_overlayed {
+    opacity: 1;
+    height: auto;
+  }
+
+  &-tabs {
+    text-align: center;
+    margin: 30px 0;
+  }
+
+  &-tab {
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    color: #6b6f7c;
+    width: 20%;
+    line-height: 40px;
+
+    &:after {
+      position: absolute;
+      content: '';
+      height: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #5cad47;
+      right: 0;
+      transition: all 0.5s;
+    }
+
+    &_selected {
+      color: #fff;
+
+      &:after {
+        height: 2px;
+      }
+    }
+  }
+
+  &-close-icon {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #fff;
+  }
+
+  &-title {
+    color: #787b87;
+  }
+
+  &-footer {
+    color: #6b6f7c;
+    padding-top: 12px;
+    text-align: center;
+  }
+
+  &-button-shrink,
+  &-button-lookup {
+    flex: 1;
+    color: #fff;
+  }
+
+  &-button {
+    padding-top: 12px;
+    display: flex;
+  }
+}
+
+.cm-s-seti.CodeMirror {
+  background-color: #26292e!important;
+}

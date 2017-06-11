@@ -11,9 +11,15 @@
   font-family: Helvetica;
 
   &__scene {
-    padding-top: 76px;
+    top: 76px;
     width: 100%;
     bottom: 0;
+    position: absolute;
+    z-index: 11;
+
+    &-content {
+      min-height: 100%;
+    }
   }
 }
 

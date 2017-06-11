@@ -2,76 +2,78 @@ import React from 'react';
 import classnames from 'classnames';
 import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
+import Scroll from 'react-iscroll';
+import iScroll from 'iscroll';
 
 import Overview from './overview';
 
+import util from '../../../util';
+
+const classNameSpace = util.namespace('app__list-item');
+
 export default class Item extends React.Component {
-  componentDidMount () {
-    console.log('update')  ;
-  }
-
-  onItemClick = () => {
-
-  }
-
-  onViewScroll = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    console.log(e.target.scrollTop, e.target.scrollHeight, e.target.style.height);
+  componentWillUnmount () {
+    window.onhashchange = null;
   }
 
   contentRender (groupId, itemId) {
-    const { group, id, match, location } = this.props;
+    const { group, id, match, location, overlayed } = this.props;
+    const { code, url, path, method, ip, route, message, headers, tabs } = this.props;
     const query = queryString.parse(location.search);
 
-    return (
-      <Route path="/list" render={({ location, match }) => {
-        const { code, url, path, method, ip, route, message, headers } = this.props;
+    let classes;
+    let elementView;
 
-        let classes;
-        let elementView;
+    if (query) {
+      classes = classnames({
+        [classNameSpace('content')]: true
+      });
+    }
 
-        if (query) {
-          classes = classnames({
-            ['app__list-item-content']: true
-          });
-        }
-
-        const props = {
+    const props = {
+      list: [
+        {
+          subject: 'General',
+          key: 'general',
           list: [
-            {
-              subject: 'General',
-              list: [
-                { key: 'url', text: 'URL', value: url },
-                { key: 'method', text: 'Method', value: method },
-                { key: 'code', text: 'Status', value: `${code || ''} ${message || ' - '}` },
-                { key: 'code', text: 'Address', value: ip }
-              ]
-            },
-            {
-              subject: 'Request Headers',
-              list: Object.keys(headers).map((hd, i) => {
-                return {
-                  key: hd,
-                  text: hd,
-                  value: headers[hd]
-                };
-              })
-            }
+            { key: 'url', text: 'URL', value: url },
+            { key: 'method', text: 'Method', value: method },
+            { key: 'code', text: 'Status', value: `${code || ''} ${message || ' - '}` },
+            { key: 'code', text: 'Address', value: ip }
           ]
-        };
+        },
+        {
+          subject: 'Request Headers',
+          key: 'request',
+          list: Object.keys(headers).map((hd, i) => {
+            return {
+              key: hd,
+              text: hd,
+              value: headers[hd]
+            };
+          })
+        },
+        {
+          subject: 'Response Headers',
+          key: 'response',
+          list: Object.keys(headers).map((hd, i) => {
+            return {
+              key: hd,
+              text: hd,
+              value: headers[hd]
+            };
+          })
+        }
+      ]
+    };
 
-        elementView = <Overview {...props} location={location} />;
+    elementView = <Overview {...props} location={location} tabs={tabs} />;
 
-        return (
-          <div className={classes} onScroll={this.onViewScroll}>
-            {elementView}
-          </div>
-        );       
-      }}/>  
-     
-    );
+    return (
+      <div className={classes}>
+        {elementView}
+      </div>
+    );       
   }
 
   metaRender () {
@@ -79,17 +81,17 @@ export default class Item extends React.Component {
 
     return (
       <Link to={route}>
-        <div className="app__list-item-meta">
-          <div className="app__list-item-status">{code || '-'}</div>
-          <div className="app__list-item-subject">
-            <div className="app__list-item-url">
-              <div className="app__list-item-hole-url">{url}</div>
-              <div className="app__list-item-path">{path}</div>
+        <div className={classNameSpace('meta')}>
+          <div className={classNameSpace('status')}>{code || '-'}</div>
+          <div className={classNameSpace('subject')}>
+            <div className={classNameSpace('url')}>
+              <div className={classNameSpace('hole-url')}>{url}</div>
+              <div className={classNameSpace('path')}>{path}</div>
             </div>
 
-            <div className="app__list-item-server">
-              <div className="app__list-item-method">{method}</div>
-              <div className="app__list-item-ip">{ip}</div>
+            <div className={classNameSpace('server')}>
+              <div className={classNameSpace('method')}>{method}</div>
+              <div className={classNameSpace('ip')}>{ip}</div>
             </div>
           </div>
         </div>
@@ -104,13 +106,13 @@ export default class Item extends React.Component {
     const isExpand = query.group - 0 === group && query.id - 0 === id;
 
     const classes = classnames({
-      ['app__list-item']: true,
-      ['app__list-item_overlayed']: !!overlayed,
-      ['app__list-item-content_expand']: isExpand
+      [classNameSpace()]: true,
+      [classNameSpace(undefined, 'overlayed')]: !!overlayed,
+      [classNameSpace('content', 'expand')]: isExpand
     });
 
     return (
-      <div ref="item-content" className={classes} onClick={this.onItemClick}>
+      <div className={classes} onClick={this.onItemClick}>
         {this.metaRender()}
         {this.contentRender()}
       </div>

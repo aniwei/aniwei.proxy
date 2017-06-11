@@ -1,18 +1,23 @@
 import React from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/seti.css';
 import './less/index.less';
 
 import SearchBar from './search';
 import Tools from './tools';
 import Item from './item';
 import constants from '../../constants';
+import util from '../../util';
 
 const initState = window.__initState__;
 const { hostname, port } = location;
+
+const classNameSpace = util.namespace('app__list');
 
 class List extends React.Component {
 
@@ -67,7 +72,7 @@ class List extends React.Component {
   }
 
   itemRender (list, group) {
-    const { match, location } = this.props;
+    const { match, location, tabs } = this.props;
 
     return list.map((li, index) => {
       let url;
@@ -85,7 +90,6 @@ class List extends React.Component {
       }
 
       const props = {
-        overlayed: isCurrentUrl && query.overlay,
         code: li.code,
         message: li.message,
         url: li.url,
@@ -97,6 +101,7 @@ class List extends React.Component {
         group,
         match,
         location,
+        tabs,
         id: index
       };
 
@@ -112,21 +117,22 @@ class List extends React.Component {
     const groupElement = list.map((li, index) => {
       const itemElement = this.itemRender(li.list, index);
       const classes = classnames({
-        ['app__list-item-group']: true,
-        ['app__list-item-group_invisible']: !!li.toggled
+        [classNameSpace('item-group')]: true,
+        [classNameSpace('item-group', 'invisible')]: !!li.toggled
       });
 
       return (
         <div className={classes} key={index}>
-          <div className="app__list-item-group-title">
-            <div className="app__list-item-group-subject">
+          <div className={classNameSpace('item-group-title')}>
+            <div className={classNameSpace('item-group-subject')}>
               {li.subject} 
-              <span className="app__list-item-group-number">{li.list.length}</span>
+              <span className={classNameSpace('item-group-number')}>{li.list.length}</span>
+
               <i className="iconfont icon-down app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>
             </div>
           </div>
          
-          <div className="app__list-item-group-content">
+          <div className={classNameSpace('item-group-content')}>
             {itemElement}
           </div>
         </div>
@@ -140,18 +146,18 @@ class List extends React.Component {
     const { search, location } = this.props;
     const qs = queryString.parse(location.search);
     const classes = classnames({
-      ['app__list-toolbar']: true,
-      ['app__list-toolbar_toggled']: !!qs.tool
+      [classNameSpace('toolbar')]: true,
+      [classNameSpace('toolbar', 'toggled')]: !!qs.tool
     });
 
     return (
-      <div className="app__list">
+      <div className={classNameSpace()}>
         <div className={classes}>
           <SearchBar {...search} onToggled={this.onToggled} onSearch={this.onSearch} location={location}/>
           <Tools />
         </div>
 
-        <div className="app__list-view">
+        <div className={classNameSpace('view')}>
           {this.groupRender()}
         </div>
       </div>

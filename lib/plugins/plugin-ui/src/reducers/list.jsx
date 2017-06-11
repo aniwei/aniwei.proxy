@@ -17,6 +17,13 @@ const initState = {
         }
       ]
     }
+  ],
+  overviewTabs: [
+    { key: 'header', text: 'Header' },
+    { key: 'preview', text: 'Preview' },
+    // { key: 'response', text: 'Response' },
+    // { key: 'cookies', text: 'Cookies' },
+    { key: 'timing', text: 'Timing' }
   ]
 }
 
