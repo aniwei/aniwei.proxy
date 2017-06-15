@@ -75,6 +75,8 @@ class App extends React.Component {
 
   render () {
     const { props } = this;
+
+    console.log(123);
     
     return (
       <HashRouter>
@@ -92,7 +94,7 @@ class App extends React.Component {
               </div>
             </Scroll>
           </div>
-          <Overview />
+          <Route path="/" component={Overview} />
         </div>  
       </HashRouter>
     );

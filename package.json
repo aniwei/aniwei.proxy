@@ -66,12 +66,13 @@
     "react-weui": "^1.0.3",
     "recompose": "^0.20.2",
     "redux": "^3.6.0",
-    "request": "^2.72.0",
+    "request": "^2.81.0",
     "simple-assign": "^0.1.0",
     "socket.io": "^1.7.4",
     "socket.io-client": "^1.5.1",
     "style-loader": "^0.16.0",
     "url-loader": "^0.5.8",
+    "url-parse": "^1.1.9",
     "user-home": "^2.0.0",
     "velocity": "^0.7.2",
     "velocity-animate": "^1.4.2",
@@ -84,7 +85,7 @@
     "webpack-isomorphic": "^1.3.4",
     "websocket": "^1.0.24",
     "weui": "^0.4.3",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^1.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",

@@ -1,13 +1,14 @@
 import React from 'react';
 import queryString from 'query-string';
 import classnames from 'classnames';
-import { Link , withRouter } from 'react-router';
+import { Link , withRouter } from 'react-router-dom';
 
 import util from '../../util';
 
 const classNamespace = util.namespace('app__overview-header');
 
 class Header extends React.Component {
+  
   subjectRender () {
     const { list, location } = this.props;
     const query = queryString.parse(location.search);
@@ -75,4 +76,4 @@ class Header extends React.Component {
   }
 }
 
-export default (Header);
+export default withRouter(Header);

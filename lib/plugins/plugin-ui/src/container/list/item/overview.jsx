@@ -68,54 +68,14 @@ export default class Overview extends React.Component {
     });
   }
 
-  tabsRender () {
-    const { location, tabs } = this.props;
-    const query = queryString.parse(location.search);
-    const overviewSelectedTab = query.overviewSelectedTab || tabs[0].key;
-    const style = {
-      width: `${100 / tabs.length}%`
-    };
-
-    const tabElements = tabs.map((tab, i) => {
-      const isTabSelected = overviewSelectedTab === tab.key;
-      const classes = classnames({
-        [classNamespace('tab')]: true,
-        [classNamespace('tab', 'selected')]: isTabSelected
-      });
-
-      query.overviewSelectedTab = tab.key;
-      
-      const uri = `${location.pathname}?${queryString.stringify(query)}`;
-
-      return (
-        <Link to={uri} key={tab.key}>
-          <div className={classes} style={style}>
-            {tab.text}
-          </div>
-        </Link>       
-      );
-    });
-
-    return (
-      <div className="app__list-item-overview-tabs">
-        {tabElements}
-      </div>
-    );
-  }
-
   render () {
     const { location, tabs } = this.props;
     const { pathname, search } = location;
     const qs = queryString.parse(search);
 
-    delete qs.overlay;
-    delete qs.overviewSelectedTab;
-
-    const closeUrl = `${pathname}?${queryString.stringify(qs)}`;
-
     qs.overlay = 'visiable';
 
-    const moreUrl = `${pathname}?${queryString.stringify(qs)}`;
+    const uri = `${pathname}?${queryString.stringify(qs)}`;
 
     return (
       <div className="app__list-item-overview">
@@ -126,7 +86,7 @@ export default class Overview extends React.Component {
 
         <div className="app__list-item-overview-footer">
           <div className="app__list-item-overview-button">
-            <Link to={moreUrl} className="app__list-item-overview-button-lookup">
+            <Link to={uri} className="app__list-item-overview-button-lookup">
               查看更多
             </Link>
           </div>

@@ -2,6 +2,7 @@ import { assign, clone } from 'lodash';
 
 import constants from '../constants';
 
+const __initState__ = window.__initState__;
 const initState = {
   keys: {},
   table: [],
@@ -23,11 +24,18 @@ const initState = {
     { key: 'preview', text: 'Preview' },
     // { key: 'response', text: 'Response' },
     // { key: 'cookies', text: 'Cookies' },
-    { key: 'timing', text: 'Timing' }
-  ]
+    // { key: 'timing', text: 'Timing' }
+  ],
+  overviewData: null
 }
 
 const reducers = {
+  [constants.LIST_OVERLAYED]: (state, action) => {
+    state.overviewData = action.overviewData;
+
+    return clone(state);
+  },
+
   [constants.LIST_SEARCH_TOGGLED]: (state, action) => {
     const { search } = state;
 
@@ -50,47 +58,63 @@ const reducers = {
 
   [constants.LIST_PUSH]: (state, action) => {
     const { keys, table, subjectKeys, subjects } = state;
-    const { id, hostname, path, url, method, protocol, port, headers } = action.proxy;
 
-    const newProxy = {
-      id,
-      headers,
-      method,
-      path,
-      url
-    }
+    action.proxy.list.forEach((proxy) => {
+      const { id, hostname, path, url, method, protocol, port, requestHeaders } = proxy;
 
-    keys[id] = table.length;
-    table.push(newProxy);
-    
-    const key = `${protocol}//${hostname}${port ? ':' + port : ''}`;
+      if (
+        proxy.hostname === __initState__.ip ||
+        proxy.hostname === __initState__.hostname ||
+        proxy.hostname === location.hostname ||
+        proxy.hostname === '127.0.0.1' && (proxy.port - 0) === __initState__.port
+      ) {
+        return this;
+      }
 
-    let index = subjectKeys[key];
+      const newProxy = {
+        id,
+        requestHeaders,
+        method,
+        path,
+        url
+      }
 
-    if (index === undefined) {
-      let ref = {
-        subject: key,
-        list: [newProxy]
-      };
+      keys[id] = table.length;
+      table.push(newProxy);
+      
+      const key = `${protocol}//${hostname}${port ? ':' + port : ''}`;
 
-      subjectKeys[key] = subjects.length;
-      subjects.push(ref);
-    } else {
-      subjects[index].list.push(newProxy);
-    }
+      let index = subjectKeys[key];
+
+      if (index === undefined) {
+        let ref = {
+          subject: key,
+          list: [newProxy]
+        };
+
+        subjectKeys[key] = subjects.length;
+        subjects.push(ref);
+      } else {
+        subjects[index].list.push(newProxy);
+      }
+    });
 
     return clone(state);
   },
 
   [constants.LIST_UPDATE]: (state, action) => {
     const { keys, table } = state;
-    const { id, ip } = action.proxy;
+    
 
-    const ref = table[keys[id]];
+    action.proxy.list.forEach((proxy) => {
+      const { id, ip } = proxy;
 
-    if (ref) {
-      assign(ref, action.proxy);
-    }
+      const ref = table[keys[id]];
+
+      if (ref) {
+        assign(ref, proxy);
+      }
+    });
 
     return clone(state);
   }

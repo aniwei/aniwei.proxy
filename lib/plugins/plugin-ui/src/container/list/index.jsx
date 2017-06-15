@@ -27,13 +27,30 @@ class List extends React.Component {
     socket.on('ui/request', (proxy) => {
       const type = proxy.__from__ === 'url' ? constants.LIST_PUSH : constants.LIST_UPDATE;
 
-      if (
-        proxy.hostname === initState.ip ||
-        proxy.hostname === hostname ||
-        proxy.hostname === '127.0.01'
-      ) {
-        return this;
-      }
+      // if (Array.isArray(proxy)) {
+      //   return proxy.forEach((pr) => {
+      //     if (
+      //       pr.hostname === initState.ip ||
+      //       pr.hostname === hostname ||
+      //       pr.hostname === '127.0.01'
+      //     ) {
+      //       return this;
+      //     }
+
+      //     dispatch({
+      //       type,
+      //       proxy: pr
+      //     });
+      //   });
+      // }
+
+      // if (
+      //   proxy.hostname === initState.ip ||
+      //   proxy.hostname === hostname ||
+      //   proxy.hostname === '127.0.01'
+      // ) {
+      //   return this;
+      // }
 
       dispatch({
         type,
@@ -72,7 +89,7 @@ class List extends React.Component {
   }
 
   itemRender (list, group) {
-    const { match, location, tabs } = this.props;
+    const { match, location, dispatch } = this.props;
 
     return list.map((li, index) => {
       let url;
@@ -90,19 +107,20 @@ class List extends React.Component {
       }
 
       const props = {
+        id: index,
         code: li.code,
         message: li.message,
         url: li.url,
         ip: li.ip,
         method: li.method,
         path: li.path,
+        requestHeaders: li.requestHeaders,
+        responseHeaders: li.responseHeaders,
         route: url,
-        headers: li.headers,
         group,
         match,
         location,
-        tabs,
-        id: index
+        dispatch
       };
 
       return (

@@ -8,6 +8,7 @@ import iScroll from 'iscroll';
 import Overview from './overview';
 
 import util from '../../../util';
+import constants from '../../../constants';
 
 const classNameSpace = util.namespace('app__list-item');
 
@@ -17,8 +18,8 @@ export default class Item extends React.Component {
   }
 
   contentRender (groupId, itemId) {
-    const { group, id, match, location, overlayed } = this.props;
-    const { code, url, path, method, ip, route, message, headers, tabs } = this.props;
+    const { group, id, match, location, dispatch } = this.props;
+    const { code, url, path, method, ip, route, message, requestHeaders, responseHeaders } = this.props;
     const query = queryString.parse(location.search);
 
     let classes;
@@ -31,6 +32,7 @@ export default class Item extends React.Component {
     }
 
     const props = {
+      dispatch,
       list: [
         {
           subject: 'General',
@@ -45,29 +47,32 @@ export default class Item extends React.Component {
         {
           subject: 'Request Headers',
           key: 'request',
-          list: Object.keys(headers).map((hd, i) => {
+          list: Object.keys(requestHeaders).map((hd, i) => {
             return {
               key: hd,
               text: hd,
-              value: headers[hd]
-            };
-          })
-        },
-        {
-          subject: 'Response Headers',
-          key: 'response',
-          list: Object.keys(headers).map((hd, i) => {
-            return {
-              key: hd,
-              text: hd,
-              value: headers[hd]
+              value: requestHeaders[hd]
             };
           })
         }
       ]
     };
 
-    elementView = <Overview {...props} location={location} tabs={tabs} />;
+    if (responseHeaders) {
+      props.list.push({
+        subject: 'Response Headers',
+        key: 'response',
+        list: Object.keys(responseHeaders).map((hd, i) => {
+          return {
+            key: hd,
+            text: hd,
+            value: responseHeaders[hd]
+          };
+        })
+      });
+    }
+
+    elementView = <Overview {...props} location={location} />;
 
     return (
       <div className={classes}>

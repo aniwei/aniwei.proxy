@@ -4,7 +4,6 @@
   bottom: 0;
   width: 100%;
   background-color: #2e3238;
-  max-width: 768px;
   z-index: 11;
   transition: opacity .5s;
   height: 0;
@@ -28,6 +27,7 @@
     color: #6b6f7c;
     width: 20%;
     line-height: 40px;
+    font-size: 16px;
 
     &:after {
       position: absolute;
@@ -76,6 +76,30 @@
     padding-top: 12px;
     display: flex;
   }
+
+  &-content {
+    left: 0;
+    right: 0;
+    top: 100px;
+    bottom: 0;
+    padding: 0 20px 20px 20px;
+    position: absolute;
+  }
+
+  &-preview {
+    min-height: 636px;
+    position: relative;
+
+    &-media {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+
 }
 
 .cm-s-seti.CodeMirror {
