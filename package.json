@@ -38,6 +38,7 @@
     "highlight.js": "^9.7.0",
     "inline-style-prefixer": "^2.0.1",
     "iscroll": "^5.2.0",
+    "js-beautify": "^1.6.14",
     "json-loader": "^0.5.4",
     "keycode": "^2.1.1",
     "less": "^2.7.2",

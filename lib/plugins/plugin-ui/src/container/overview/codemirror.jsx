@@ -2,8 +2,11 @@ import React from 'react';
 
 import CodeMirror from 'codemirror';
 
-import 'codemirror/mode/jsx/jsx.js';
+// import 'codemirror/mode/jsx/jsx.js';
+import 'codemirror/mode/javascript/javascript.js';
 
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
 
 
 export default class CodeMirrorView extends React.Component {

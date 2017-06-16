@@ -187,11 +187,11 @@ class Overview extends React.Component {
         {this.tabsRender()}
 
         <div className={classNamespace('content')}>
-          <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+          {/*<Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>*/}
             <div className={classNamespace('content-inner')}>
               {this.routeRender()}
             </div>
-          </Scroll>
+          {/*</Scroll>*/}
         </div>
       </div>
     );

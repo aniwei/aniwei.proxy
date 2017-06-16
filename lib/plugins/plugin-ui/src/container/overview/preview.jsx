@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import path from 'path';
 import urlParser from 'url-parse';
 import 'whatwg-fetch';
+import { js_beautify as beautify } from 'js-beautify';
 
 import util from '../../util';
 import CodeMirrorView from './codemirror';
@@ -43,7 +44,7 @@ const mimeType = (type, pathname) => {
     { element: Image, is: isImage, ext: 'bmp gif jpeg jpg svg+xml png'.split(' ') },
     { element: Audio, is: isAudio, ext: 'ogg mp3 mp4 wav'.split(' ') },
     { element: Video, is: isVideo, ext: 'ogg mp4 webm'.split(' ') },
-    { element: Text, is: isText, ext: 'text/html text/css text/javascript text/plain application/javascript application/json'.split(' ') }
+    { element: Text, is: isText, ext: 'text/html text/css text/javascript text/plain application/javascript application/x-javascript application/json'.split(' ') }
   ];
   let element;
   let ext;
@@ -140,7 +141,7 @@ class Text extends React.Component {
       })
       .then((res) => {
         this.setState({
-          text: res
+          text: beautify(res)
         });
       });
   }
@@ -150,6 +151,12 @@ class Text extends React.Component {
       return (
         <CodeMirrorView 
           value={this.state.text}
+          lineNumbers={true}
+          styleActiveLine={true}
+          readOnly={true}
+          matchBrackets={true}
+          textWrapping={true}
+          theme="material"
         />
       );
     }
