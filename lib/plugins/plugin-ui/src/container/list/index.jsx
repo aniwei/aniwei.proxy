@@ -94,17 +94,11 @@ class List extends React.Component {
     return list.map((li, index) => {
       let url;
       const query = queryString.parse(location.search);
-      const isCurrentUrl = query.group - 0 === group && query.id - 0 === index
 
-      if (isCurrentUrl) {
-        delete query.id;
-        delete query.group;
-        url = `/list?${queryString.stringify(query)}`;
-      } else {
-        query.group = group;
-        query.id = index;
-        url = `/list?${queryString.stringify(query)}`;
-      }
+      query.overlay = 'visiable';
+      query.group = group;
+      query.id = index;
+      url = `/list?${queryString.stringify(query)}`;
 
       const props = {
         id: index,
@@ -144,9 +138,9 @@ class List extends React.Component {
           <div className={classNameSpace('item-group-title')}>
             <div className={classNameSpace('item-group-subject')}>
               {li.subject} 
-              <span className={classNameSpace('item-group-number')}>{li.list.length}</span>
+              {/*<span className={classNameSpace('item-group-number')}>{li.list.length}</span>*/}
 
-              <i className="iconfont icon-down app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>
+              <i className="iconfont icon-more-fill app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>
             </div>
           </div>
          

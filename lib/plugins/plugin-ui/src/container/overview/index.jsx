@@ -1,8 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import queryString from 'query-string';
-import Scroll from 'react-iscroll';
-import iScroll from 'iscroll';
+import urlParser from 'url-parse';
 import { connect } from 'react-redux';
 import { Link, withRouter, Redirect, Route } from 'react-router-dom';
 
@@ -41,18 +40,39 @@ class Overview extends React.Component {
     }
 
     const { code, url, path, method, ip, route, message, requestHeaders, responseHeaders } = data;
+    const urlParsed = urlParser(url);
+    const props = [];
 
-    const props = [
+    props.push(
       {
         subject: 'General',
         key: 'general',
         list: [
-          { key: 'url', text: 'URL', value: url },
-          { key: 'method', text: 'Method', value: method },
-          { key: 'code', text: 'Status', value: `${code || ''} ${message || ' - '}` },
-          { key: 'code', text: 'Address', value: ip }
+          { key: 'url', text: 'url', value: url },
+          { key: 'method', text: 'method', value: method },
+          { key: 'code', text: 'status', value: `${code || ''} ${message || ' - '}` },
+          { key: 'code', text: 'address', value: ip || '-' }
         ]
-      },
+      }
+    );
+
+    if (urlParsed.query) {
+      const qs = queryString.parse(urlParsed.query);
+
+      props.push({
+        subject: 'Query String Parameters',
+        key: 'query',
+        list: Object.keys(qs).map((key) => {
+          return {
+            key,
+            text: key,
+            value: qs[key]
+          }
+        })
+      });
+    }
+
+    props.push(
       {
         subject: 'Request Headers',
         key: 'request',
@@ -64,7 +84,7 @@ class Overview extends React.Component {
           };
         })
       }
-    ];
+    );
 
     if (responseHeaders) {
       props.push({
@@ -176,23 +196,24 @@ class Overview extends React.Component {
 
     return (
       <div className={classes}>
-         <Link to={uri}>
-          <i className={classnames({
-            [classNamespace('close-icon')]: true,
-            ['iconfont']: true, 
-            ['icon-close']: true
-          })}></i>
-        </Link>
+        <div className={classNamespace('mask')}></div>
+        <div className={classNamespace('inner')}>
+          <Link to={uri}>
+            <i className={classnames({
+              [classNamespace('close-icon')]: true,
+              ['iconfont']: true, 
+              ['icon-close']: true
+            })}></i>
+          </Link>
 
-        {this.tabsRender()}
+          {this.tabsRender()}
 
-        <div className={classNamespace('content')}>
-          {/*<Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>*/}
-            <div className={classNamespace('content-inner')}>
-              {this.routeRender()}
-            </div>
-          {/*</Scroll>*/}
+          <div className={classNamespace('content')}>
+            {this.routeRender()}
+          </div>
         </div>
+
+        
       </div>
     );
   }

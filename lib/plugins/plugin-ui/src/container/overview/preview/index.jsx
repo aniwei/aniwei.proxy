@@ -5,8 +5,13 @@ import urlParser from 'url-parse';
 import 'whatwg-fetch';
 import { js_beautify as beautify } from 'js-beautify';
 
-import util from '../../util';
+import util from '../../../util';
 import CodeMirrorView from './codemirror';
+
+import Text from './text';
+import Image from './image';
+import Video from './video';
+import Audio from './audio';
 
 const classNamespace = util.namespace('app__overview-preview');
 const initState = window.__initState__;
@@ -82,102 +87,21 @@ const mimeType = (type, pathname) => {
   }
 };
 
-
-
-const Image = (props) => {
-  const url = props.url;
-  const index = url.indexOf('?');
-  const query = url.slice(index);
-  const qs = queryString.parse(query);
-
-  return (
-    <div className={classNamespace('media')}>
-      <img className={classNamespace('image')} src={url} alt={query.url} />
-    </div>
-  );
-};
-
-const Video = (props) => {
-  const url = props.url;
-
-  return (
-    <div className={classNamespace('media')}>
-      <video className={classNamespace('video')} src={url} />
-    </div>
-  );
-};
-
-const Audio = (props) => {
-  const url = props.url;
-  const src =  `//${location.hostname}${location.port ? `:${location.port}` : ''}/resource?url=${url}`;
-
-  return (
-    <div className={classNamespace('media')}>
-      <audio className={classNamespace('video')} src={url} controls preload />
-    </div>
-  );
-};
-
-class Text extends React.Component {
-  constructor () {
-    super();
-
-    this.state = {
-      text: null
-    };
-  }
-
-  componentDidMount () {
-    this.fetch();
-  }
-
-  fetch () {
-    const { url } = this.props;
-    const api = `//${location.hostname}${location.port ? `:${location.port}` : ''}/resource?url=${url}`;
-
-    fetch(api)
-      .then((res) => {
-        return res.text();
-      })
-      .then((res) => {
-        this.setState({
-          text: beautify(res)
-        });
-      });
-  }
-
-  codeMirrorRender () {
-    if (this.state.text) {
-      return (
-        <CodeMirrorView 
-          value={this.state.text}
-          lineNumbers={true}
-          styleActiveLine={true}
-          readOnly={true}
-          matchBrackets={true}
-          textWrapping={true}
-          theme="material"
-        />
-      );
-    }
-  }
-
-  render () {
-    return (
-      <div className={classNamespace('text')}>
-        {this.codeMirrorRender()}
-      </div>
-    );
-  }
-}
-
 const Unknown = () => {
   return (
     <div className={classNamespace('unknown')}>
-      Can Not Preview This Content Type.
+      Unknown Content Type.
     </div>
   );
 };
+
+const Empty = () => {
+  return (
+    <div className={classNamespace('empty')}>
+      No Content.
+    </div>
+  );
+}
 
 class Preview extends React.Component {
   contentType () {
@@ -185,8 +109,15 @@ class Preview extends React.Component {
     const urlParsed = urlParser(url);
     let element = mimeType(type, urlParsed.pathname);
 
+    if (type === undefined) {
+      return (
+        <Empty />
+      );
+    }
+
     return React.createElement(element, {
-      url
+      url,
+      type
     });
   }
 

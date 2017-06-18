@@ -1,6 +1,7 @@
 import React from 'react';
-
 import CodeMirror from 'codemirror';
+
+import { assign } from 'lodash';
 
 // import 'codemirror/mode/jsx/jsx.js';
 import 'codemirror/mode/javascript/javascript.js';
@@ -13,14 +14,23 @@ export default class CodeMirrorView extends React.Component {
   onChange = () => {}
 
   componentDidMount () {
-    let editor = this.refs.editor;
+    const editor = this.refs.editor;
+    const codemirror = this.refs.codemirror;
+    const height = window.getComputedStyle(codemirror).height;
 
-    if (!editor.getAttribute) {
-      editor = editor.getDOMNode();
+    this.editor = CodeMirror.fromTextArea(editor,this.props);
+    this.editor.setSize(null, height);
+    this.editor.on('change', this.onChange);
+  }
+
+  shouldComponentUpdate (nextProps) {
+    const { lineWrapping } = this.props;
+
+    if (nextProps.lineWrapping !== lineWrapping) {
+      this.editor.setOption('lineWrapping', nextProps.lineWrapping);
     }
 
-    this.editor = CodeMirror.fromTextArea(editor, this.props);
-    this.editor.on('change', this.onChange);
+    return false;
   }
 
   render () {
@@ -34,7 +44,7 @@ export default class CodeMirrorView extends React.Component {
     />;
 
     return (
-      <div className="app__list-item-overview-codemirror">
+      <div ref="codemirror" className="app__overview-preview-codemirror">
         {editor}
       </div>
     );

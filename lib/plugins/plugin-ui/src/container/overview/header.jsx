@@ -1,6 +1,8 @@
 import React from 'react';
 import queryString from 'query-string';
 import classnames from 'classnames';
+import Scroll from 'react-iscroll';
+import iScroll from 'iscroll';
 import { Link , withRouter } from 'react-router-dom';
 
 import util from '../../util';
@@ -42,9 +44,9 @@ class Header extends React.Component {
       return (
         <div className={classes} key={i}>
           <div className="app__list-item-data-title">
-            <Link to={uri}>
+            {/*<Link to={uri}>
               <i className="app__list-item-data-subject-close-icon"></i>
-            </Link>
+            </Link>*/}
             {li.subject}
           </div>
 
@@ -70,7 +72,11 @@ class Header extends React.Component {
   render () {
     return (
       <div className={classNamespace()}>
-        {this.subjectRender()}
+        <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+          <div className={classNamespace('inner')}>
+            {this.subjectRender()}
+          </div>
+        </Scroll>
       </div>
     );
   }

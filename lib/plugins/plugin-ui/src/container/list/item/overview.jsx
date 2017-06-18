@@ -43,9 +43,6 @@ export default class Overview extends React.Component {
       return (
         <div className={classes} key={i}>
           <div className={dataNamespace('title')}>
-            <Link to={uri}>
-              <i className={dataNamespace('subject-close-icon')}></i>
-            </Link>
             {li.subject}
           </div>
 

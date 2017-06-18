@@ -1,17 +1,37 @@
 //5f4b4b
 .app__list {
+  background-color: #efeff4;
+
+  &-view {
+    background: #efeff4;
+  }
+
   &-item {
     overflow: hidden;
     padding: 12px 18px 11px;
-    border-bottom: 1px solid #24272c;
     cursor: pointer;
     position: relative;
     transition: background-color .3s;
     
+
+    &:last-child:after {
+      display: none;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 15px;
+      right: 0;
+      border-bottom: 1px solid #e2e2e4;
+    }
+    
     &-data {
 
       &-subject {
-        max-height: 1000px;
+        max-height: none;
         transition: all 0.5s;
 
         &_closed {
@@ -28,8 +48,8 @@
         }
 
         &-close-icon {
-          width: 20px;
-          height: 20px;
+          width: 40px;
+          height: 40px;
           position: absolute;
           left: 0;
           top: 50%;
@@ -40,7 +60,7 @@
             top: 50%;
             left: 0;
             content: '';
-            width: 10px;
+            width: 20px;
             height: 2px;
             transition: all 0.5s;
             background-color: #5cad47;
@@ -49,7 +69,7 @@
           &:before {
             position: absolute;
             content: '';
-            width: 10px;
+            width: 20px;
             height: 2px;
             top: 50%;
             left: 0;
@@ -60,36 +80,67 @@
       }
 
       &-title {
-        color: #6b6f7c;
-        font-size: 13px;
-        padding: 12px 0 12px 20px;
-        font-weight: bold;
+        color: #999;
+        font-size: 14px;
+        padding: 12px 0;
         position: relative;
+        font-weight: bolder;
+        background: #efeff4;
+        padding-left: 15px;
+
+        // &:after {
+        //   position: absolute;
+        //   content: '';
+        //   bottom: 0;
+        //   left: 0;
+        //   right: 0;
+        //   border-bottom: 1px solid #e2e2e4;
+        // }
+      }
+
+      &-content {
+        border-bottom: 1px solid #e2e2e4;
+        border-top: 1px solid #e2e2e4;
       }
 
       &-cell {
-        // min-height: 20px;
-        display: flex;
-        flex-direction: row;
         position: relative;
         font-size: 12px;
-        // margin: 3px 0;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        // margin-left: 15px;
+
+        &:last-child:after {
+          display: none;
+        }
+
+        &:after {
+          position: absolute;
+          content: '';
+          bottom: 0;
+          left: 15px;
+          right: 0;
+          border-bottom: 1px solid #e2e2e4;
+        }
 
         &-name {
-          color: #6b6f7c;
-          font-size: 12px;
-          min-width: 2rem;
+          color: #000;
+          font-size: 16px;
           line-height: 1.5;
           text-align: left;
+          min-width: 1.5rem;
+          margin-right: 20px;
         }
 
         &-value {
           flex: 1;
           line-height: 1.5;
           display: block;
-          font-size: 12px;
-          color: #fff;
-          margin-left: 20px;
+          font-size: 16px;
+          color: #999;
           word-break: break-all;
         }
       }
@@ -106,7 +157,7 @@
       transition: all 0.5s;
 
       &_expand{
-        background: #2e3641;
+        background: #fff;
         .app__list-item-content {
           max-height: none;
           padding-top: 12px;
@@ -115,6 +166,7 @@
     }
 
     &-overview {
+
       &-button {
         padding: 20px 0 10px 0;
         text-align: center;
@@ -138,7 +190,7 @@
     }
 
     &:hover {
-      background: #2e3641;
+      // background: #f0eff7;
     }
 
     &-group:first-child {
@@ -150,12 +202,13 @@
     }
 
     &-group {
-      background: #292d32;
-      padding-bottom: 10px;
+      margin: 15px 0;
       overflow: hidden;
+      border-top: 1px solid #e2e2e4;
+      border-bottom: 1px solid #e2e2e4;
 
       &-title {
-        background: #2f3239;
+        background: #fff;
         padding: 12px 18px 12px 18px;
         position: relative;
         height: 20px;
@@ -244,8 +297,8 @@
       }
 
       &-content {
-        background: #2f3239;
-        max-height: 300000px;
+        background: #fff;
+        max-height: none;
 
         transition: all 0.5s;
 
@@ -273,7 +326,7 @@
       height: 40px;
       width: 40px;
       border-radius: 20px;
-      background: #6b6f7c;
+      background: #999;
       font-size: 13px;
       line-height: 40px;
       text-align: center;
@@ -298,7 +351,7 @@
       right: 0;
       top: 0;
       width: 110px;
-      color: #6b6f7c;
+      color: #999;
       font-size: 13px;
       text-align: right;
       line-height: 20px;
@@ -314,8 +367,8 @@
 
     &-hole-url {
       flex: 1;
-      font-size: 13px;
-      color: #fff;
+      font-size: 15px;
+      color: #000;
       line-height: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -334,6 +387,12 @@
   }
 
   &-toolbar {
+    padding: 15px 0;
+    border-top: 1px solid #e2e2e4;
+    border-bottom: 1px solid #e2e2e4;
+    background: #fff;
+    margin-top: 15px;
+
     &_toggled {
       .app__list-toolbar-tools {
         max-height: 200px;
@@ -363,7 +422,7 @@
         text-align: right;
         line-height: 32px;
         font-size: 20px!important;
-        color: #888;
+        color: #000;
       }
 
       &-input{
@@ -375,17 +434,17 @@
           right: 10px;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 24px;
-          color: #939497;
+          font-size: 24px!important;
+          color: #000;
         }
 
         &-text {
-          background: #26292e;
+          background: #efeff4;
           border-radius: 0;
           height: 32px;
           line-height: 32px;
           font-size: 13px;
-          color: #fff;
+          color: #000;
           border: 0;
           outline: none;
           width: 100%;

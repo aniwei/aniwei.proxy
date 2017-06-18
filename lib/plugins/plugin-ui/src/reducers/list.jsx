@@ -1,5 +1,4 @@
 import { assign, clone } from 'lodash';
-
 import constants from '../constants';
 
 const __initState__ = window.__initState__;
@@ -28,6 +27,8 @@ const initState = {
   ],
   overviewData: null
 }
+
+let others = [];
 
 const reducers = {
   [constants.LIST_OVERLAYED]: (state, action) => {
@@ -104,17 +105,27 @@ const reducers = {
 
   [constants.LIST_UPDATE]: (state, action) => {
     const { keys, table } = state;
-    
-
-    action.proxy.list.forEach((proxy) => {
-      const { id, ip } = proxy;
+    const forEach = (proxy) => {
+      if (!proxy) {
+        debugger;
+      }
+      const { id } = proxy;
 
       const ref = table[keys[id]];
 
       if (ref) {
         assign(ref, proxy);
+      } else {
+        others.push(proxy);
       }
-    });
+    };    
+
+    const list = others.slice();
+
+    others = [];
+
+    list.forEach(forEach);
+    action.proxy.list.forEach(forEach);
 
     return clone(state);
   }

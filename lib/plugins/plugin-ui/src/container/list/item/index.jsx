@@ -38,10 +38,10 @@ export default class Item extends React.Component {
           subject: 'General',
           key: 'general',
           list: [
-            { key: 'url', text: 'URL', value: url },
-            { key: 'method', text: 'Method', value: method },
-            { key: 'code', text: 'Status', value: `${code || ''} ${message || ' - '}` },
-            { key: 'code', text: 'Address', value: ip }
+            { key: 'url', text: 'url', value: url },
+            { key: 'method', text: 'method', value: method },
+            { key: 'code', text: 'status', value: `${code || ''} ${message || ' - '}` },
+            { key: 'code', text: 'address', value: ip }
           ]
         },
         {
@@ -119,7 +119,6 @@ export default class Item extends React.Component {
     return (
       <div className={classes} onClick={this.onItemClick}>
         {this.metaRender()}
-        {this.contentRender()}
       </div>
     );
   }

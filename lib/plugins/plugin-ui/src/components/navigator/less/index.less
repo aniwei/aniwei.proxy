@@ -1,10 +1,11 @@
 @import '../../common/index.less';
 
 .app__navigator {
-  background-color: #2e3238;
+  background-color: #fff;
   width: 100%;
-  z-index: 10;
+  z-index: 12;
   height: 76px;
+  border-bottom: 1px solid #e2e2e4;
 
   &-logo {
     padding: 18px;
@@ -64,7 +65,7 @@
 
         &:after {
           content: '';
-          background-color: #5cad47;
+          background-color: #000;
           height: 2px;
           width: 20px;
           position: absolute;
@@ -74,13 +75,13 @@
       }
     }
 
-    &:after {
-      content: '';
-      border-bottom: 1px solid #24272c;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
+    // &:after {
+    //   content: '';
+    //   border-bottom: 1px solid #24272c;
+    //   position: absolute;
+    //   bottom: 0;
+    //   width: 100%;
+    // }
 
     &-listview {
       position: absolute;
@@ -92,7 +93,7 @@
       transition: all 0.5s;
       display: flex;
       border-radius: 5px;
-      background-color: #26292e;
+      background-color: #efeff4;
 
       &_active {
         display: flex;
@@ -103,7 +104,7 @@
       height: 40px;
       line-height: 40px;
       flex: 1;
-      color: #fff;
+      color: #000;
       text-align: center;
       position: relative;
 
@@ -111,7 +112,7 @@
       &-link:hover,
       &-link:visited,
       &-link:link {
-        color: #fff;
+        color: #000;
         text-decoration: none;
       }
 
@@ -133,39 +134,9 @@
         cursor: pointer;
 
         &[class*="fill"] {
-          color: #5cad47;
+          color: #000;
         }
       }
     }
   }
-
-  &-search {
-    &-bar {
-      margin: 0 18px;
-      position: relative;
-
-      &-icon {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 24px;
-        color: #939497;
-      }
-
-      &-input {
-        background: @global-input-background-color;
-        height: 32px;
-        line-height: 32px;
-        font-size: 13px;
-        color: #fff;
-        border: 0;
-        outline: none;
-        width: 100%;
-        text-indent: 10px;
-      }
-    }
-  }
-
-
 }
