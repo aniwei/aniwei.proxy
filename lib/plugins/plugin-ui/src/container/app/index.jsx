@@ -18,7 +18,7 @@ import Navigator from '../../components/navigator';
 import Overview from '../overview';
 import List from '../list';
 import Extensions from '../extensions';
-import Extension from '../extension';
+import ExtensionContext from '../../context';
 import Welcome from '../welcome';
 
 import actions from '../../actions';
@@ -92,7 +92,7 @@ class App extends React.Component {
             </Scroll>
           </div>
           <Route path="/" component={Overview} />
-          <Route path="/" component={Extension} />
+          {/*<Route path="/" component={Extension} />*/}
         </div>  
       </HashRouter>
     );

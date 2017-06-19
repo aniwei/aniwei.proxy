@@ -1,7 +1,7 @@
 import React from 'react';
 import SocketClient from 'socket.io-client';
 import { render } from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import List from './container/list';
@@ -9,6 +9,8 @@ import Extensions from './container/extensions';
 import Settings from './container/settings';
 
 import Routing from './routing';
+import Context from './context';
+
 
 // data
 // import list from './data/list.json';
@@ -29,6 +31,8 @@ const store = {
 };
 
 render(
-  <Routing {...store}/>,
+  <Context>
+    <Routing {...store}/>
+  </Context>,
   document.getElementById('app')
 );

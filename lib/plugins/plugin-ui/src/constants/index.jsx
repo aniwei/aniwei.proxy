@@ -6,6 +6,8 @@ const actionConstants = (action) => {
 
 export default constants;
 
+constants.actionConstants = actionConstants;
+
 // actions create
 actionConstants('TOOL_ACTIVE');
 actionConstants('TAB_PUSH');
