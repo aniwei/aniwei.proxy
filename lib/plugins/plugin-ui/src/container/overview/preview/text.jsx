@@ -4,6 +4,8 @@ import 'whatwg-fetch';
 import { js_beautify as beautify } from 'js-beautify';
 
 import util from '../../../util';
+import constants from '../../../constants';
+
 import CodeMirrorView from './codemirror';
 
 const classNamespace = util.namespace('app__overview-preview');
@@ -48,7 +50,9 @@ export default class Text extends React.Component {
   }
 
   onBeautify = () => {
-    console.log(beautify)
+    const { type } = this.props;
+
+    console.log(Object.keys(beautify));
 
     this.setState({
       text: beautify.html(this.state.text)
@@ -87,12 +91,18 @@ export default class Text extends React.Component {
       return (
         <CodeMirrorView 
           value={this.state.text}
+          foldGutter={true}
           lineNumbers={true}
           styleActiveLine={true}
           readOnly={true}
           matchBrackets={true}
           lineWrapping={this.state.lineWrapping}
-          theme="material"
+          viewportMargin={Infinity}
+          gutters={[
+            'CodeMirror-linenumbers',
+            'CodeMirror-foldgutter',
+            'CodeMirror-lint-markers'
+          ]}
         />
       );
     }

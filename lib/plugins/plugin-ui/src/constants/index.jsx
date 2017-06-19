@@ -13,7 +13,6 @@ actionConstants('TAB_CLOSE');
 
 actionConstants('SOCKET_CONNECT');
 
-
 // list
 actionConstants('LIST_PUSH');
 actionConstants('LIST_UPDATE');

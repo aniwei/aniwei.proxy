@@ -60,24 +60,34 @@
     display: inline-block;
     height: 60px;
     color: #000;
-    width: 20%;
+    width: 100%;
     line-height: 60px;
     font-size: 16px;
 
-    &-tab:first-child:before {
-      display: none;
-    }
+    &-link {
+      position: relative;
+      display: inline-block;
+      height: 60px;
+      color: #000;
+      width: 20%;
+      line-height: 60px;
+      font-size: 16px;
 
-    &:before {
-      position: absolute;
-      content: '';
-      top: 0;
-      bottom: 0;
-      left: 0;
-      background-color: #e2e2e4;
-      right: 0;
-      width: 1px;
-      transition: all 0.5s;
+      &:first-child:before {
+        display: none;
+      }
+
+      &:before {
+        position: absolute;
+        content: '';
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #e2e2e4;
+        right: 0;
+        width: 1px;
+        transition: all 0.5s;
+      }
     }
 
     &:after {
@@ -153,15 +163,13 @@
 
     &-tool-listview {
       position: absolute;
-      bottom: 15px;
-      right: 15px;
-      height: 25px;
-      border-radius: 10px;
-      background-color: #fff;
-      opacity: 1;
-      text-align: center;
+      bottom: 0px;
+      right: 0px;
+      left: 0;
+      height: 30px;
+      background-color: #efeff4;
       overflow: hidden;
-      z-index: 20;
+      border-top: 1px solid #e2e2e4;
     }
 
     &-tool-item {
@@ -199,7 +207,9 @@
       position: absolute;
     }
 
-
+    &-codemirror {
+      bottom: 31px;
+    }
 
     &-media {
       position: absolute;
@@ -225,6 +235,11 @@
 }
 
 .CodeMirror {
-  background-color: #26292e!important;
+  // background-color: #26292e!important;
   // height: 666px!important;
+}
+
+.CodeMirror-linenumber,
+.CodeMirror-gutters {
+  background-color: #efeff4!important;
 }

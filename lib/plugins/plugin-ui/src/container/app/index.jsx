@@ -18,6 +18,7 @@ import Navigator from '../../components/navigator';
 import Overview from '../overview';
 import List from '../list';
 import Extensions from '../extensions';
+import Extension from '../extension';
 import Welcome from '../welcome';
 
 import actions from '../../actions';
@@ -36,8 +37,6 @@ class App extends React.Component {
       }
     }, 600);
   }
-
-
 
   componentDidMount () {
     const getSearch = (url) => {
@@ -75,8 +74,6 @@ class App extends React.Component {
 
   render () {
     const { props } = this;
-
-    console.log(123);
     
     return (
       <HashRouter>
@@ -95,6 +92,7 @@ class App extends React.Component {
             </Scroll>
           </div>
           <Route path="/" component={Overview} />
+          <Route path="/" component={Extension} />
         </div>  
       </HashRouter>
     );

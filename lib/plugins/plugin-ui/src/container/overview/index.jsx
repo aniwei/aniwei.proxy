@@ -125,8 +125,8 @@ class Overview extends React.Component {
       const uri = `${location.pathname}?${queryString.stringify(query)}`;
 
       return (
-        <Link to={uri} key={tab.key}>
-          <div className={classes} style={style}>
+        <Link to={uri} key={tab.key} className={classNamespace('tab-link')} style={style}>
+          <div className={classes}>
             {tab.text}
           </div>
         </Link>       
