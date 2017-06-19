@@ -8,6 +8,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "aniwei-proxy-extension-context": "^1.0.1",
     "aniwei.usbmux": "^1.0.1",
     "async": "^2.1.2",
     "babel": "^6.23.0",

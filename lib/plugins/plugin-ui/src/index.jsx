@@ -9,7 +9,7 @@ import Extensions from './container/extensions';
 import Settings from './container/settings';
 
 import Routing from './routing';
-import Context from './context';
+import ExtensionContext from 'aniwei-proxy-extension-context';
 
 
 // data
@@ -31,8 +31,8 @@ const store = {
 };
 
 render(
-  <Context>
+  <ExtensionContext>
     <Routing {...store}/>
-  </Context>,
+  </ExtensionContext>,
   document.getElementById('app')
 );

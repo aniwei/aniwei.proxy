@@ -51,6 +51,10 @@ class List extends React.Component {
       // ) {
       //   return this;
       // }
+      dispatch({
+        type: 'EXTENSION_TEST_UPDATE'
+      });
+
 
       dispatch({
         type,

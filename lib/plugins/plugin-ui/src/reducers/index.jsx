@@ -9,10 +9,10 @@ import tabs from './tabs';
 import list from './list';
 import socket from './socket';
 
-export default combineReducers({
+export default {
   menus,
   tabs,
   list,
   socket,
   routing: routerReducer
-});
+};

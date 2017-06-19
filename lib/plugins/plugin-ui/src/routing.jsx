@@ -11,10 +11,12 @@ import constants from './constants';
 class Routing extends React.Component {
 
   render () {
-    const { props } = this;
-    const { menus } = props;
-    
-    const store = createStore(reducers, props);
+    const { props, context } = this;
+    const { extension } = props;
+
+    reducers.extension = extension.reducer;
+
+    const store = createStore(combineReducers(reducers), props);
 
     return (
       <Provider store={store}>

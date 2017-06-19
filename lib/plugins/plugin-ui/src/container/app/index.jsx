@@ -18,7 +18,6 @@ import Navigator from '../../components/navigator';
 import Overview from '../overview';
 import List from '../list';
 import Extensions from '../extensions';
-import ExtensionContext from '../../context';
 import Welcome from '../welcome';
 
 import actions from '../../actions';
