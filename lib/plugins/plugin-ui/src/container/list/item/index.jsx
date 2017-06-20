@@ -112,8 +112,8 @@ export default class Item extends React.Component {
 
     const classes = classnames({
       [classNameSpace()]: true,
-      [classNameSpace(undefined, 'overlayed')]: !!overlayed,
-      [classNameSpace('content', 'expand')]: isExpand
+      [classNameSpace(undefined, 'overlayed')]: !!overlayed
+      // [classNameSpace('content', 'expand')]: isExpand
     });
 
     return (

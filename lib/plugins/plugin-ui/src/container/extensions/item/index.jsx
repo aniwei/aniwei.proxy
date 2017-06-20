@@ -14,7 +14,7 @@ export default class Item extends React.Component {
     return (
       <Link to={route}>
         <div className={classNamespace('meta')}>
-          {/*<div className={classNamespace('status')}>{}</div>*/}
+          <div className={classNamespace('avtor')}>{description.text}</div>
           <div className={classNamespace('subject')}>
             <div className={classNamespace('desc')}>
               <div className={classNamespace('desc-name')}>{description.text}</div>
@@ -31,16 +31,21 @@ export default class Item extends React.Component {
     );
   }
 
+  contentRender () {
+    
+  }
+
   render () {
     const { code, url, path, method, ip } = this.props;
 
     const classes = classnames({
-      ['app__list-item']: true
+      [classNamespace()]: true
     });
 
     return (
       <div className={classes} onClick={this.onItemClick}>
         {this.metaRender()}
+        {this.contentRender()}
       </div>
     );
   }

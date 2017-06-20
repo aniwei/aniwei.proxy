@@ -17,17 +17,17 @@ class Extensions extends React.Component {
       const query = queryString.parse(location.search);
 
       if (query.id - 0 === index) {
-        delete query.id;
-        url = `/list?${queryString.stringify(query)}`;
+        delete query.extension;
+        url = `/extensions?${queryString.stringify(query)}`;
       } else {
-        query.id = index;
-        url = `/list?${queryString.stringify(query)}`;
+        query.extension = ext.name;
+        url = `/extensions?${queryString.stringify(query)}`;
       }
 
       const props = {
         description: ext.description,
         name: ext.name,
-        route: ''
+        route: url
       };
 
       return (
@@ -39,9 +39,6 @@ class Extensions extends React.Component {
   render () {
     return (
       <div className="app__extension">
-        <div className="app__extension-toolbar">
-          <SearchBar />
-        </div>
 
         <div className="app__extension-view">
           {this.extensionRender()}

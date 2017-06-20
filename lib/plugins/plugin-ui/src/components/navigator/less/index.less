@@ -1,11 +1,11 @@
 @import '../../common/index.less';
 
 .app__navigator {
-  background-color: #fff;
+  background-color: #2e3238;
   width: 100%;
   z-index: 12;
   height: 76px;
-  border-bottom: 1px solid #e2e2e4;
+  // border-bottom: 1px solid #e2e2e4;
 
   &-logo {
     padding: 18px;
@@ -65,7 +65,7 @@
 
         &:after {
           content: '';
-          background-color: #000;
+          background-color: #5cad47;
           height: 2px;
           width: 20px;
           position: absolute;
@@ -93,7 +93,7 @@
       transition: all 0.5s;
       display: flex;
       border-radius: 5px;
-      background-color: #efeff4;
+      background-color: #26292e;
 
       &_active {
         display: flex;
@@ -112,14 +112,14 @@
       &-link:hover,
       &-link:visited,
       &-link:link {
-        color: #000;
+        color: #fff;
         text-decoration: none;
       }
 
       &:after {
         content: '';
         position: absolute;
-        border-left: 1px solid #939497;
+        border-left: 1px solid #fff;
         top: 10px;
         bottom: 8px;
         right: 0;
@@ -134,7 +134,7 @@
         cursor: pointer;
 
         &[class*="fill"] {
-          color: #000;
+          color: #5cad47;
         }
       }
     }

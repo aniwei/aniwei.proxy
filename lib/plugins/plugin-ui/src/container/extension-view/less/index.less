@@ -1,0 +1,17 @@
+.app__extend-view {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: -100%;
+  z-index: 13;
+  transition: opacity .5s, right .5s;
+  height: 0;
+  opacity: 0;
+  width: 11rem;
+  overflow: hidden;
+
+  &_overlayed {
+    height: 100%;
+    right: 0;
+  }
+}

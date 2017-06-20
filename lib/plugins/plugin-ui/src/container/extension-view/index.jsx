@@ -6,7 +6,7 @@ import './less/index.less';
 
 import util from '../../util';
 
-const classNamespace = util.namespace('app__extension-view');
+const classNamespace = util.namespace('app__extend-view');
 
 class ExtensionView extends React.Component {
   render () {
@@ -14,7 +14,7 @@ class ExtensionView extends React.Component {
     const qs = queryString.parse(location.search);
     const classes = classnames({
       [classNamespace()]: true,
-      [classNamespace(null, 'overlay')]: 'id' in qs
+      [classNamespace(null, 'overlayed')]: 'id' in qs
     });
 
     return (
