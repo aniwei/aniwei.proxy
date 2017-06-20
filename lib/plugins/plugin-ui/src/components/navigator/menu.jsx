@@ -8,7 +8,7 @@ class Menu extends React.Component {
     const { list, match, location } = this.props;
     const { search, pathname } = location;
     const query = queryString.parse(location.search);
-    const path = pathname.slice(1)    ;
+    const path = pathname.slice(1);
 
     const listElement = list.map(menu => {
       const fillStyle = path === menu.route ? 'fill' : 'line';

@@ -3,51 +3,27 @@ import classnames from 'classnames';
 import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
 
+import util from '../../../util';
+
+const classNamespace = util.namespace('app__extension-item');
+
 export default class Item extends React.Component {
-  onItemClick = () => {
-
-  }
-
-  contentRender (groupId, itemId) {
-    const { group, id, match, location } = this.props;
-    const query = queryString.parse(location.search);
-
-    return (
-      <Route path="/list" render={({ location, match }) => {
-        let classes;
-
-        if (query) {
-          classes = classnames({
-            ['app__list-item_expand']: query.group - 0 === group && query.id - 0 === id,
-            ['app__list-item-overview']: true
-          });
-        }
-
-        return (
-          <div className={classes}>
-          </div>
-        );       
-      }}/>  
-     
-    );
-  }
-
   metaRender () {
-    const { code, url, path, method, ip, route } = this.props;
+    const { description, route } = this.props;
 
     return (
       <Link to={route}>
-        <div className="app__list-item-meta">
-          <div className="app__list-item-status">{code}</div>
-          <div className="app__list-item-subject">
-            <div className="app__list-item-url">
-              <div className="app__list-item-hole-url">{url}</div>
-              <div className="app__list-item-path">{path}</div>
+        <div className={classNamespace('meta')}>
+          {/*<div className={classNamespace('status')}>{}</div>*/}
+          <div className={classNamespace('subject')}>
+            <div className={classNamespace('desc')}>
+              <div className={classNamespace('desc-name')}>{description.text}</div>
+              <div className={classNamespace('desc-brief')}>{description.brief}</div>
             </div>
 
             <div className="app__list-item-server">
-              <div className="app__list-item-method">{method}</div>
-              <div className="app__list-item-ip">{ip}</div>
+              {/*<div className="app__list-item-method">{method}</div>*/}
+              {/*<div className="app__list-item-ip">{ip}</div>*/}
             </div>
           </div>
         </div>
@@ -65,7 +41,6 @@ export default class Item extends React.Component {
     return (
       <div className={classes} onClick={this.onItemClick}>
         {this.metaRender()}
-        {this.contentRender()}
       </div>
     );
   }

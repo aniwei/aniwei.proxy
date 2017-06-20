@@ -9,10 +9,13 @@ import reducers from './reducers';
 import constants from './constants';
 
 class Routing extends React.Component {
+  static contextTypes = {
+    extension: React.PropTypes.object
+  };
 
   render () {
     const { props, context } = this;
-    const { extension } = props;
+    const { extension } = context;
 
     reducers.extension = extension.reducer;
 
@@ -20,7 +23,7 @@ class Routing extends React.Component {
 
     return (
       <Provider store={store}>
-        <App />
+        <App extension={extension.components} />
       </Provider>
     );
   }

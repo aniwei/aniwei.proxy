@@ -3,13 +3,14 @@ import SocketClient from 'socket.io-client';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import ExtensionContext from 'aniwei-proxy-extension-context';
 
 import List from './container/list';
 import Extensions from './container/extensions';
 import Settings from './container/settings';
 
 import Routing from './routing';
-import ExtensionContext from 'aniwei-proxy-extension-context';
+import './extensions';
 
 
 // data
@@ -27,7 +28,8 @@ const socket = SocketClient(`http://${initState.ip}:${initState.port}`);
 
 const store = {
   menus,
-  socket
+  socket,
+  extension: initState.extension
 };
 
 render(

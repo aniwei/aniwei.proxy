@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Updating</title>
+</head>
+<body>
+  <div class="app__updating">
+    <img src="./logo.png" alt="">
+    <div class="app__progress">
+      <div class="app__progress-line" id="progress_line"></div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  (function () {
+    fetch('/complie-progress')
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res) {
+        console.log(res)
+      });
+  })();
+</script>
+</html>
