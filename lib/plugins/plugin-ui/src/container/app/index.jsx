@@ -92,7 +92,7 @@ class App extends React.Component {
             </Scroll>
           </div>
           <Route path="/" component={Overview} />
-          <Route path="/" component={ExtensionsView} />
+          <Route path="/extensions" component={ExtensionsView} />
         </div>  
       </HashRouter>
     );
