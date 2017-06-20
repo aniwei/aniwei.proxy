@@ -27,8 +27,8 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: #efeff4;
-    box-shadow: 0 0 30px #eee;
+    background-color: #26292e;
+    box-shadow: 0 0 30px #000;
   }
 
   &_overlayed {
@@ -45,10 +45,10 @@
   }
 
   &-tabs {
-    border-top: 1px solid #e2e2e4;
-    border-bottom: 1px solid #e2e2e4;
+    // border-top: 1px solid #e2e2e4;
+    // border-bottom: 1px solid #e2e2e4;
     text-align: center;
-    background: #fff;
+    background: #2e3238;
     position: absolute;
     top: 40px;
     width: 100%;
@@ -59,10 +59,11 @@
     position: relative;
     display: inline-block;
     height: 60px;
-    color: #000;
+    color: #fff;
     width: 100%;
     line-height: 60px;
     font-size: 16px;
+    transition: all 0.5s;
 
     &-link {
       position: relative;
@@ -83,7 +84,7 @@
         top: 0;
         bottom: 0;
         left: 0;
-        background-color: #e2e2e4;
+        background-color: #24272c;
         right: 0;
         width: 1px;
         transition: all 0.5s;
@@ -105,6 +106,8 @@
       &:after {
         height: 1px;
       }
+
+      color: #5cad47;
     }
   }
 
@@ -112,7 +115,8 @@
     position: absolute;
     left: 15px;
     top: 15px;
-    color: #000;
+    color: #fff;
+    font-weight: bold;
   }
 
   &-title {
@@ -139,7 +143,7 @@
   &-content {
     left: 0;
     right: 0;
-    top: 102px;
+    top: 101px;
     bottom: 0;
     position: absolute;
   }
@@ -150,7 +154,7 @@
     top: 0;
     bottom: 0;
     position: absolute;
-    background: #fff;
+    background: #2e3238;
   }
 
   &-preview {
@@ -159,7 +163,7 @@
     top: 0;
     bottom: 0;
     position: absolute;
-    background: #efeff4;
+    background: #26292e;
 
     &-tool-listview {
       position: absolute;
@@ -167,16 +171,16 @@
       right: 0px;
       left: 0;
       height: 30px;
-      background-color: #efeff4;
+      background-color: #2e3238;
       overflow: hidden;
-      border-top: 1px solid #e2e2e4;
+      border-top: 1px solid #24272c;
     }
 
     &-tool-item {
       display: inline-block;
       text-align: center;
       font-size: 14px;
-      color: #000;
+      color: #999;
       height: 25px;
       width: 35px;
       line-height: 25px;
@@ -234,12 +238,16 @@
 
 }
 
-.CodeMirror {
-  // background-color: #26292e!important;
+.cm-s-seti.CodeMirror {
+  background-color: #26292e!important;
   // height: 666px!important;
+}
+
+.cm-s-seti .CodeMirror-linenumber {
+  color: #999!important;
 }
 
 .CodeMirror-linenumber,
 .CodeMirror-gutters {
-  background-color: #efeff4!important;
+  background-color: #2e3238!important;
 }

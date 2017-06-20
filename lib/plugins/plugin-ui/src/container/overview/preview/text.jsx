@@ -103,6 +103,7 @@ export default class Text extends React.Component {
             'CodeMirror-foldgutter',
             'CodeMirror-lint-markers'
           ]}
+          theme="seti"
         />
       );
     }

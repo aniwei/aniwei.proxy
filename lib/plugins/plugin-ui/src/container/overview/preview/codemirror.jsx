@@ -5,6 +5,7 @@ import { assign } from 'lodash';
 
 // import 'codemirror/mode/jsx/jsx.js';
 import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/addon/fold/foldcode.js';
 import 'codemirror/addon/fold/brace-fold.js';
 import 'codemirror/addon/edit/matchbrackets.js';
