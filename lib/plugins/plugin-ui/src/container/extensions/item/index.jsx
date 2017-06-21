@@ -5,10 +5,8 @@ import { Link, Route } from 'react-router-dom';
 import { assign } from 'lodash';
 
 import util from '../../../util';
-import 'whatwg-fetch';
 
 const classNamespace = util.namespace('app__extension-item');
-
 
 export default class Item extends React.Component {
   
@@ -36,19 +34,22 @@ export default class Item extends React.Component {
   }
 
   contentRender () {
-    const { component, dispatch, name } = this.props;
+    const { component, dispatch, name, location, settings, description } = this.props;
     let element = null;
 
     if (component) {
       element = createElement(
         component,
-        assign({}, this.props, {
+        {
+          location,
+          settings,
+          description,
           dispatch: (action) => {
             action.type = `EXTENSION_${name.toUpperCase()}_${action.type}`;
 
             return dispatch(action);
           }
-        })
+        }
       );
     }
 

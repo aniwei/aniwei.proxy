@@ -41,10 +41,13 @@ class Extensions extends React.Component {
         dispatch,
         location,
         description: ext.description,
+        settings: ext.settings,
         name: ext.name,
         component,
         route: url
       };
+
+      debugger;
 
       return (
         <Item {...props} key={index}/>

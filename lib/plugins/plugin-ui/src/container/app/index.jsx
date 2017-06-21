@@ -20,6 +20,7 @@ import List from '../list';
 import Extensions from '../extensions';
 import ExtensionsView from '../extension-view';
 import Welcome from '../welcome';
+import Layer from '../layer';
 
 import actions from '../../actions';
 
@@ -92,7 +93,7 @@ class App extends React.Component {
             </Scroll>
           </div>
           <Route path="/" component={Overview} />
-          {/*<Route path="/extensions" component={ExtensionsView} />*/}
+          <Route path="/" component={Layer} />
         </div>  
       </HashRouter>
     );

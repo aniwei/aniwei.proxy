@@ -22,4 +22,5 @@ actionConstants('LIST_TOGGLED');
 actionConstants('LIST_OVERLAYED');
 actionConstants('LIST_SEARCH_TOGGLED');
 
-// 
+// layer
+actionConstants('LAYER_OVERLAYED');

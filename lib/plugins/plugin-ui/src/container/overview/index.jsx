@@ -196,7 +196,7 @@ class Overview extends React.Component {
 
     return (
       <div className={classes}>
-        <div className={classNamespace('mask')}></div>
+        {/*<div className={classNamespace('mask')}></div>*/}
         <div className={classNamespace('inner')}>
           <Link to={uri}>
             <i className={classnames({
