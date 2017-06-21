@@ -38,9 +38,14 @@ class Layer extends React.Component {
 
     let element;
 
+
     if (component) {
-      element = createElement(component, data);
+      element = createElement(component, {
+        name: 123
+      });
     }
+
+    let test = createElement('li');
 
     if (!component) {
       element = <Redirect to={queryString.stringify(qs)} />;
@@ -72,8 +77,7 @@ const mapStateToProps = (state, ownProps) => {
   const { layer } = state;
 
   return {
-    component: layer.component,
-
+    component: layer.component
   }
 }
 

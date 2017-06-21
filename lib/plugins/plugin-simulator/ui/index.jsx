@@ -55,9 +55,9 @@ class Simulator extends React.Component {
 
   ruleRender () {
     const { settings } = this.props;
-    const { list } = settings;
+    const { rules } = settings;
 
-    const elements = list.map((li) => {
+    const elements = rules.map((li) => {
       return (
         <Rule />
       );
