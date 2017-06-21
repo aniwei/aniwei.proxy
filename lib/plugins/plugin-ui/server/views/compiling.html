@@ -6,26 +6,55 @@
   
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Compiling</title>
+  <link rel="stylesheet" href="/dist/reset.css">
+  <style>
+    .app__compiling {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .app__compiling-logo {
+      width: 100px;
+    }
+
+    .app__compiling-text {
+      font-weight: 20px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="app__compiling">
     <img src="/dist/logo.png" alt="" class="app__compiling-logo">
-    <div class="app__compiling-text" id="text">Compiling</div>
+    <div class="app__compiling-text" id="text">
+      The project is being built.
+    </div>
   </div>
 </body>
-<script>
-  var timer = null;
+<script type="text/javascript">
+  (function () {
+    var timer = null;
 
-  timer =setInterval(update, 1000);
+    function complieState() {
+      fetch('/complie-state')
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (res) {
+          if (res.code === 0) {
+            if (res.state === 2) {
+              return location.reload();
+            }
+          }
 
-  var update = function () {
-    fetch('/complie-progress')
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (res) {
-      console.log(res)
-    });
-  }
+          complieState();
+        });
+    }
+
+    complieState();
+  })();
 </script>
 </html>

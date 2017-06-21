@@ -25,8 +25,10 @@ class Extensions extends React.Component {
       }
 
       const props = {
+        location,
         description: ext.description,
         name: ext.name,
+        component: ext.component,
         route: url
       };
 

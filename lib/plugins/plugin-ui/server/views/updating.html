@@ -5,24 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Updating</title>
+  <link rel="stylesheet" href="/dist/reset.css">
+  <style>
+    .app__updating {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .app__updating-logo {
+      width: 100px;
+    }
+
+    .app__updating-text {
+      font-weight: 20px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="app__updating">
     <img src="./logo.png" alt="">
-    <div class="app__progress">
-      <div class="app__progress-line" id="progress_line"></div>
+    <div class="app__updating-text">
+      The project is being updated.
     </div>
   </div>
 </body>
-<script type="text/javascript">
-  (function () {
-    fetch('/complie-progress')
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (res) {
-        console.log(res)
-      });
-  })();
-</script>
 </html>

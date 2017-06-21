@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import classnames from 'classnames';
 import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
 
 import util from '../../../util';
+import 'whatwg-fetch';
 
 const classNamespace = util.namespace('app__extension-item');
 
+
 export default class Item extends React.Component {
+  
   metaRender () {
     const { description, route } = this.props;
 
@@ -32,15 +35,23 @@ export default class Item extends React.Component {
   }
 
   contentRender () {
-    
+    const { component } = this.props;
+
+    return (
+      <div className={classNamespace('content')}>
+        {cloneElement(component)}
+      </div>
+    );
   }
 
   render () {
-    const { code, url, path, method, ip } = this.props;
-
+    const { name, location } = this.props;
+    const qs = queryString.parse(location.search);
     const classes = classnames({
-      [classNamespace()]: true
+      [classNamespace()]: true,
+      [classNamespace(null, 'expand')]: qs.extension === name
     });
+    
 
     return (
       <div className={classes} onClick={this.onItemClick}>
