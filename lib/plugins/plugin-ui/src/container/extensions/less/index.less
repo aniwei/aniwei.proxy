@@ -6,6 +6,8 @@
     cursor: pointer;
     position: relative;
     background: #2e3238;
+    max-height: 64px;
+    transition: all .5s;
     // margin-top: 15px;
 
     &-data-title {
@@ -77,8 +79,7 @@
 
     &_expand{
       height: auto;
-      margin-top: 12px;
-      padding-top: 12px;
+      max-height: none;
     }
 
     &_active {

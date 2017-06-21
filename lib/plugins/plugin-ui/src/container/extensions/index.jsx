@@ -9,8 +9,13 @@ import SearchBar from './search';
 import Item from './item';
 
 class Extensions extends React.Component {
+  static contextTypes = {
+    extension: React.PropTypes.object
+  };
+
   extensionRender () {
-    const { match, location, list } = this.props;
+    const { match, location, list, dispatch } = this.props;
+    const { components } = this.context.extension;
 
     return list.map((ext, index) => {
       let url;
@@ -24,11 +29,20 @@ class Extensions extends React.Component {
         url = `/extensions?${queryString.stringify(query)}`;
       }
 
+      let component;
+
+      components.some((ex) => {
+        if (ex.name === ext.name) {
+          component = ex.component;
+        }
+      });
+
       const props = {
+        dispatch,
         location,
         description: ext.description,
         name: ext.name,
-        component: ext.component,
+        component,
         route: url
       };
 

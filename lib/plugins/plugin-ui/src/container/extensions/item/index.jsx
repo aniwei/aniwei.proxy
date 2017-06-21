@@ -1,7 +1,8 @@
-import React, { cloneElement } from 'react';
+import React, { createElement } from 'react';
 import classnames from 'classnames';
-import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
+import { Link, Route } from 'react-router-dom';
+import { assign } from 'lodash';
 
 import util from '../../../util';
 import 'whatwg-fetch';
@@ -35,11 +36,25 @@ export default class Item extends React.Component {
   }
 
   contentRender () {
-    const { component } = this.props;
+    const { component, dispatch, name } = this.props;
+    let element = null;
+
+    if (component) {
+      element = createElement(
+        component,
+        assign({}, this.props, {
+          dispatch: (action) => {
+            action.type = `EXTENSION_${name.toUpperCase()}_${action.type}`;
+
+            return dispatch(action);
+          }
+        })
+      );
+    }
 
     return (
       <div className={classNamespace('content')}>
-        {cloneElement(component)}
+        {element}
       </div>
     );
   }

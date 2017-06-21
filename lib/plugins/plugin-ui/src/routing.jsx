@@ -23,7 +23,7 @@ class Routing extends React.Component {
 
     return (
       <Provider store={store}>
-        <App extension={extension.components} />
+        <App />
       </Provider>
     );
   }
