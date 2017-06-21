@@ -7,9 +7,13 @@ export default function layer (state = {}, action) {
     case constants.LAYER_OVERLAYED:
       state.component = action.component;
       
-      if (action.data) {
-        state.props = action.props;
-      }
+      Object.keys(action).forEach((key) => {
+        if (key === 'type') {
+          return this;
+        }
+
+        state[key] = action[key];
+      });
 
       return clone(state);
     default:

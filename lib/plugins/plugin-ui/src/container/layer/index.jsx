@@ -45,10 +45,8 @@ class Layer extends React.Component {
       });
     }
 
-    let test = createElement('li');
-
     if (!component) {
-      element = <Redirect to={queryString.stringify(qs)} />;
+      element = <Redirect to={`${location.pathname}?${queryString.stringify(qs)}`} />;
     }
 
     return (
@@ -61,7 +59,7 @@ class Layer extends React.Component {
               ['icon-close']: true
             })}></i>
           </Link>
-          {this.titleRender()}
+          {/*{this.titleRender()}*/}
           <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
             <div className={classNamespace('content')}>
               {element}
@@ -76,9 +74,7 @@ class Layer extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const { layer } = state;
 
-  return {
-    component: layer.component
-  }
+  return layer;
 }
 
 export default connect(mapStateToProps)(withRouter(Layer));

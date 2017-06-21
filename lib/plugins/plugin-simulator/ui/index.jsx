@@ -19,7 +19,8 @@ class Simulator extends React.Component {
 
     dispatch({
       type: 'LAYER_OVERLAYED',
-      component: Editor
+      component: Editor,
+      title: '添加规则'
     });
   }
 

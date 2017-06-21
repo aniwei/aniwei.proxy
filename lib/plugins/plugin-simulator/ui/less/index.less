@@ -1,4 +1,6 @@
-.app__extension-component-sim {
+@name-space: app__extension-component-sim;
+
+.@{name-space} {
   &-appender {
     border:2px dashed #2e3641;
     height: 40px;
@@ -22,4 +24,103 @@
       transform: translate(-50%, -50%) rotate(90deg);
     }
   } 
+
+  &-editor-rule {
+
+
+    &-subject {
+      &-title{
+        padding: 20px 0 5px 15px;
+        color: #999;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      &-listview {
+        border-top: 1px solid #24272c;
+        border-bottom: 1px solid #24272c;
+      }
+
+      &-brief {
+        font-size: 12px;
+        padding: 5px 15px;
+        color: #999;
+      }
+
+      &-select {
+        -webkit-appearance: none;
+        border: 0;
+        outline: 0;
+        background-color: transparent;
+        color: #fff;
+        padding-right: 30px;
+        padding-left: 15px;
+        position: relative;
+        height: 44px;
+
+
+        &:before {
+          content: '';
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          border-top: 2px solid #999;
+          border-bottom: 2px solid #999;
+          width: 6px;
+          height: 6px;
+          transform: rotate(45deg) translateY(-50%);
+        }
+      }
+
+      &-item {
+        display: flex;
+        flex-direction: row;
+        padding: 10px 15px;
+        background: #2e3238;
+        position: relative;
+
+        &:last-child:before {
+          display: none;
+        }
+
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          height: 1px;
+          left: 15px;
+          right: 0;
+          background: #24272c;
+        }
+
+        &-header {
+          color: #fff;
+          font-size: 17px;
+          line-height: 1.41176471;
+        }
+
+        &-body {
+          flex: 1;
+        }
+      }
+
+      &-select-item {
+        padding: 0;
+      }
+
+      &-select-areatext-item {
+        flex-direction: column;
+
+        &:last-child:before {
+          display: block;
+        }
+
+        .@{name-space}-editor-rule-sbuject {
+          &-item-body {
+            min-height: 120px;
+          }
+        }
+      }
+    }
+  }  
 }
