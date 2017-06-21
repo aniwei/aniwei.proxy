@@ -1,3 +1,25 @@
 .app__extension-component-sim {
-  
+  &-appender {
+    border:2px dashed #2e3641;
+    height: 40px;
+    position: relative;
+    margin-top: 15px;
+    display: block;
+
+    &:before,
+    &:after {
+      content: '';
+      height: 2px;
+      width: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #2e3641;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  } 
 }

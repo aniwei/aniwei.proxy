@@ -44,11 +44,7 @@ export default class Item extends React.Component {
           location,
           settings,
           description,
-          dispatch: (action) => {
-            action.type = `EXTENSION_${name.toUpperCase()}_${action.type}`;
-
-            return dispatch(action);
-          }
+          dispatch
         }
       );
     }

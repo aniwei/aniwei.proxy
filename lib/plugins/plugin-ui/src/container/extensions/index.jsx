@@ -47,8 +47,6 @@ class Extensions extends React.Component {
         route: url
       };
 
-      debugger;
-
       return (
         <Item {...props} key={index}/>
       );

@@ -54,6 +54,7 @@
     "node-jsx": "^0.13.3",
     "pinyin": "^2.8.0",
     "plist": "^2.0.1",
+    "progress-bar-webpack-plugin": "^1.9.3",
     "qs": "^6.3.0",
     "rc-animate": "^2.3.1",
     "react": "^15.3.2",

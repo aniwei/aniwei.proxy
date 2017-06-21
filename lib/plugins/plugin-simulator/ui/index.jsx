@@ -1,7 +1,12 @@
 import React, { createElement } from 'react';
+import queryString from 'query-string';
+import { clone } from 'lodash';
 import { register, namespace } from 'aniwei-proxy-extension-context';
+import { Link } from 'react-router-dom';
 
 import Tag from './tag';
+import Editor from './editor';
+import Rule from './rule';
 
 import './less/index.less';
 import 'whatwg-fetch';
@@ -9,21 +14,20 @@ import 'whatwg-fetch';
 const classNamespace = namespace('sim');
 
 class Simulator extends React.Component {
-  componentDidMount () {
+  onAppenderClick = () => {
     const { dispatch } = this.props;
 
-    fetch(`/plugin/simulator/list`)
-      .then(res => res.json())
-      .then(res => dispatch({
-        type: 'UPDATE_LIST',
-        list: res.list
-      }));
+    dispatch({
+      type: 'LAYER_OVERLAYED',
+      component: Editor
+    });
   }
 
   tagRender () {
-    const { list } = this.props;
+    const { settings } = this.props;
+    const { rules } = settings;
 
-    return list.map((li, index) => {
+    return rules.map((li, index) => {
       return (
         <Tag key={li.subject} text={li.name} />
       );
@@ -31,12 +35,46 @@ class Simulator extends React.Component {
   }
 
   groupRender () {
-    const { list } = this.props;
+    const { settings } = this.props;
+    const { rules } = settings;
+  }
+
+  appenderRender () {
+    const { location } = this.props;
+    const qs = queryString.parse(location.search);
+
+    qs.layer = 'visiable';
+
+    const uri = `${location.pathname}?${queryString.stringify(qs)}`;
+
+    return (
+      <Link to={uri} className={classNamespace('appender')} onClick={this.onAppenderClick}>
+      </Link>
+    );
+  }
+
+  ruleRender () {
+    const { settings } = this.props;
+    const { list } = settings;
+
+    const elements = list.map((li) => {
+      return (
+        <Rule />
+      );
+    });
+
+    return (
+      <div className={classNamespace('rules')}>
+
+      </div>
+    );
   }
 
   render () {
     return (
       <div className={classNamespace()}>
+        {this.appenderRender()}
+        {this.ruleRender()}
         {this.tagRender()}
       </div>
     );
@@ -45,7 +83,15 @@ class Simulator extends React.Component {
 
 const reducers = {
   ['UPDATE_LIST']: (state, action) => {
-    debugger;
+    let ext;
+
+    state.some((e) => {
+      if (e.name === 'simulator') {
+        return ext = e;
+      }
+    });
+
+    return clone(state);
   }
 };
 
