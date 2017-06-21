@@ -2,9 +2,9 @@ import React, { createElement, PropTypes, Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { register, namespace } from 'aniwei-proxy-extension-context';
 
-import './css/index.css';
+import './less/index.less';
 
-class Host extends Comment {
+class Host extends Component {
   render () {
     return (
       <div>

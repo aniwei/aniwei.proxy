@@ -21,7 +21,7 @@ class Extensions extends React.Component {
       let url;
       const query = queryString.parse(location.search);
 
-      if (query.id - 0 === index) {
+      if (query.extension === ext.name) {
         delete query.extension;
         url = `/extensions?${queryString.stringify(query)}`;
       } else {
