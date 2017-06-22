@@ -13,31 +13,31 @@ const classNamespace = namespace('sim');
 
 const rule = [
   { 
-    subject: 'group', 
+    key: 'group', 
     text: '选择分组',
     formItem: [
-      { component: 'Group', type: 'tag', value: '' }
+      { component: 'Group', key: 'group', value: '' }
     ]
   }, {
-    subject: 'match', 
+    key: 'match', 
     text: '匹配规则',
     formItem: [
-      { component: 'MatchType', value: '1', options: [
+      { component: 'MatchType', key: 'type', value: '1', options: [
         { name: 'regexp', value: '1', text: '正则表达式'}, 
         { name: 'string', value: '2', text: '字符串'}
       ]},
-      { component: 'MatchContent', type: 'textarea', value: '' }
+      { component: 'MatchContent', key: 'content', value: '' }
     ]
   }, {
-    subject: 'response', 
+    key: 'response', 
     text: '响应规则',
     formItem: [
-      { component: 'ResponseType', type: 'select', value: '1', options: [
+      { component: 'ResponseType', key: 'type', value: '1', options: [
         { name: 'local', value: '1', text: '本地文件'},
         { name: 'service', value: '2', text: '服务'},
         { name: 'json', value: '3', text: '自定义'}
       ]},
-      { component: 'ResponseContent', type: 'textarea', value: '' }
+      { component: 'ResponseContent', key: 'content', value: '' }
     ]
   }
 ];

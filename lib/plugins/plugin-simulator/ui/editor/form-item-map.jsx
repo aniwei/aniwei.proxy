@@ -15,7 +15,7 @@ function MatchType (props) {
   const { options } = props;
   const optionElement = options.map(opt => {
     return (
-      <Select.Option value={opt.value}>
+      <Select.Option value={opt.value} key={opt.key}>
         {opt.text}
       </Select.Option>
     );
@@ -48,7 +48,7 @@ function ResponseType (props) {
   const { options } = props;
   const optionElement = options.map(opt => {
     return (
-      <Select.Option value={opt.value}>
+      <Select.Option value={opt.value} key={opt.key}>
         {opt.text}
       </Select.Option>
     );

@@ -87,7 +87,9 @@ export default class Item extends React.Component {
     return (
       <Link to={route}>
         <div className={classNameSpace('meta')}>
-          <div className={classNameSpace('status')}>{code || '-'}</div>
+          <div className={classNameSpace('status')}>
+            {code || '-'}
+          </div>
           <div className={classNameSpace('subject')}>
             <div className={classNameSpace('url')}>
               <div className={classNameSpace('hole-url')}>{url}</div>

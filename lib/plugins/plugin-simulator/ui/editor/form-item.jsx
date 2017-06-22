@@ -27,7 +27,7 @@ class FormItem extends React.Component {
       });
 
       return (
-        <Subject title={data.text} name={data.subject} key={data.subject}>
+        <Subject title={data.text} name={data.subject} key={data.key}>
           <Listview>
             {itemElement}
           </Listview>
