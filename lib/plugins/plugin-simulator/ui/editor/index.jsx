@@ -24,6 +24,9 @@ class Editor extends React.Component {
 
     fetch(`/plugin/simulator/append`, {
       method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         rule
       })
