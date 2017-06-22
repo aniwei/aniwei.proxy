@@ -25,7 +25,7 @@ class Layer extends React.Component {
   }
 
   render () {
-    const { location, component, data, title } = this.props;
+    const { location, component } = this.props;
     const qs = queryString.parse(location.search);
 
     const classes = classnames({
@@ -40,9 +40,7 @@ class Layer extends React.Component {
 
 
     if (component) {
-      element = createElement(component, {
-        name: 123
-      });
+      element = createElement(component, this.props);
     }
 
     if (!component) {
@@ -60,7 +58,7 @@ class Layer extends React.Component {
             })}></i>
           </Link>
           {/*{this.titleRender()}*/}
-          <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+          <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true, useTransform: true }}>
             <div className={classNamespace('content')}>
               {element}
             </div>

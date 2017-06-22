@@ -1,29 +1,50 @@
-import React, { createElement } from 'react';
+import React, { createElement, PropTypes } from 'react';
 import { clone } from 'lodash';
 import { register, namespace } from 'aniwei-proxy-extension-context';
+import { Button } from 'aniwei-proxy-extension-context';
 
-import Rule from './rule';
+import FormItem from './form-item';
+
+import 'whatwg-fetch';
 
 const classNamespace = namespace('sim-editor');
+const noop = () => {};
 
 class Editor extends React.Component {
+  static propTypes = {
+    rule: PropTypes.array
+  };
 
-  onAppendClick () {
-
+  static defaultProps = {
+    rule: []
   }
 
-  appenderRender () {
-    return (
-      <div className={classNamespace('appender')}>
-        
-      </div>
-    );
+  onSubmit = (e) => {
+    const { rule } = this.props;
+
+    fetch(`/plugin/simulator/append`, {
+      method: 'post',
+      body: JSON.stringify({
+        rule
+      })
+    })
+    .then(res => res.json())
+    .then(() => {
+      debugger;
+    });
   }
 
   render () {
+    const { rule } = this.props;
+
     return (
       <div className={classNamespace()}>
-        <Rule />
+        <FormItem dataSource={rule} />
+        <div className={classNamespace('button')}>
+          <Button onClick={this.onSubmit} type="primary">
+            添加
+          </Button>
+        </div>
       </div>
     );
   }

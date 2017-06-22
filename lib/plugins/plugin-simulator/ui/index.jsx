@@ -4,23 +4,57 @@ import { clone } from 'lodash';
 import { register, namespace } from 'aniwei-proxy-extension-context';
 import { Link } from 'react-router-dom';
 
-import Tag from './tag';
 import Editor from './editor';
-import Rule from './rule';
 
 import './less/index.less';
 import 'whatwg-fetch';
 
 const classNamespace = namespace('sim');
 
+const rule = [
+  { 
+    subject: 'group', 
+    text: '选择分组',
+    formItem: [
+      { component: 'Group', type: 'tag', value: '' }
+    ]
+  }, {
+    subject: 'match', 
+    text: '匹配规则',
+    formItem: [
+      { component: 'MatchType', value: '1', options: [
+        { name: 'regexp', value: '1', text: '正则表达式'}, 
+        { name: 'string', value: '2', text: '字符串'}
+      ]},
+      { component: 'MatchContent', type: 'textarea', value: '' }
+    ]
+  }, {
+    subject: 'response', 
+    text: '响应规则',
+    formItem: [
+      { component: 'ResponseType', type: 'select', value: '1', options: [
+        { name: 'local', value: '1', text: '本地文件'},
+        { name: 'service', value: '2', text: '服务'},
+        { name: 'json', value: '3', text: '自定义'}
+      ]},
+      { component: 'ResponseContent', type: 'textarea', value: '' }
+    ]
+  }
+];
+
 class Simulator extends React.Component {
+  onRuleSubmit = () => {
+
+  }
+
   onAppenderClick = () => {
     const { dispatch } = this.props;
 
     dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
-      title: '添加规则'
+      onSubmit: this.onRuleSubmit,
+      rule
     });
   }
 
@@ -93,7 +127,16 @@ const reducers = {
     });
 
     return clone(state);
-  }
+  },
+  ['RULE_CREATE']: (state, action) => {
+    dispatch({
+      type: 'LAYER_OVERLAYED',
+      component: Editor,
+      data: action.data
+    });
+
+    return state;
+  } 
 };
 
 export default register(reducers)('simulator', Simulator);

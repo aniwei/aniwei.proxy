@@ -1,35 +1,41 @@
 import React, { createElement } from 'react';
 import classnames from 'classnames';
 import queryString from 'query-string';
+import Swipeable from 'react-swipeable';
 import { Link, Route } from 'react-router-dom';
 import { assign } from 'lodash';
-
 import util from '../../../util';
 
 const classNamespace = util.namespace('app__extension-item');
 
 export default class Item extends React.Component {
-  
+  onSwiped = (...args) => {
+    console.log(args);
+  }
+
   metaRender () {
     const { description, route } = this.props;
 
     return (
-      <Link to={route}>
-        <div className={classNamespace('meta')}>
-          <div className={classNamespace('avtor')}>{description.text}</div>
-          <div className={classNamespace('subject')}>
-            <div className={classNamespace('desc')}>
-              <div className={classNamespace('desc-name')}>{description.text}</div>
-              <div className={classNamespace('desc-brief')}>{description.brief}</div>
-            </div>
+      <Swipeable onSwiped={this.onSwiped}>
+        <Link to={route}>
+          <div className={classNamespace('meta')}>
+            <div className={classNamespace('avtor')}>{description.text}</div>
+            <div className={classNamespace('subject')}>
+              <div className={classNamespace('desc')}>
+                <div className={classNamespace('desc-name')}>{description.text}</div>
+                <div className={classNamespace('desc-brief')}>{description.brief}</div>
+              </div>
 
-            <div className="app__list-item-server">
-              {/*<div className="app__list-item-method">{method}</div>*/}
-              {/*<div className="app__list-item-ip">{ip}</div>*/}
+              <div className={classNamespace('action')}>
+                
+                {/*<div className="app__list-item-method">{method}</div>*/}
+                {/*<div className="app__list-item-ip">{ip}</div>*/}
+              </div>
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
+      </Swipeable>
     );
   }
 
