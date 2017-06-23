@@ -85,25 +85,32 @@ export default class Item extends React.Component {
   metaRender () {
     const { code, url, path, method, ip, route, extension } = this.props;
     const classes = classnames({
-      [classNameSpace('visual-type')]: true,
-      [`seti-${extension}`]: !!extension
+      [classNameSpace('visual-type')]: true
     });
+    let element;
+
+    if (!!extension) {
+      element = <i className={`seti-${extension} seti`}></i>;
+    }
 
     return (
       <Link to={route}>
         <div className={classNameSpace('meta')}>
           <div className={classNameSpace('visual')}>
-            <i className={classes}></i>
+            {code || '-'}
           </div>
           
           <div className={classNameSpace('subject')}>
             <div className={classNameSpace('url')}>
-              <div className={classNameSpace('hole-url')}>{url}</div>
+              <div className={classNameSpace('hole-url')}>
+                {element}
+                <span className={classNameSpace('hole-url-text')}>{url}</span>
+              </div>
               <div className={classNameSpace('path')}>{path}</div>
             </div>
 
             <div className={classNameSpace('server')}>
-              <div className={classNameSpace('method')}>{code} {method}</div>
+              <div className={classNameSpace('method')}>{method}</div>
               <div className={classNameSpace('ip')}>{ip}</div>
             </div>
           </div>
