@@ -28,33 +28,36 @@
 </head>
 <body>
   <div class="app__compiling">
-    <img src="/dist/logo.png" alt="" class="app__compiling-logo">
+    <img src="/logo.png" alt="" class="app__compiling-logo">
     <div class="app__compiling-text" id="text">
-      The project is being built.
+      The project is being built. - 0%
     </div>
   </div>
 </body>
 <script type="text/javascript">
   (function () {
-    var timer = null;
+    var timer = null,
+        textElement = document.querySelector('#text');
 
-    function complieState() {
-      fetch('/complie-state')
+    function complieProgress() {
+      fetch('/plugin/ui/complie-progress')
         .then(function (res) {
           return res.json();
         })
         .then(function (res) {
           if (res.code === 0) {
-            if (res.state === 2) {
+            if (res.progress.percent === 1) {
               return location.reload();
             }
           }
 
-          complieState();
+          textElement.innerText = 'The project is being built. - '+ (res.progress.percent * 100) +'%';
+
+          complieProgress();
         });
     }
 
-    complieState();
+    complieProgress();
   })();
 </script>
 </html>

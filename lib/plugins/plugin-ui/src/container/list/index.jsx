@@ -27,30 +27,6 @@ class List extends React.Component {
     socket.on('ui/request', (proxy) => {
       const type = proxy.__from__ === 'url' ? constants.LIST_PUSH : constants.LIST_UPDATE;
 
-      // if (Array.isArray(proxy)) {
-      //   return proxy.forEach((pr) => {
-      //     if (
-      //       pr.hostname === initState.ip ||
-      //       pr.hostname === hostname ||
-      //       pr.hostname === '127.0.01'
-      //     ) {
-      //       return this;
-      //     }
-
-      //     dispatch({
-      //       type,
-      //       proxy: pr
-      //     });
-      //   });
-      // }
-
-      // if (
-      //   proxy.hostname === initState.ip ||
-      //   proxy.hostname === hostname ||
-      //   proxy.hostname === '127.0.01'
-      // ) {
-      //   return this;
-      // }
       dispatch({
         type: 'EXTENSION_TEST_UPDATE'
       });
@@ -112,6 +88,7 @@ class List extends React.Component {
         ip: li.ip,
         method: li.method,
         path: li.path,
+        extension: li.extension,
         requestHeaders: li.requestHeaders,
         responseHeaders: li.responseHeaders,
         route: url,
@@ -141,10 +118,12 @@ class List extends React.Component {
         <div className={classes} key={index}>
           <div className={classNameSpace('item-group-title')}>
             <div className={classNameSpace('item-group-subject')}>
-              {li.subject} 
+              <img src={`/ico?url=${li.subject}`} alt={li.subject} className={classNameSpace('item-group-subject-ico')}/>
+              <div className={classNameSpace('item-group-subject-text')}>
+                {li.subject} 
+                <i className="iconfont icon-more-fill app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>
+              </div>
               {/*<span className={classNameSpace('item-group-number')}>{li.list.length}</span>*/}
-
-              <i className="iconfont icon-more-fill app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>
             </div>
           </div>
          
