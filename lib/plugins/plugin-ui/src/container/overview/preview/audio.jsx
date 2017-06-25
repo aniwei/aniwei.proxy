@@ -10,7 +10,7 @@ const Audio = (props) => {
 
   return (
     <div className={classNamespace('media')}>
-      <audio className={classNamespace('video')} src={url} controls preload />
+      <audio className={classNamespace('video')} src={`/plugin/requester/buffer?url=${url}`} controls preload />
     </div>
   );
 };

@@ -27,7 +27,7 @@ export default class Text extends React.Component {
 
   fetch () {
     const { url, type } = this.props;
-    const api = `//${location.hostname}${location.port ? `:${location.port}` : ''}/resource?url=${url}`;
+    const api = `//${location.hostname}${location.port ? `:${location.port}` : ''}/plugin/requester/buffer?url=${url}`;
 
     fetch(api)
       .then((res) => {

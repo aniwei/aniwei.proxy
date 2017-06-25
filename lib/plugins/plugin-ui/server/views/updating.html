@@ -27,10 +27,39 @@
 </head>
 <body>
   <div class="app__updating">
-    <img src="./logo.png" alt="">
-    <div class="app__updating-text">
-      The project is being updated.
+    <img src="./logo.png" alt="" class="app__updating-logo">
+    <div class="app__updating-text" id="text">
+      The project is being updated. - 0%
     </div>
   </div>
 </body>
+<script>
+  (function () {
+    var timer = null,
+        textElement = document.querySelector('#text'),
+        t = +new Date;
+
+    function complieProgress() {
+      fetch('/ui/complie-progress?t=' + t)
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (res) {
+          if (res.code === 0) {
+            if (res.progress.percent === 1) {
+              return location.reload();
+            }
+          }
+
+          textElement.innerText = 'The project is being updated. - '+ (res.progress.percent * 100) +'%';
+
+          setTimeout(function () {
+            complieProgress();
+          }, 200);
+        });
+    }
+
+    complieProgress();
+  })();
+</script>
 </html>

@@ -33,6 +33,7 @@
       &-subject {
         max-height: none;
         transition: all 0.5s;
+        position: relative;
 
         &_closed {
           max-height: 40px;
@@ -251,8 +252,22 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        padding-right: 40px;
+        // padding-right: 40px;
         vertical-align: middle;
+
+        &-ico {
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          border-radius: 20px;
+        }
+
+        &-text {
+          margin-left: 30px;
+          position: relative;
+        }
 
         &-icon {
           display: inline-block;
@@ -319,23 +334,38 @@
       background: #fff;
     }
 
-    &-status {
+    &-visual {
       position: absolute;
       top: 12px;
       left: 18px;
       height: 40px;
       width: 40px;
       border-radius: 20px;
-      background: #999;
+      background: #26292e;
       font-size: 13px;
       line-height: 40px;
       text-align: center;
       color: #fff;
+
+      &-type {
+        font-family: seti;
+        font-size: 30px;
+      }
+
+      &-status {
+        text-align: center;
+        top: 0;
+        left: 0;
+        font-size: 12px;
+        color: #fff;
+      }
     }
 
     &-subject {
       position: relative;
       margin-left: 50px;
+
+
     }
 
     &-url {
@@ -367,12 +397,19 @@
 
     &-hole-url {
       flex: 1;
-      font-size: 15px;
-      color: #fff;
-      line-height: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      position: relative;
+
+      &-text {
+        vertical-align: middle;  
+        font-size: 15px;
+        color: #fff;
+        line-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     &-path {

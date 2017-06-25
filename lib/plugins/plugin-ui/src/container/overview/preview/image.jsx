@@ -14,7 +14,7 @@ const Image = (props) => {
 
   return (
     <div className={classNamespace('media')}>
-      <img className={classNamespace('image')} src={url} alt={query.url} />
+      <img className={classNamespace('image')} src={`/plugin/requester/buffer?url=${url}`} alt={query.url} />
     </div>
   );
 };

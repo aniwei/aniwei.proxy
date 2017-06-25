@@ -116,7 +116,7 @@ class Preview extends React.Component {
     }
 
     return React.createElement(element, {
-      url,
+      url: encodeURIComponent(url),
       type
     });
   }

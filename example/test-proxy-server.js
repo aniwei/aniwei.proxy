@@ -1,5 +1,12 @@
-var aw     = require('../index');
+// var cluster = require('cluster');
+// var numCPUs = require('os').cpus().length;
 
-var app = aw();
+// if (cluster.isMaster) {
+//   for (var i = 0; i < numCPUs; i++) {
+//       cluster.fork();
+//   }  
+// } else {
+//   require('./test-server');
+// }
 
-app.listen(8888);
+require('./test-server');

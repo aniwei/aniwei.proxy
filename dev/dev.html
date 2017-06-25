@@ -6,24 +6,10 @@
 </head>
 <body>
 </body>
-<script type="text/tpl" id="plist">
-  <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>__selector</key>
-    <string>_rpc_getConnectedApplications:</string>
-    <key>__argument</key>
-    <dict>
-      <key>WIRConnectionIdentifierKey</key>
-      <string>3b417e9a-9635-4059-a63e-ca88c98744bf</string>
-    </dict>
-  </dict>
-</plist>
-</script>
 <script>
-  process.env.NODE_ENV = 'production';
   process.env.NODE_ENV = 'dev';
+  process.env.NODE_ENV = 'production';
+  
   require('../example/test-proxy-server');
 </script>
 </html>

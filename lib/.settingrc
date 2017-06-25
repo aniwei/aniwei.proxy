@@ -79,6 +79,11 @@
   "project": {
     "key": "project",
     "text": "项目名称",
+    "value": "aniwei.proxy"
+  },
+  "hostname": {
+    "key": "hostname",
+    "text": "项目名称",
     "value": "aniwei.studio"
   }
 }

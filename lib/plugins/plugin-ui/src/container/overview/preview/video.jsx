@@ -9,7 +9,7 @@ const Video = (props) => {
 
   return (
     <div className={classNamespace('media')}>
-      <video className={classNamespace('video')} src={url} />
+      <video className={classNamespace('video')} src={`/plugin/requester/buffer?url=${url}`} />
     </div>
   );
 };

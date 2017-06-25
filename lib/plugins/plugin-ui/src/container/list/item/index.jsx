@@ -9,6 +9,7 @@ import Overview from './overview';
 
 import util from '../../../util';
 import constants from '../../../constants';
+import Seti from '../../../components/seti';
 
 const classNameSpace = util.namespace('app__list-item');
 
@@ -82,17 +83,29 @@ export default class Item extends React.Component {
   }
 
   metaRender () {
-    const { code, url, path, method, ip, route } = this.props;
+    const { code, url, path, method, ip, route, extension } = this.props;
+    const classes = classnames({
+      [classNameSpace('visual-type')]: true
+    });
+    let element;
+
+    if (!!extension) {
+      element = <i className={`seti-${extension} seti`}></i>;
+    }
 
     return (
       <Link to={route}>
         <div className={classNameSpace('meta')}>
-          <div className={classNameSpace('status')}>
+          <div className={classNameSpace('visual')}>
             {code || '-'}
           </div>
+          
           <div className={classNameSpace('subject')}>
             <div className={classNameSpace('url')}>
-              <div className={classNameSpace('hole-url')}>{url}</div>
+              <div className={classNameSpace('hole-url')}>
+                {element}
+                <span className={classNameSpace('hole-url-text')}>{url}</span>
+              </div>
               <div className={classNameSpace('path')}>{path}</div>
             </div>
 
