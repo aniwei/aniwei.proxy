@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import Scroll from 'react-iscroll';
 import iScroll from 'iscroll';
 
-import Overview from './overview';
+// import Overview from './overview';
 
 import util from '../../../util';
 import constants from '../../../constants';
@@ -73,8 +73,9 @@ export default class Item extends React.Component {
       });
     }
 
-    elementView = <Overview {...props} location={location} />;
-
+    // elementView = <Overview {...props} location={location} />;
+    elementView = null;
+    
     return (
       <div className={classes}>
         {elementView}

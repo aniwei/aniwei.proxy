@@ -5,7 +5,8 @@ import Scroll from 'react-iscroll';
 import iScroll from 'iscroll';
 import { Link , withRouter } from 'react-router-dom';
 
-import util from '../../util';
+import util from '../../../util';
+import Cell from './cell';
 
 const classNamespace = util.namespace('app__overview-header');
 
@@ -61,10 +62,7 @@ class Header extends React.Component {
   listRender (list, index) {
     return list.map((li, i) => {
       return (
-        <div className="app__list-item-data-cell" key={i}>
-          <span className="app__list-item-data-cell-name">{li.text}</span>
-          <span className="app__list-item-data-cell-value">{li.value}</span>
-        </div>
+        <Cell key={i} {...li} />
       );
     });
   }

@@ -114,6 +114,13 @@
         padding-top: 10px;
         // margin-left: 15px;
 
+        &_expand {
+          .app__list-item-data-cell-value {
+            height: auto;
+            white-space: normal;
+          }
+        }
+
         &:last-child:after {
           display: none;
         }
@@ -143,6 +150,12 @@
           font-size: 16px;
           color: #999;
           word-break: break-all;
+          height: 24px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          word-wrap: break-word;
+          white-space: nowrap;
+          cursor: pointer;
         }
       }
     }

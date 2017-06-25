@@ -56,11 +56,10 @@ export default class Overview extends React.Component {
 
   listRender (list, index) {
     return list.map((li, i) => {
+      const { text, value } = li;
+
       return (
-        <div className={dataNamespace('cell')} key={i}>
-          <span className={dataNamespace('cell-name')}>{li.text}</span>
-          <span className={dataNamespace('cell-value')}>{li.value}</span>
-        </div>
+        // <Cell key={i} {...li} />
       );
     });
   }
