@@ -1,11 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
-import queryString from 'query-string';
-import { Link, Route } from 'react-router-dom';
 
-import util from '../../../util';
+import './less/index.less';
+import util from '../../util';
 
-const dataNamespace = util.namespace('app__list-item-data');
+const dataNamespace = util.namespace('app__cell');
 
 export default class Cell extends React.Component {
   constructor () {
@@ -25,14 +24,14 @@ export default class Cell extends React.Component {
   render () {
     const { text, value } = this.props;
     const classes = classnames({
-      [dataNamespace('cell')]: true,
-      [dataNamespace('cell_expand')]: this.state.expand
+      [dataNamespace()]: true,
+      [dataNamespace(null, 'expand')]: this.state.expand
     });
 
     return (
       <div className={classes} onClick={this.onCellClick}>
-        <span className={dataNamespace('cell-name')}>{text}</span>
-        <span className={dataNamespace('cell-value')}>{value}</span>
+        <span className={dataNamespace('name')}>{text}</span>
+        <span className={dataNamespace('value')}>{value}</span>
       </div>
     );
   }

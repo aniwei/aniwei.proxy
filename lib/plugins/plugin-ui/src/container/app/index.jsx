@@ -84,13 +84,13 @@ class App extends React.Component {
             menus={props.menus}
           />
           <div ref="scene" className="app__scene">
-            <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+            {/*<Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>*/}
               <div ref="sceneContent" className="app__scene-content">
                 <Route path="/" component={Welcome} />
                 <Route path="/list" component={List} />
                 <Route path="/extensions" component={Extensions} />
               </div>
-            </Scroll>
+            {/*</Scroll>*/}
           </div>
           <Route path="/" component={Overview} />
           <Route path="/" component={Layer} />

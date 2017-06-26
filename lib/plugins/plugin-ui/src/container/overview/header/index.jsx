@@ -6,7 +6,7 @@ import iScroll from 'iscroll';
 import { Link , withRouter } from 'react-router-dom';
 
 import util from '../../../util';
-import Cell from './cell';
+import Cell from '../../../components/cell';
 
 const classNamespace = util.namespace('app__overview-header');
 

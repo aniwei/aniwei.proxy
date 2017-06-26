@@ -24,20 +24,40 @@
       font-weight: 20px;
       margin-top: 20px;
     }
+
+    .app__compiling-progress {
+      border: 2px solid #5cad47;
+      border-radius: 5px;
+      height: 5px;
+      width: 150px;
+      margin: 10px auto;
+      transition: width 0.5s;
+      overflow: hidden;
+    }
+
+    .app__compiling-progress-line {
+      width: 0;
+      height: 5px;
+      background: #5cad47;
+      transition: width 0.5s;
+    }
   </style>
 </head>
 <body>
   <div class="app__compiling">
     <img src="/logo.png" alt="" class="app__compiling-logo">
-    <div class="app__compiling-text" id="text">
-      The project is being built. - 0%
+     <div class="app__compiling-text">
+      正在编译，请稍后片刻...
+    </div>
+    <div class="app__compiling-progress">
+      <div class="app__compiling-progress-line" id="progress"></div>
     </div>
   </div>
 </body>
 <script type="text/javascript">
   (function () {
     var timer = null,
-        textElement = document.querySelector('#text');
+        progressElement = document.querySelector('#progress');
 
     function complieProgress() {
       fetch('/ui/complie-progress')
@@ -46,12 +66,14 @@
         })
         .then(function (res) {
           if (res.code === 0) {
+            progressElement.style.width = res.progress.percent * 100 + '%';
+
             if (res.progress.percent === 1) {
-              return location.reload();
+              return setTimeout(function () {
+                location.reload();
+              }, 500)
             }
           }
-
-          textElement.innerText = 'The project is being built. - '+ (res.progress.percent * 100) +'%';
 
           complieProgress();
         });

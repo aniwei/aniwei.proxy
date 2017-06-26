@@ -3,13 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+    html,body,iframe {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    iframe {
+      width: 100%;
+    }
+  </style>
+  <script>
+    var childProcess = require('child_process');
+    var path = require('path');
+
+    process.env.NODE_ENV = 'dev';
+    
+    // var ps = childProcess.fork(path.join(__dirname, '../example/test-proxy-server.js'), {
+    //   silent: false
+    // });
+
+    require('../example/test-server.js');
+
+  </script>
 </head>
 <body>
+  <iframe src="http://aniwei.studio/" frameborder="0"></iframe>
 </body>
-<script>
-  process.env.NODE_ENV = 'dev';
-  // process.env.NODE_ENV = 'production';
-  
-  require('../example/test-proxy-server');
-</script>
 </html>

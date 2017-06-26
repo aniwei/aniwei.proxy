@@ -21,10 +21,21 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    webPreferences: {
+      nodeIntegrationInWorker: true
+    }
+  });
 
-  // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/dev.html');
+  mainWindow.webContents.session.setProxy({
+    proxyRules: '127.0.0.1:8888'
+  }, function () {
+    mainWindow.loadURL('file://' + __dirname + '/dev.html');
+  });
+
+  // mainWindow.loadURL('file://' + __dirname + '/dev.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

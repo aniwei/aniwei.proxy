@@ -10,7 +10,7 @@ class SSL extends React.Component {
     return (
       <div className={classNamespace()}>
         <div className={classNamespace('download-text')}>
-          <a className={classNamespace('download-link')} href="/ssl.crt">点击下载</a>
+          <a className={classNamespace('download-link')} href="/ssl.crt">下载证书</a>
         </div>
       </div>
     );

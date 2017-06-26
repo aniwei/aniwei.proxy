@@ -1,0 +1,54 @@
+.app__cell {
+  position: relative;
+  font-size: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  // margin-left: 15px;
+
+  &_expand {
+    .app__cell-value {
+      height: auto;
+      white-space: normal;
+    }
+  }
+
+  &:last-child:after {
+    display: none;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 15px;
+    right: 0;
+    border-bottom: 1px solid #24272c;
+  }
+
+  &-name {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: left;
+    min-width: 1.5rem;
+    margin-right: 20px;
+  }
+
+  &-value {
+    flex: 1;
+    line-height: 1.5;
+    display: block;
+    font-size: 16px;
+    color: #999;
+    word-break: break-all;
+    height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+}
