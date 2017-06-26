@@ -6,7 +6,7 @@ import { js_beautify as beautify } from 'js-beautify';
 import util from '../../../util';
 import constants from '../../../constants';
 
-import CodeMirrorView from './codemirror';
+import CodeEditor from './code-editor';
 
 const classNamespace = util.namespace('app__overview-preview');
 
@@ -89,21 +89,12 @@ export default class Text extends React.Component {
   codeMirrorRender () {
     if (this.state.text) {
       return (
-        <CodeMirrorView 
+        <CodeEditor 
           value={this.state.text}
-          foldGutter={true}
-          lineNumbers={true}
-          styleActiveLine={true}
+          language="html"
+          theme="vs-dark"
+          folding={true}
           readOnly={true}
-          matchBrackets={true}
-          lineWrapping={this.state.lineWrapping}
-          viewportMargin={Infinity}
-          gutters={[
-            'CodeMirror-linenumbers',
-            'CodeMirror-foldgutter',
-            'CodeMirror-lint-markers'
-          ]}
-          theme="seti"
         />
       );
     }

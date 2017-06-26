@@ -1,9 +1,8 @@
 import React, { createElement, PropTypes, Component } from 'react';
 import AceEditor from 'react-ace';
 
-import 'brace/mode/jsx';
-import 'brace/mode/html';
-import 'brace/theme/monokai';
+
+import CodeEditor from './code-editor';
 
 import { createStore, applyMiddleware } from 'redux';
 import { register, namespace, Button } from 'aniwei-proxy-extension-context';
@@ -54,23 +53,31 @@ export default class Rules extends React.Component {
     }).join('\n');
 
     return (
-      <AceEditor
-        height="200"
-        width="100%"
-        mode="html"
+      <CodeEditor 
         value={content}
-        onChange={this.onChange}
-        theme="monokai"
-        name="act-editor"
-        setOptions={{
-          enableBasicAutocompletion: false,
-          enableLiveAutocompletion: false,
-          enableSnippets: false,
-          tabSize: 2,
-          showLineNumbers: false,
-          showGutter: false
-        }}
+        language="html"
+        theme="vs-dark"
+        wordWrap={true}
+        lineNumbers={false}
+        folding={true}
       />
+      // <AceEditor
+      //   height="200"
+      //   width="100%"
+      //   mode="html"
+      //   value={content}
+      //   onChange={this.onChange}
+      //   theme="monokai"
+      //   name="act-editor"
+      //   setOptions={{
+      //     enableBasicAutocompletion: false,
+      //     enableLiveAutocompletion: false,
+      //     enableSnippets: false,
+      //     tabSize: 2,
+      //     showLineNumbers: false,
+      //     showGutter: false
+      //   }}
+      // />
     );
   }
 

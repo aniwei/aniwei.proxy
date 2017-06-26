@@ -6,7 +6,6 @@ import 'whatwg-fetch';
 import { js_beautify as beautify } from 'js-beautify';
 
 import util from '../../../util';
-import CodeMirrorView from './codemirror';
 
 import Text from './text';
 import Image from './image';
