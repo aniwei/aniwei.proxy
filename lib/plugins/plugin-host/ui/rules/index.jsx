@@ -1,9 +1,9 @@
 import React, { createElement, PropTypes, Component } from 'react';
-import iScroll from 'iscroll';
-import Scroll from 'react-iscroll';
-import MonacoEditor from 'react-monaco-editor';
+import AceEditor from 'react-ace';
 
-import 'monaco-editor/dev/vs/loader.js';
+import 'brace/mode/jsx';
+import 'brace/mode/html';
+import 'brace/theme/monokai';
 
 import { createStore, applyMiddleware } from 'redux';
 import { register, namespace, Button } from 'aniwei-proxy-extension-context';
@@ -43,22 +43,33 @@ export default class Rules extends React.Component {
       const li = [];
 
       li.push(
-        (disable ? '####' : '+ ') + text + '\n'
+        (disable ? '#' : '') + text + '\n'
       );
 
       li.push(
-        list.map(li => (li.disable ? '# - ' : '-') + li.ip + ' ' + li.hostname.join(' ')).join('\n')
+        list.map(li => (li.disable ? '# ' : '') + li.ip + ' ' + li.hostname.join(' ')).join('\n')
       );
 
       return li.join('\n');
     }).join('\n');
 
     return (
-      <MonacoEditor
+      <AceEditor
         height="200"
-        language="javascript"
+        width="100%"
+        mode="html"
         value={content}
         onChange={this.onChange}
+        theme="monokai"
+        name="act-editor"
+        setOptions={{
+          enableBasicAutocompletion: false,
+          enableLiveAutocompletion: false,
+          enableSnippets: false,
+          tabSize: 2,
+          showLineNumbers: false,
+          showGutter: false
+        }}
       />
     );
   }
