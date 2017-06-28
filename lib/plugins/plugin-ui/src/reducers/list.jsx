@@ -106,9 +106,6 @@ const reducers = {
   [constants.LIST_UPDATE]: (state, action) => {
     const { keys, table } = state;
     const forEach = (proxy) => {
-      if (!proxy) {
-        debugger;
-      }
       const { id } = proxy;
 
       const ref = table[keys[id]];

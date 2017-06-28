@@ -21,6 +21,7 @@ actionConstants('LIST_UPDATE');
 actionConstants('LIST_TOGGLED');
 actionConstants('LIST_OVERLAYED');
 actionConstants('LIST_SEARCH_TOGGLED');
+actionConstants('LIST_PREVIEW_UPDATE');
 
 // layer
 actionConstants('LAYER_OVERLAYED');

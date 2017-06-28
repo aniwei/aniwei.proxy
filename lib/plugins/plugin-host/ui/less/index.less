@@ -1,16 +1,37 @@
 @name-space: app__extension-component-host;
 
 .@{name-space} {
-  margin-top: 20px;
-  
-
-  &-action {
+  &-appender {
     border:2px dashed #2e3641;
+    height: 40px;
     position: relative;
     margin-top: 15px;
+    margin-bottom: 15px;
+    display: block;
+
+    &:before,
+    &:after {
+      content: '';
+      height: 2px;
+      width: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #2e3641;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  } 
+
+  &-listview {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
     display: block;
     position: relative;
-    min-height: 300px;
 
     &-text {
       position: absolute;
@@ -40,17 +61,278 @@
   }
 
   &-rules {
-    position: relative;
-    position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      top: 0;
 
-    &-codeeditor {
+    &-single {
+      position: relative;
+      background: #2e3238;
+      border-top: 1px solid #24272c;
+      border-bottom: 1px solid #24272c;
+      margin-bottom: 15px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-title {
+      flex: 1;
+      color: #989898;
+      font-size: 14px;
+      padding: 10px 0 10px 15px;
+      position: relative;
+      transition: transform .5s;
+    }
+
+    &-action {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      height: 35px;
+      width: 72px;
+      transition: all .5s;
+      display: flex;
+      flex-direction: row;
+      line-height: 36px;
+      text-align: center;
+      border-bottom: 1px solid #24272c;
+
+      &-item {
+        flex: 1;
+        font-size: 0;
+        color: #fff;
+      }
+
+      &-remove {
+        background: #cc3e44;
+      }
+
+      &-edit {
+        background: #6b6f7c;
+      }
+    }
+
+
+    &-header {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      height: 36px;
+      transition: transform .5s;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 15px;
+        right: 0;
+        bottom: 0;
+        border-top: 1px solid #24272c;
+      }
+
+      &_toggled {
+        transform: translateX(-72px);
+
+        .@{name-space}-rules {
+          &-action {
+            
+          }
+
+          &-title {
+            transform: translateX(50px);
+          }
+        }
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        border-top: 2px solid #999;
+        border-right: 2px solid #999;
+        width: 6px;
+        height: 6px;
+        transform: rotate(45deg) translateY(-50%);
+      }
+    }
+
+    &-content {
+      position: relative;
+    }
+
+    &-item {
+      padding: 10px 15px 10px 50px;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      transition: all .5s;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 15px;
+        background: #26292e;
+        border-radius: 20px;
+        height: 15px;
+        width: 15px;
+        transition: all .5s;
+      }
+
+      &_enable {
+        &:after {
+          background: #5cad47;
+        }
+        .@{name-space}-rules {
+          &-hosts,
+          &-ip {
+            color: #fff;
+          }  
+        }
+      }
+    }
+
+    &-ip {
+      font-size: 14px;
+      color: #24272c;
+      min-width: 130px;
+    }
+
+    &-hosts {
+      flex: 1;
+      font-size: 14px;
+      color: #24272c;
+    }
+
+    &-name {
+      display: block;
+      margin-bottom: 5px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-editor {
       height: 100%;
       width: 100%;
       letter-spacing: 0;
+
+      &-header {
+        padding: 10px 15px;
+        display: flex;
+        flex-direction: row;
+        line-height: 23px;
+        position: relative;
+
+        &:after {
+          content: '';
+          position: absolute;
+          left: 15px;
+          right: 0;
+          bottom: 0;
+          border-top: 1px solid #24272c;
+        }
+      }
+
+      &-form {
+        border-top: 1px solid #24272c;
+        border-bottom: 1px solid #24272c;
+        margin-bottom: 15px;
+        background: #2e3238;
+      }
+
+      &-name {
+        font-size: 17px;
+        color: #fff;
+        margin-right: 25px;
+
+      }
+
+      &-value {
+        flex: 1;
+      }
+
+      &-input {
+        border: none;
+        background: transparent;
+        line-height: 23px;
+        font-size: 17px;
+        color: #fff;
+        display: block;
+        width: 100%;
+      }
+
+      &-text {
+        font-size: 17px;
+      }
+
+      &-textarea {
+        background: transparent;
+        display: block;
+        border: 0;
+        resize: none;
+        width: 100%;
+        color: #fff;
+        font-size: 1em;
+        line-height: inherit;
+        outline: 0;
+        margin: 10px 15px;
+      }
+    }
+
+    &-codeeditor {
+      height: 200px;
+
+      .monaco-editor.vs-dark .monaco-editor-background {
+        background: #2e3238;
+      }
+    }
+
+    &-button {
+      position: relative;
+      display: block;
+      margin: 0 15px;
+      padding: 0 14px;
+      box-sizing: border-box;
+      font-size: 18px;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      line-height: 2.55555556;
+      border-radius: 5px;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      overflow: hidden;
+
+      &:after {
+        content: " ";
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        transform: scale(0.5);
+        transform-origin: 0 0;
+        box-sizing: border-box;
+        border-radius: 10px;
+      }
+
+      &_default {
+        background-color: #2e3238;
+        color: #fff;
+      }
+
+      &_primary {
+        background-color: #40af3c;
+        color: #fff;
+      }
+
+      &_loading {
+        background-color: #2d8429;
+      }
+
+      &_disable {
+        color: #999;
+      }
     }
 
   }

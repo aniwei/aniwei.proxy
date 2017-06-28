@@ -47,7 +47,7 @@ class Simulator extends React.Component {
 
   }
 
-  onAppenderClick = () => {
+  onAppenderClick = (rule) => {
     const { dispatch } = this.props;
 
     dispatch({

@@ -104,7 +104,7 @@ const Empty = () => {
 
 class Preview extends React.Component {
   contentType () {
-    const { type, url } = this.props;
+    const { id, type, url, preview, dispatch } = this.props;
     const urlParsed = urlParser(url);
     let element = mimeType(type, urlParsed.pathname);
 
@@ -116,7 +116,10 @@ class Preview extends React.Component {
 
     return React.createElement(element, {
       url: encodeURIComponent(url),
-      type
+      id,
+      type,
+      preview,
+      dispatch
     });
   }
 

@@ -1,93 +1,82 @@
-import React, { createElement, PropTypes, Component } from 'react';
-import AceEditor from 'react-ace';
+import React, { createElement } from 'react';
+import classnames from 'classnames';
+import { namespace } from 'aniwei-proxy-extension-context';
+import 'whatwg-fetch';
 
+import Group from './group';
 
-import CodeEditor from './code-editor';
-
-import { createStore, applyMiddleware } from 'redux';
-import { register, namespace, Button } from 'aniwei-proxy-extension-context';
-
-const classNamespace = namespace('host-rules');
+const classNamesapce = namespace('host-rules');
 
 export default class Rules extends React.Component {
-  constructor () {
-    super();    
+  onItemSelect = (rule, index, li) => {
+    const { dispatch, rules } = this.props;
+
+    li.disable = !li.disable;
+    
+    this.updateRules(rules);
   }
 
-  onTextChange = (cm, e) => {
-    clearTimeout(this.timer);
+  onGroupRemove = (index) => {
+    const { dispatch, rules } = this.props;
 
-    this.codeMirrorText = cm.getValue();
+    rules.splice(index, 1);
 
-    this.timer = setTimeout(() => {
-      this.textParser();
-    }, 200);
+    this.updateRules(rules);
   }
 
-  textParser () {
-    const text = this.codeMirrorText || '';
+  onGroupEdit = (rule, index) => {
+    const { rulesEditer } = this.props;
 
-    const splitedText = text.split(/[\n\r]+/g);
-
-    splitedText.filter(t => t.trim()).map((t) => {
-
+    rulesEditer(rule, () => {
+      debugger;
     });
   }
 
-  rulesRender () {
-    const { rules } = this.props;
+  updateRules (rules) {
+    const { dispatch } = this.props;
 
-    const content = rules.map((ru, i) => {
-      const { text, list, group, disable } = ru;
-      const li = [];
+    fetch('/plugin/host/update', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rules: rules
+      })
+    })
+    .then(res => res.json())
+    .then(res => dispatch({
+      type: 'EXTENSION_HOST_RULE_UPDATE'
+    }));
+  }
 
-      li.push(
-        (disable ? '#' : '') + text + '\n'
+  groupRender () {
+    const { rules, location } = this.props;
+
+    return rules.map((li, index) => {
+      const { text, list, name } = li;
+      const props = {
+        list,
+        text,
+        name,
+        index,
+        location,
+        onGroupEdit: () => this.onGroupEdit(li, index),
+        onGroupRemove: () => this.onGroupRemove(index),
+        onItemSelect: (l) => this.onItemSelect(li, index, l)
+      }
+
+      return (
+        <Group {...props} key={index}/>
       );
-
-      li.push(
-        list.map(li => (li.disable ? '# ' : '') + li.ip + ' ' + li.hostname.join(' ')).join('\n')
-      );
-
-      return li.join('\n');
-    }).join('\n');
-
-    return (
-      <CodeEditor 
-        value={content}
-        language="html"
-        theme="vs-dark"
-        wordWrap={true}
-        lineNumbers={false}
-        folding={true}
-      />
-      // <AceEditor
-      //   height="200"
-      //   width="100%"
-      //   mode="html"
-      //   value={content}
-      //   onChange={this.onChange}
-      //   theme="monokai"
-      //   name="act-editor"
-      //   setOptions={{
-      //     enableBasicAutocompletion: false,
-      //     enableLiveAutocompletion: false,
-      //     enableSnippets: false,
-      //     tabSize: 2,
-      //     showLineNumbers: false,
-      //     showGutter: false
-      //   }}
-      // />
-    );
+    });
   }
 
   render () {
-    const { text } = this.props;
-
     return (
-      <div className={classNamespace()}>
-        {this.rulesRender()}
+      <div className={classNamesapce()}>
+        {this.groupRender()}
       </div>
     );
-  };
+  }
 }

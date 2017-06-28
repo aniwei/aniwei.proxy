@@ -9,16 +9,42 @@ import constants from '../../../constants';
 import CodeEditor from './code-editor';
 
 const classNamespace = util.namespace('app__overview-preview');
+const language = {
+  'text/html': 'html',
+  'text/css': 'css',
+  'application/json': 'json',
+  'application/x-javascript': 'javascript',
+  'application/javascript': 'javascript',
+}
+
+console.log(beautify)
 
 export default class Text extends React.Component {
-  constructor () {
+  constructor (props) {
     super();
 
     this.state = {
-      text: null,
       lineWrapping: false,
       beautify: false
     };
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if ('preview' in nextProps) {
+      this.setState({
+        previewContent: nextProps.preview
+      });
+    }
+  }
+
+  shouldComponentUpdate (nextProps) {
+    if (
+      nextProps.preivew === this.state.previewContent
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   componentDidMount () {
@@ -26,18 +52,26 @@ export default class Text extends React.Component {
   }
 
   fetch () {
-    const { url, type } = this.props;
+    const { id, url, type, preview, dispatch } = this.props;
     const api = `//${location.hostname}${location.port ? `:${location.port}` : ''}/plugin/requester/buffer?url=${url}`;
 
-    fetch(api)
-      .then((res) => {
-        return res.text();
-      })
-      .then((res) => {
-        this.setState({
-          text: res
+    if (!preview) {
+      fetch(api)
+        .then((res) => {
+          return res.text();
+        })
+        .then((res) => {
+          dispatch({
+            type: constants.LIST_UPDATE,
+            proxy: {
+              list: [{
+                id,
+                previewContent: res
+              }]
+            }
+          });
         });
-      });
+    }
   }
 
   onToolClick = (key, e) => {
@@ -51,8 +85,6 @@ export default class Text extends React.Component {
 
   onBeautify = () => {
     const { type } = this.props;
-
-    console.log(Object.keys(beautify));
 
     this.setState({
       text: beautify.html(this.state.text)
@@ -86,12 +118,21 @@ export default class Text extends React.Component {
     );
   }
 
+  contentType () {
+    const { type } = this.props;
+
+    
+  }
+
   codeMirrorRender () {
-    if (this.state.text) {
+    const { preview, type } = this.props;
+    const lang = language[type] || 'html';
+
+    if (preview) {
       return (
         <CodeEditor 
-          value={this.state.text}
-          language="html"
+          value={preview}
+          language={lang}
           theme="vs-dark"
           folding={true}
           readOnly={true}

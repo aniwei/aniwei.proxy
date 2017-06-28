@@ -47,6 +47,7 @@
   &-tabs {
     // border-top: 1px solid #e2e2e4;
     // border-bottom: 1px solid #e2e2e4;
+    font-size: 0;
     text-align: center;
     background: #2e3238;
     position: absolute;
@@ -143,7 +144,7 @@
   &-content {
     left: 0;
     right: 0;
-    top: 110px;
+    top: 100px;
     bottom: 0;
     position: absolute;
   }
@@ -155,6 +156,14 @@
     bottom: 0;
     position: absolute;
     background: #2e3238;
+
+    &-scroll {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      bottom: 0;
+      overflow-y: auto;
+    }
   }
 
   &-preview {
@@ -174,6 +183,7 @@
       background-color: #2e3238;
       overflow: hidden;
       border-top: 1px solid #24272c;
+      font-size: 0;
     }
 
     &-tool-item {

@@ -13,6 +13,7 @@ import Tools from './tools';
 import Item from './item';
 import constants from '../../constants';
 import util from '../../util';
+import Scroll from '../../components/scroll';
 
 const initState = window.__initState__;
 const { hostname, port } = location;
@@ -20,7 +21,6 @@ const { hostname, port } = location;
 const classNameSpace = util.namespace('app__list');
 
 class List extends React.Component {
-
   componentDidMount () {
     const { socket, dispatch, list, keys } = this.props;
 
@@ -152,9 +152,11 @@ class List extends React.Component {
           <Tools />
         </div>
 
-        <div className={classNameSpace('view')}>
-          {this.groupRender()}
-        </div>
+        <Scroll className={classNameSpace('scroll')} fresh>
+          <div className={classNameSpace('view')}>
+            {this.groupRender()}
+          </div>
+        </Scroll>
       </div>
     );
   }

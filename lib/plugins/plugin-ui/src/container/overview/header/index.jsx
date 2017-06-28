@@ -1,12 +1,11 @@
 import React from 'react';
 import queryString from 'query-string';
 import classnames from 'classnames';
-import Scroll from 'react-iscroll';
-import iScroll from 'iscroll';
 import { Link , withRouter } from 'react-router-dom';
 
 import util from '../../../util';
 import Cell from '../../../components/cell';
+import Scroll from '../../../components/scroll';
 
 const classNamespace = util.namespace('app__overview-header');
 
@@ -62,7 +61,7 @@ class Header extends React.Component {
   listRender (list, index) {
     return list.map((li, i) => {
       return (
-        <Cell key={i} {...li} />
+        <Cell key={index} {...li} />
       );
     });
   }
@@ -70,7 +69,7 @@ class Header extends React.Component {
   render () {
     return (
       <div className={classNamespace()}>
-        <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true }}>
+        <Scroll className={classNamespace('scroll')} fresh>
           <div className={classNamespace('inner')}>
             {this.subjectRender()}
           </div>

@@ -15,10 +15,14 @@ const classNamespace = util.namespace('app__overview');
 
 class Overview extends React.Component {
   previewRender (data) {
-    const { type, url } = data;
+    const { dispatch } = this.props;
+    const { id, type, url, previewContent } = data;
     const props = {
+      id,
       url,
-      type
+      type,
+      dispatch,
+      preview: previewContent
     };
 
     return (

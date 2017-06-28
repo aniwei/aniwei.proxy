@@ -1,8 +1,6 @@
 import React, { createElement } from 'react';
 import queryString from 'query-string';
 import classnames from 'classnames';
-import iScroll from 'iscroll';
-import Scroll from 'react-iscroll';
 import { connect } from 'react-redux';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 
@@ -58,11 +56,9 @@ class Layer extends React.Component {
             })}></i>
           </Link>
           {/*{this.titleRender()}*/}
-          <Scroll ref="iscroll" iScroll={iScroll} options={{ mouseWheel: true, click: true, useTransform: true }}>
-            <div className={classNamespace('content')}>
-              {element}
-            </div>
-          </Scroll>
+          <div className={classNamespace('content')}>
+            {element}
+          </div>
         </div>
       </div>
     );
