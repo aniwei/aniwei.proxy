@@ -1,0 +1,601 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/7.7.4/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'i' ]
+2 info using npm@4.1.2
+3 info using node@v7.7.4
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly install normalizeTree
+8 silly loadCurrentTree Finishing
+9 silly loadIdealTree Starting
+10 silly install loadIdealTree
+11 silly cloneCurrentTree Starting
+12 silly install cloneCurrentTreeToIdealTree
+13 silly cloneCurrentTree Finishing
+14 silly loadShrinkwrap Starting
+15 silly install loadShrinkwrap
+16 silly loadShrinkwrap Finishing
+17 silly loadAllDepsIntoIdealTree Starting
+18 silly install loadAllDepsIntoIdealTree
+19 silly fetchNamedPackageData slim-scroll
+20 silly mapToRegistry name slim-scroll
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npm.taobao.org/
+23 silly mapToRegistry data Result {
+23 silly mapToRegistry   raw: 'slim-scroll',
+23 silly mapToRegistry   scope: null,
+23 silly mapToRegistry   escapedName: 'slim-scroll',
+23 silly mapToRegistry   name: 'slim-scroll',
+23 silly mapToRegistry   rawSpec: '',
+23 silly mapToRegistry   spec: 'latest',
+23 silly mapToRegistry   type: 'tag' }
+24 silly mapToRegistry uri https://registry.npm.taobao.org/slim-scroll
+25 silly fetchNamedPackageData xml
+26 silly mapToRegistry name xml
+27 silly mapToRegistry using default registry
+28 silly mapToRegistry registry https://registry.npm.taobao.org/
+29 silly mapToRegistry data Result {
+29 silly mapToRegistry   raw: 'xml',
+29 silly mapToRegistry   scope: null,
+29 silly mapToRegistry   escapedName: 'xml',
+29 silly mapToRegistry   name: 'xml',
+29 silly mapToRegistry   rawSpec: '',
+29 silly mapToRegistry   spec: 'latest',
+29 silly mapToRegistry   type: 'tag' }
+30 silly mapToRegistry uri https://registry.npm.taobao.org/xml
+31 silly fetchNamedPackageData xml-js
+32 silly mapToRegistry name xml-js
+33 silly mapToRegistry using default registry
+34 silly mapToRegistry registry https://registry.npm.taobao.org/
+35 silly mapToRegistry data Result {
+35 silly mapToRegistry   raw: 'xml-js',
+35 silly mapToRegistry   scope: null,
+35 silly mapToRegistry   escapedName: 'xml-js',
+35 silly mapToRegistry   name: 'xml-js',
+35 silly mapToRegistry   rawSpec: '',
+35 silly mapToRegistry   spec: 'latest',
+35 silly mapToRegistry   type: 'tag' }
+36 silly mapToRegistry uri https://registry.npm.taobao.org/xml-js
+37 verbose request uri https://registry.npm.taobao.org/slim-scroll
+38 verbose request no auth needed
+39 info attempt registry request try #1 at 上午2:10:45
+40 verbose request id ee7807509762a4bb
+41 verbose etag "6b85-a3i8CztGyxWMEYIZYxXTaCX550E"
+42 http request GET https://registry.npm.taobao.org/slim-scroll
+43 verbose request uri https://registry.npm.taobao.org/xml
+44 verbose request no auth needed
+45 info attempt registry request try #1 at 上午2:10:45
+46 verbose etag "553d-5liMvvJDytgsrnE4FfecqSYV8XE"
+47 http request GET https://registry.npm.taobao.org/xml
+48 verbose request uri https://registry.npm.taobao.org/xml-js
+49 verbose request no auth needed
+50 info attempt registry request try #1 at 上午2:10:45
+51 verbose etag "207e7-gY2+KKNJaOvGsEyA7jSD6l5ZS4w"
+52 http request GET https://registry.npm.taobao.org/xml-js
+53 http 304 https://registry.npm.taobao.org/slim-scroll
+54 verbose headers { date: 'Wed, 28 Jun 2017 18:10:46 GMT',
+54 verbose headers   connection: 'keep-alive',
+54 verbose headers   'x-current-requests': '1',
+54 verbose headers   etag: '"6b85-a3i8CztGyxWMEYIZYxXTaCX550E"',
+54 verbose headers   'x-readtime': '19' }
+55 silly get cb [ 304,
+55 silly get   { date: 'Wed, 28 Jun 2017 18:10:46 GMT',
+55 silly get     connection: 'keep-alive',
+55 silly get     'x-current-requests': '1',
+55 silly get     etag: '"6b85-a3i8CztGyxWMEYIZYxXTaCX550E"',
+55 silly get     'x-readtime': '19' } ]
+56 verbose etag https://registry.npm.taobao.org/slim-scroll from cache
+57 verbose get saving slim-scroll to /Users/aniwei/.npm/registry.npm.taobao.org/slim-scroll/.cache.json
+58 verbose correctMkdir /Users/aniwei/.npm correctMkdir not in flight; initializing
+59 http 304 https://registry.npm.taobao.org/xml-js
+60 verbose headers { date: 'Wed, 28 Jun 2017 18:10:46 GMT',
+60 verbose headers   connection: 'keep-alive',
+60 verbose headers   'x-current-requests': '1',
+60 verbose headers   etag: '"207e7-gY2+KKNJaOvGsEyA7jSD6l5ZS4w"',
+60 verbose headers   'x-readtime': '29' }
+61 silly get cb [ 304,
+61 silly get   { date: 'Wed, 28 Jun 2017 18:10:46 GMT',
+61 silly get     connection: 'keep-alive',
+61 silly get     'x-current-requests': '1',
+61 silly get     etag: '"207e7-gY2+KKNJaOvGsEyA7jSD6l5ZS4w"',
+61 silly get     'x-readtime': '29' } ]
+62 verbose etag https://registry.npm.taobao.org/xml-js from cache
+63 verbose get saving xml-js to /Users/aniwei/.npm/registry.npm.taobao.org/xml-js/.cache.json
+64 verbose correctMkdir /Users/aniwei/.npm correctMkdir already in flight; waiting
+65 http 304 https://registry.npm.taobao.org/xml
+66 verbose headers { date: 'Wed, 28 Jun 2017 18:10:46 GMT',
+66 verbose headers   connection: 'keep-alive',
+66 verbose headers   'x-current-requests': '1',
+66 verbose headers   etag: '"553d-5liMvvJDytgsrnE4FfecqSYV8XE"',
+66 verbose headers   'x-readtime': '18' }
+67 silly get cb [ 304,
+67 silly get   { date: 'Wed, 28 Jun 2017 18:10:46 GMT',
+67 silly get     connection: 'keep-alive',
+67 silly get     'x-current-requests': '1',
+67 silly get     etag: '"553d-5liMvvJDytgsrnE4FfecqSYV8XE"',
+67 silly get     'x-readtime': '18' } ]
+68 verbose etag https://registry.npm.taobao.org/xml from cache
+69 verbose get saving xml to /Users/aniwei/.npm/registry.npm.taobao.org/xml/.cache.json
+70 verbose correctMkdir /Users/aniwei/.npm correctMkdir not in flight; initializing
+71 silly pickManifestFromRegistryMetadata spec >=1.3.18 <2.0.0 tag latest versions [ '1.3.18',
+71 silly pickManifestFromRegistryMetadata   '1.3.17',
+71 silly pickManifestFromRegistryMetadata   '1.3.16',
+71 silly pickManifestFromRegistryMetadata   '1.3.14',
+71 silly pickManifestFromRegistryMetadata   '1.3.12',
+71 silly pickManifestFromRegistryMetadata   '1.3.11',
+71 silly pickManifestFromRegistryMetadata   '1.3.10',
+71 silly pickManifestFromRegistryMetadata   '1.3.9',
+71 silly pickManifestFromRegistryMetadata   '1.3.8',
+71 silly pickManifestFromRegistryMetadata   '1.3.7',
+71 silly pickManifestFromRegistryMetadata   '1.3.6',
+71 silly pickManifestFromRegistryMetadata   '1.3.5',
+71 silly pickManifestFromRegistryMetadata   '1.3.4',
+71 silly pickManifestFromRegistryMetadata   '1.3.3',
+71 silly pickManifestFromRegistryMetadata   '1.3.2',
+71 silly pickManifestFromRegistryMetadata   '1.3.1' ]
+72 silly resolveWithNewModule slim-scroll@1.3.18 checking installable status
+73 silly cache add args [ 'slim-scroll@^1.3.18', null ]
+74 verbose cache add spec slim-scroll@^1.3.18
+75 silly cache add parsed spec Result {
+75 silly cache add   raw: 'slim-scroll@^1.3.18',
+75 silly cache add   scope: null,
+75 silly cache add   escapedName: 'slim-scroll',
+75 silly cache add   name: 'slim-scroll',
+75 silly cache add   rawSpec: '^1.3.18',
+75 silly cache add   spec: '>=1.3.18 <2.0.0',
+75 silly cache add   type: 'range' }
+76 silly addNamed slim-scroll@>=1.3.18 <2.0.0
+77 verbose addNamed ">=1.3.18 <2.0.0" is a valid semver range for slim-scroll
+78 silly addNameRange { name: 'slim-scroll', range: '>=1.3.18 <2.0.0', hasData: false }
+79 silly mapToRegistry name slim-scroll
+80 silly mapToRegistry using default registry
+81 silly mapToRegistry registry https://registry.npm.taobao.org/
+82 silly mapToRegistry data Result {
+82 silly mapToRegistry   raw: 'slim-scroll',
+82 silly mapToRegistry   scope: null,
+82 silly mapToRegistry   escapedName: 'slim-scroll',
+82 silly mapToRegistry   name: 'slim-scroll',
+82 silly mapToRegistry   rawSpec: '',
+82 silly mapToRegistry   spec: 'latest',
+82 silly mapToRegistry   type: 'tag' }
+83 silly mapToRegistry uri https://registry.npm.taobao.org/slim-scroll
+84 verbose addNameRange registry:https://registry.npm.taobao.org/slim-scroll not in flight; fetching
+85 silly pickManifestFromRegistryMetadata spec >=1.0.1 <2.0.0 tag latest versions [ '1.0.1',
+85 silly pickManifestFromRegistryMetadata   '1.0.0',
+85 silly pickManifestFromRegistryMetadata   '0.0.12',
+85 silly pickManifestFromRegistryMetadata   '0.0.10',
+85 silly pickManifestFromRegistryMetadata   '0.0.9',
+85 silly pickManifestFromRegistryMetadata   '0.0.8',
+85 silly pickManifestFromRegistryMetadata   '0.0.7',
+85 silly pickManifestFromRegistryMetadata   '0.0.5',
+85 silly pickManifestFromRegistryMetadata   '0.0.4',
+85 silly pickManifestFromRegistryMetadata   '0.0.3',
+85 silly pickManifestFromRegistryMetadata   '0.0.2' ]
+86 silly resolveWithNewModule xml@1.0.1 checking installable status
+87 silly cache add args [ 'xml@^1.0.1', null ]
+88 verbose cache add spec xml@^1.0.1
+89 silly cache add parsed spec Result {
+89 silly cache add   raw: 'xml@^1.0.1',
+89 silly cache add   scope: null,
+89 silly cache add   escapedName: 'xml',
+89 silly cache add   name: 'xml',
+89 silly cache add   rawSpec: '^1.0.1',
+89 silly cache add   spec: '>=1.0.1 <2.0.0',
+89 silly cache add   type: 'range' }
+90 silly addNamed xml@>=1.0.1 <2.0.0
+91 verbose addNamed ">=1.0.1 <2.0.0" is a valid semver range for xml
+92 silly addNameRange { name: 'xml', range: '>=1.0.1 <2.0.0', hasData: false }
+93 silly mapToRegistry name xml
+94 silly mapToRegistry using default registry
+95 silly mapToRegistry registry https://registry.npm.taobao.org/
+96 silly mapToRegistry data Result {
+96 silly mapToRegistry   raw: 'xml',
+96 silly mapToRegistry   scope: null,
+96 silly mapToRegistry   escapedName: 'xml',
+96 silly mapToRegistry   name: 'xml',
+96 silly mapToRegistry   rawSpec: '',
+96 silly mapToRegistry   spec: 'latest',
+96 silly mapToRegistry   type: 'tag' }
+97 silly mapToRegistry uri https://registry.npm.taobao.org/xml
+98 verbose addNameRange registry:https://registry.npm.taobao.org/xml not in flight; fetching
+99 silly pickManifestFromRegistryMetadata spec >=1.3.2 <2.0.0 tag latest versions [ '1.3.2',
+99 silly pickManifestFromRegistryMetadata   '1.3.1',
+99 silly pickManifestFromRegistryMetadata   '1.3.0',
+99 silly pickManifestFromRegistryMetadata   '1.2.2',
+99 silly pickManifestFromRegistryMetadata   '1.2.1',
+99 silly pickManifestFromRegistryMetadata   '1.2.0',
+99 silly pickManifestFromRegistryMetadata   '1.1.0',
+99 silly pickManifestFromRegistryMetadata   '1.0.2',
+99 silly pickManifestFromRegistryMetadata   '1.0.1',
+99 silly pickManifestFromRegistryMetadata   '1.0.0',
+99 silly pickManifestFromRegistryMetadata   '0.9.7',
+99 silly pickManifestFromRegistryMetadata   '0.9.6',
+99 silly pickManifestFromRegistryMetadata   '0.9.5',
+99 silly pickManifestFromRegistryMetadata   '0.9.4',
+99 silly pickManifestFromRegistryMetadata   '0.9.3',
+99 silly pickManifestFromRegistryMetadata   '0.9.2',
+99 silly pickManifestFromRegistryMetadata   '0.9.1',
+99 silly pickManifestFromRegistryMetadata   '0.9.0',
+99 silly pickManifestFromRegistryMetadata   '0.8.9',
+99 silly pickManifestFromRegistryMetadata   '0.8.8',
+99 silly pickManifestFromRegistryMetadata   '0.8.7',
+99 silly pickManifestFromRegistryMetadata   '0.8.6',
+99 silly pickManifestFromRegistryMetadata   '0.8.5',
+99 silly pickManifestFromRegistryMetadata   '0.8.4',
+99 silly pickManifestFromRegistryMetadata   '0.8.3',
+99 silly pickManifestFromRegistryMetadata   '0.8.2',
+99 silly pickManifestFromRegistryMetadata   '0.8.1',
+99 silly pickManifestFromRegistryMetadata   '0.8.0',
+99 silly pickManifestFromRegistryMetadata   '0.1.0' ]
+100 silly resolveWithNewModule xml-js@1.3.2 checking installable status
+101 silly cache add args [ 'xml-js@^1.3.2', null ]
+102 verbose cache add spec xml-js@^1.3.2
+103 silly cache add parsed spec Result {
+103 silly cache add   raw: 'xml-js@^1.3.2',
+103 silly cache add   scope: null,
+103 silly cache add   escapedName: 'xml-js',
+103 silly cache add   name: 'xml-js',
+103 silly cache add   rawSpec: '^1.3.2',
+103 silly cache add   spec: '>=1.3.2 <2.0.0',
+103 silly cache add   type: 'range' }
+104 silly addNamed xml-js@>=1.3.2 <2.0.0
+105 verbose addNamed ">=1.3.2 <2.0.0" is a valid semver range for xml-js
+106 silly addNameRange { name: 'xml-js', range: '>=1.3.2 <2.0.0', hasData: false }
+107 silly mapToRegistry name xml-js
+108 silly mapToRegistry using default registry
+109 silly mapToRegistry registry https://registry.npm.taobao.org/
+110 silly mapToRegistry data Result {
+110 silly mapToRegistry   raw: 'xml-js',
+110 silly mapToRegistry   scope: null,
+110 silly mapToRegistry   escapedName: 'xml-js',
+110 silly mapToRegistry   name: 'xml-js',
+110 silly mapToRegistry   rawSpec: '',
+110 silly mapToRegistry   spec: 'latest',
+110 silly mapToRegistry   type: 'tag' }
+111 silly mapToRegistry uri https://registry.npm.taobao.org/xml-js
+112 verbose addNameRange registry:https://registry.npm.taobao.org/xml-js not in flight; fetching
+113 verbose get https://registry.npm.taobao.org/slim-scroll not expired, no request
+114 silly addNameRange number 2 { name: 'slim-scroll', range: '>=1.3.18 <2.0.0', hasData: true }
+115 silly addNameRange versions [ 'slim-scroll',
+115 silly addNameRange   [ '1.3.18',
+115 silly addNameRange     '1.3.17',
+115 silly addNameRange     '1.3.16',
+115 silly addNameRange     '1.3.14',
+115 silly addNameRange     '1.3.12',
+115 silly addNameRange     '1.3.11',
+115 silly addNameRange     '1.3.10',
+115 silly addNameRange     '1.3.9',
+115 silly addNameRange     '1.3.8',
+115 silly addNameRange     '1.3.7',
+115 silly addNameRange     '1.3.6',
+115 silly addNameRange     '1.3.5',
+115 silly addNameRange     '1.3.4',
+115 silly addNameRange     '1.3.3',
+115 silly addNameRange     '1.3.2',
+115 silly addNameRange     '1.3.1' ] ]
+116 silly pickManifestFromRegistryMetadata spec >=1.3.18 <2.0.0 tag latest versions [ '1.3.18',
+116 silly pickManifestFromRegistryMetadata   '1.3.17',
+116 silly pickManifestFromRegistryMetadata   '1.3.16',
+116 silly pickManifestFromRegistryMetadata   '1.3.14',
+116 silly pickManifestFromRegistryMetadata   '1.3.12',
+116 silly pickManifestFromRegistryMetadata   '1.3.11',
+116 silly pickManifestFromRegistryMetadata   '1.3.10',
+116 silly pickManifestFromRegistryMetadata   '1.3.9',
+116 silly pickManifestFromRegistryMetadata   '1.3.8',
+116 silly pickManifestFromRegistryMetadata   '1.3.7',
+116 silly pickManifestFromRegistryMetadata   '1.3.6',
+116 silly pickManifestFromRegistryMetadata   '1.3.5',
+116 silly pickManifestFromRegistryMetadata   '1.3.4',
+116 silly pickManifestFromRegistryMetadata   '1.3.3',
+116 silly pickManifestFromRegistryMetadata   '1.3.2',
+116 silly pickManifestFromRegistryMetadata   '1.3.1' ]
+117 silly addNamed slim-scroll@latest
+118 verbose addNamed "latest" is being treated as a dist-tag for slim-scroll
+119 info addNameTag [ 'slim-scroll', 'latest' ]
+120 silly mapToRegistry name slim-scroll
+121 silly mapToRegistry using default registry
+122 silly mapToRegistry registry https://registry.npm.taobao.org/
+123 silly mapToRegistry data Result {
+123 silly mapToRegistry   raw: 'slim-scroll',
+123 silly mapToRegistry   scope: null,
+123 silly mapToRegistry   escapedName: 'slim-scroll',
+123 silly mapToRegistry   name: 'slim-scroll',
+123 silly mapToRegistry   rawSpec: '',
+123 silly mapToRegistry   spec: 'latest',
+123 silly mapToRegistry   type: 'tag' }
+124 silly mapToRegistry uri https://registry.npm.taobao.org/slim-scroll
+125 verbose addNameTag registry:https://registry.npm.taobao.org/slim-scroll already in flight; waiting
+126 silly addNameTag next cb for slim-scroll with tag latest
+127 silly addNamed slim-scroll@1.3.18
+128 verbose addNamed "1.3.18" is a plain semver version for slim-scroll
+129 verbose get https://registry.npm.taobao.org/xml not expired, no request
+130 silly addNameRange number 2 { name: 'xml', range: '>=1.0.1 <2.0.0', hasData: true }
+131 silly addNameRange versions [ 'xml',
+131 silly addNameRange   [ '1.0.1',
+131 silly addNameRange     '1.0.0',
+131 silly addNameRange     '0.0.12',
+131 silly addNameRange     '0.0.10',
+131 silly addNameRange     '0.0.9',
+131 silly addNameRange     '0.0.8',
+131 silly addNameRange     '0.0.7',
+131 silly addNameRange     '0.0.5',
+131 silly addNameRange     '0.0.4',
+131 silly addNameRange     '0.0.3',
+131 silly addNameRange     '0.0.2' ] ]
+132 silly pickManifestFromRegistryMetadata spec >=1.0.1 <2.0.0 tag latest versions [ '1.0.1',
+132 silly pickManifestFromRegistryMetadata   '1.0.0',
+132 silly pickManifestFromRegistryMetadata   '0.0.12',
+132 silly pickManifestFromRegistryMetadata   '0.0.10',
+132 silly pickManifestFromRegistryMetadata   '0.0.9',
+132 silly pickManifestFromRegistryMetadata   '0.0.8',
+132 silly pickManifestFromRegistryMetadata   '0.0.7',
+132 silly pickManifestFromRegistryMetadata   '0.0.5',
+132 silly pickManifestFromRegistryMetadata   '0.0.4',
+132 silly pickManifestFromRegistryMetadata   '0.0.3',
+132 silly pickManifestFromRegistryMetadata   '0.0.2' ]
+133 silly addNamed xml@latest
+134 verbose addNamed "latest" is being treated as a dist-tag for xml
+135 info addNameTag [ 'xml', 'latest' ]
+136 silly mapToRegistry name xml
+137 silly mapToRegistry using default registry
+138 silly mapToRegistry registry https://registry.npm.taobao.org/
+139 silly mapToRegistry data Result {
+139 silly mapToRegistry   raw: 'xml',
+139 silly mapToRegistry   scope: null,
+139 silly mapToRegistry   escapedName: 'xml',
+139 silly mapToRegistry   name: 'xml',
+139 silly mapToRegistry   rawSpec: '',
+139 silly mapToRegistry   spec: 'latest',
+139 silly mapToRegistry   type: 'tag' }
+140 silly mapToRegistry uri https://registry.npm.taobao.org/xml
+141 verbose addNameTag registry:https://registry.npm.taobao.org/xml already in flight; waiting
+142 silly addNameTag next cb for xml with tag latest
+143 silly addNamed xml@1.0.1
+144 verbose addNamed "1.0.1" is a plain semver version for xml
+145 silly mapToRegistry name slim-scroll
+146 silly mapToRegistry using default registry
+147 silly mapToRegistry registry https://registry.npm.taobao.org/
+148 silly mapToRegistry data Result {
+148 silly mapToRegistry   raw: 'slim-scroll',
+148 silly mapToRegistry   scope: null,
+148 silly mapToRegistry   escapedName: 'slim-scroll',
+148 silly mapToRegistry   name: 'slim-scroll',
+148 silly mapToRegistry   rawSpec: '',
+148 silly mapToRegistry   spec: 'latest',
+148 silly mapToRegistry   type: 'tag' }
+149 silly mapToRegistry uri https://registry.npm.taobao.org/slim-scroll
+150 verbose addRemoteTarball https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz not in flight; adding
+151 verbose addRemoteTarball [ 'https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz',
+151 verbose addRemoteTarball   'd82d5de6878ca2aa7da87887f5543e92d66495a4' ]
+152 silly mapToRegistry name xml
+153 silly mapToRegistry using default registry
+154 silly mapToRegistry registry https://registry.npm.taobao.org/
+155 silly mapToRegistry data Result {
+155 silly mapToRegistry   raw: 'xml',
+155 silly mapToRegistry   scope: null,
+155 silly mapToRegistry   escapedName: 'xml',
+155 silly mapToRegistry   name: 'xml',
+155 silly mapToRegistry   rawSpec: '',
+155 silly mapToRegistry   spec: 'latest',
+155 silly mapToRegistry   type: 'tag' }
+156 silly mapToRegistry uri https://registry.npm.taobao.org/xml
+157 verbose addRemoteTarball https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz not in flight; adding
+158 verbose addRemoteTarball [ 'https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz',
+158 verbose addRemoteTarball   '78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5' ]
+159 verbose get https://registry.npm.taobao.org/xml-js not expired, no request
+160 silly addNameRange number 2 { name: 'xml-js', range: '>=1.3.2 <2.0.0', hasData: true }
+161 silly addNameRange versions [ 'xml-js',
+161 silly addNameRange   [ '1.3.2',
+161 silly addNameRange     '1.3.1',
+161 silly addNameRange     '1.3.0',
+161 silly addNameRange     '1.2.2',
+161 silly addNameRange     '1.2.1',
+161 silly addNameRange     '1.2.0',
+161 silly addNameRange     '1.1.0',
+161 silly addNameRange     '1.0.2',
+161 silly addNameRange     '1.0.1',
+161 silly addNameRange     '1.0.0',
+161 silly addNameRange     '0.9.7',
+161 silly addNameRange     '0.9.6',
+161 silly addNameRange     '0.9.5',
+161 silly addNameRange     '0.9.4',
+161 silly addNameRange     '0.9.3',
+161 silly addNameRange     '0.9.2',
+161 silly addNameRange     '0.9.1',
+161 silly addNameRange     '0.9.0',
+161 silly addNameRange     '0.8.9',
+161 silly addNameRange     '0.8.8',
+161 silly addNameRange     '0.8.7',
+161 silly addNameRange     '0.8.6',
+161 silly addNameRange     '0.8.5',
+161 silly addNameRange     '0.8.4',
+161 silly addNameRange     '0.8.3',
+161 silly addNameRange     '0.8.2',
+161 silly addNameRange     '0.8.1',
+161 silly addNameRange     '0.8.0',
+161 silly addNameRange     '0.1.0' ] ]
+162 silly pickManifestFromRegistryMetadata spec >=1.3.2 <2.0.0 tag latest versions [ '1.3.2',
+162 silly pickManifestFromRegistryMetadata   '1.3.1',
+162 silly pickManifestFromRegistryMetadata   '1.3.0',
+162 silly pickManifestFromRegistryMetadata   '1.2.2',
+162 silly pickManifestFromRegistryMetadata   '1.2.1',
+162 silly pickManifestFromRegistryMetadata   '1.2.0',
+162 silly pickManifestFromRegistryMetadata   '1.1.0',
+162 silly pickManifestFromRegistryMetadata   '1.0.2',
+162 silly pickManifestFromRegistryMetadata   '1.0.1',
+162 silly pickManifestFromRegistryMetadata   '1.0.0',
+162 silly pickManifestFromRegistryMetadata   '0.9.7',
+162 silly pickManifestFromRegistryMetadata   '0.9.6',
+162 silly pickManifestFromRegistryMetadata   '0.9.5',
+162 silly pickManifestFromRegistryMetadata   '0.9.4',
+162 silly pickManifestFromRegistryMetadata   '0.9.3',
+162 silly pickManifestFromRegistryMetadata   '0.9.2',
+162 silly pickManifestFromRegistryMetadata   '0.9.1',
+162 silly pickManifestFromRegistryMetadata   '0.9.0',
+162 silly pickManifestFromRegistryMetadata   '0.8.9',
+162 silly pickManifestFromRegistryMetadata   '0.8.8',
+162 silly pickManifestFromRegistryMetadata   '0.8.7',
+162 silly pickManifestFromRegistryMetadata   '0.8.6',
+162 silly pickManifestFromRegistryMetadata   '0.8.5',
+162 silly pickManifestFromRegistryMetadata   '0.8.4',
+162 silly pickManifestFromRegistryMetadata   '0.8.3',
+162 silly pickManifestFromRegistryMetadata   '0.8.2',
+162 silly pickManifestFromRegistryMetadata   '0.8.1',
+162 silly pickManifestFromRegistryMetadata   '0.8.0',
+162 silly pickManifestFromRegistryMetadata   '0.1.0' ]
+163 silly addNamed xml-js@latest
+164 verbose addNamed "latest" is being treated as a dist-tag for xml-js
+165 info addNameTag [ 'xml-js', 'latest' ]
+166 silly mapToRegistry name xml-js
+167 silly mapToRegistry using default registry
+168 silly mapToRegistry registry https://registry.npm.taobao.org/
+169 silly mapToRegistry data Result {
+169 silly mapToRegistry   raw: 'xml-js',
+169 silly mapToRegistry   scope: null,
+169 silly mapToRegistry   escapedName: 'xml-js',
+169 silly mapToRegistry   name: 'xml-js',
+169 silly mapToRegistry   rawSpec: '',
+169 silly mapToRegistry   spec: 'latest',
+169 silly mapToRegistry   type: 'tag' }
+170 silly mapToRegistry uri https://registry.npm.taobao.org/xml-js
+171 verbose addNameTag registry:https://registry.npm.taobao.org/xml-js already in flight; waiting
+172 silly addNameTag next cb for xml-js with tag latest
+173 silly addNamed xml-js@1.3.2
+174 verbose addNamed "1.3.2" is a plain semver version for xml-js
+175 silly mapToRegistry name xml-js
+176 silly mapToRegistry using default registry
+177 silly mapToRegistry registry https://registry.npm.taobao.org/
+178 silly mapToRegistry data Result {
+178 silly mapToRegistry   raw: 'xml-js',
+178 silly mapToRegistry   scope: null,
+178 silly mapToRegistry   escapedName: 'xml-js',
+178 silly mapToRegistry   name: 'xml-js',
+178 silly mapToRegistry   rawSpec: '',
+178 silly mapToRegistry   spec: 'latest',
+178 silly mapToRegistry   type: 'tag' }
+179 silly mapToRegistry uri https://registry.npm.taobao.org/xml-js
+180 verbose addRemoteTarball https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz not in flight; adding
+181 verbose addRemoteTarball [ 'https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz',
+181 verbose addRemoteTarball   '6157f1987f0f0ab994237bb827aa0c3401aea843' ]
+182 info retry fetch attempt 1 at 上午2:10:45
+183 info attempt registry request try #1 at 上午2:10:45
+184 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+185 info retry fetch attempt 1 at 上午2:10:45
+186 info attempt registry request try #1 at 上午2:10:45
+187 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+188 info retry fetch attempt 1 at 上午2:10:45
+189 info attempt registry request try #1 at 上午2:10:45
+190 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+191 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.88:443
+192 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.88:443
+193 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.88:443
+194 info attempt registry request try #2 at 上午2:12:11
+195 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+196 info attempt registry request try #2 at 上午2:12:11
+197 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+198 info attempt registry request try #2 at 上午2:12:11
+199 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+200 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+201 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+202 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+203 info attempt registry request try #3 at 上午2:14:27
+204 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+205 info attempt registry request try #3 at 上午2:14:27
+206 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+207 info attempt registry request try #3 at 上午2:14:27
+208 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+209 error fetch failed https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+210 warn retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+211 error fetch failed https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+212 warn retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+213 error fetch failed https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+214 warn retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+215 info retry fetch attempt 2 at 上午2:15:53
+216 info attempt registry request try #1 at 上午2:15:53
+217 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+218 info retry fetch attempt 2 at 上午2:15:53
+219 info attempt registry request try #1 at 上午2:15:53
+220 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+221 info retry fetch attempt 2 at 上午2:15:53
+222 info attempt registry request try #1 at 上午2:15:53
+223 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+224 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+225 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+226 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+227 info attempt registry request try #2 at 上午2:17:21
+228 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+229 info attempt registry request try #2 at 上午2:17:21
+230 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+231 info attempt registry request try #2 at 上午2:17:21
+232 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+233 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+234 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+235 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+236 info attempt registry request try #3 at 上午2:19:36
+237 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+238 info attempt registry request try #3 at 上午2:19:36
+239 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+240 info attempt registry request try #3 at 上午2:19:36
+241 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+242 error fetch failed https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+243 warn retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+244 error fetch failed https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+245 warn retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+246 error fetch failed https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+247 warn retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+248 info retry fetch attempt 3 at 上午2:21:52
+249 info attempt registry request try #1 at 上午2:21:52
+250 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+251 info retry fetch attempt 3 at 上午2:21:52
+252 info attempt registry request try #1 at 上午2:21:52
+253 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+254 info retry fetch attempt 3 at 上午2:21:52
+255 info attempt registry request try #1 at 上午2:21:52
+256 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+257 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+258 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+259 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 61.154.126.92:443
+260 info attempt registry request try #2 at 上午2:23:18
+261 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+262 info attempt registry request try #2 at 上午2:23:18
+263 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+264 info attempt registry request try #2 at 上午2:23:18
+265 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+266 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 120.37.140.253:443
+267 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 120.37.140.253:443
+268 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 120.37.140.253:443
+269 info attempt registry request try #3 at 上午2:25:35
+270 http fetch GET https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+271 info attempt registry request try #3 at 上午2:25:35
+272 http fetch GET https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+273 info attempt registry request try #3 at 上午2:25:35
+274 http fetch GET https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+275 error fetch failed https://registry.npm.taobao.org/xml-js/download/xml-js-1.3.2.tgz
+276 error fetch failed https://registry.npm.taobao.org/xml/download/xml-1.0.1.tgz
+277 error fetch failed https://registry.npm.taobao.org/slim-scroll/download/slim-scroll-1.3.18.tgz
+278 silly rollbackFailedOptional Starting
+279 silly rollbackFailedOptional Finishing
+280 silly runTopLevelLifecycles Finishing
+281 silly install printInstalled
+282 verbose stack Error: connect ETIMEDOUT 120.37.140.253:443
+282 verbose stack     at Object.exports._errnoException (util.js:1034:11)
+282 verbose stack     at exports._exceptionWithHostPort (util.js:1057:20)
+282 verbose stack     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1099:14)
+283 verbose cwd /Users/aniwei/Desktop/Workspace/aniwei.proxy
+284 error Darwin 16.6.0
+285 error argv "/usr/local/Cellar/node/7.7.4/bin/node" "/usr/local/bin/npm" "i"
+286 error node v7.7.4
+287 error npm  v4.1.2
+288 error code ETIMEDOUT
+289 error errno ETIMEDOUT
+290 error syscall connect
+291 error network connect ETIMEDOUT 120.37.140.253:443
+292 error network This is most likely not a problem with npm itself
+292 error network and is related to network connectivity.
+292 error network In most cases you are behind a proxy or have bad network settings.
+292 error network
+292 error network If you are behind a proxy, please make sure that the
+292 error network 'proxy' config is set properly.  See: 'npm help config'
+293 verbose exit [ 1, true ]

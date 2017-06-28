@@ -13,7 +13,6 @@ import Tools from './tools';
 import Item from './item';
 import constants from '../../constants';
 import util from '../../util';
-import Scroll from '../../components/scroll';
 
 const initState = window.__initState__;
 const { hostname, port } = location;
@@ -152,11 +151,9 @@ class List extends React.Component {
           <Tools />
         </div>
 
-        <Scroll className={classNameSpace('scroll')} fresh>
-          <div className={classNameSpace('view')}>
-            {this.groupRender()}
-          </div>
-        </Scroll>
+        <div className={classNameSpace('view')}>
+          {this.groupRender()}
+        </div>
       </div>
     );
   }

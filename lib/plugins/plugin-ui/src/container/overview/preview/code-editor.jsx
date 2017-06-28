@@ -14,6 +14,14 @@ export default class CodeEditor extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    if ('value' in nextProps) {
+      if (this.editor) {
+        this.editor.setValue(nextProps.value);
+      }
+    }
+  }
+
   render () {
 
     return (

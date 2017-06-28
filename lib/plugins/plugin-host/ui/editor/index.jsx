@@ -84,7 +84,7 @@ export default class Editor extends React.Component {
     
     this.rule = {
       text: this.state.inputValue,
-      name: this.state.inputValue,
+      name: this.state.textareaValue,
       list: []
     };
 
@@ -115,7 +115,7 @@ export default class Editor extends React.Component {
   }
 
   parse () {
-    const value = this.textareaValue || '';
+    const value = this.state.textareaValue || '';
     const valueArray = value.split(/[\n\r]+/g);
     const list = this.rule.list;
 

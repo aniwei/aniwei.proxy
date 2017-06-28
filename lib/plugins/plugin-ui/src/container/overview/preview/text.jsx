@@ -1,7 +1,7 @@
 
 import React from 'react';
 import 'whatwg-fetch';
-import { js_beautify as beautify } from 'js-beautify';
+import beautify from 'js-beautify';
 
 import util from '../../../util';
 import constants from '../../../constants';
@@ -17,7 +17,6 @@ const language = {
   'application/javascript': 'javascript',
 }
 
-console.log(beautify)
 
 export default class Text extends React.Component {
   constructor (props) {
@@ -25,7 +24,8 @@ export default class Text extends React.Component {
 
     this.state = {
       lineWrapping: false,
-      beautify: false
+      beautify: false,
+      previewContent: props.preview
     };
   }
 
@@ -84,10 +84,10 @@ export default class Text extends React.Component {
   }
 
   onBeautify = () => {
-    const { type } = this.props;
+    const type = this.contentType();
 
     this.setState({
-      text: beautify.html(this.state.text)
+      text: beautify[`${type}_beautify`](this.state.previewContent)
     });
   }
 
@@ -121,17 +121,17 @@ export default class Text extends React.Component {
   contentType () {
     const { type } = this.props;
 
-    
+    return language[type];
   }
 
   codeMirrorRender () {
-    const { preview, type } = this.props;
+    const { type } = this.props;
     const lang = language[type] || 'html';
 
-    if (preview) {
+    if (this.state.previewContent) {
       return (
         <CodeEditor 
-          value={preview}
+          value={this.state.previewContent}
           language={lang}
           theme="vs-dark"
           folding={true}

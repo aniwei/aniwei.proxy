@@ -5,7 +5,6 @@ import { Link , withRouter } from 'react-router-dom';
 
 import util from '../../../util';
 import Cell from '../../../components/cell';
-import Scroll from '../../../components/scroll';
 
 const classNamespace = util.namespace('app__overview-header');
 
@@ -69,11 +68,9 @@ class Header extends React.Component {
   render () {
     return (
       <div className={classNamespace()}>
-        <Scroll className={classNamespace('scroll')} fresh>
-          <div className={classNamespace('inner')}>
-            {this.subjectRender()}
-          </div>
-        </Scroll>
+        <div className={classNamespace('inner')}>
+          {this.subjectRender()}
+        </div>
       </div>
     );
   }
