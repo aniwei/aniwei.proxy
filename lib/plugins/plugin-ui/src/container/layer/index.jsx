@@ -10,6 +10,23 @@ import './less/index.less';
 const classNamespace = util.namespace('app__layer');
 
 class Layer extends React.Component {
+  shouldComponentUpdate (nextProps) {
+    const qs = queryString.parse(location.search);
+
+    if (!(qs.layer === 'visiable')) {
+      return true;
+    }
+
+    if (
+      nextProps.component === this.props.component ||
+      nextProps.defaultProps === this.props.defaultProps
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
   titleRender () {
     const { title } = this.props;
 
@@ -23,7 +40,7 @@ class Layer extends React.Component {
   }
 
   render () {
-    const { location, component } = this.props;
+    const { location, component, defaultProps } = this.props;
     const qs = queryString.parse(location.search);
 
     const classes = classnames({
@@ -36,9 +53,8 @@ class Layer extends React.Component {
 
     let element;
 
-
     if (component) {
-      element = createElement(component, this.props);
+      element = createElement(component, defaultProps);
     }
 
     if (!component) {

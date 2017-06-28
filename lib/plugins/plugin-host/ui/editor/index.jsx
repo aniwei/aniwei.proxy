@@ -7,25 +7,98 @@ import Button from './button';
 const classNamespace = namespace('host-rules-editor');
 
 export default class Editor extends React.Component {
-  constructor () {
-    super();    
+  constructor (props) {
+    super(props);    
+
+    const { list } = props;
+    let content;
+
+    if (Array.isArray(list)) {
+      content = list.map((li) => {
+        const disable = li.disable ? '# ' : '';
+
+        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
+      }).join('\n');
+    }
+
+    this.state = {
+      inputValue: this.props.text || this.props.name,
+      textareaValue: content
+    };
 
     this.rule = {};
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { list, name, text } = nextProps;
+    let content;
+
+    ['text', 'name', 'list'].forEach((key) => {
+      this.rule[key] = nextProps[key];
+    });
+
+    if (Array.isArray(list)) {
+      content = list.map((li) => {
+        const disable = li.disable ? '# ' : '';
+
+        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
+      }).join('\n');
+    }
+
+    this.setState({
+      textareaValue: content,
+      inputValue: text || name
+    });
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    if (!(
+      nextState.inputValue === this.state.inputValue &&
+      nextState.textareaValue === this.state.textareaValue
+    )) {
+      return true;
+    }
+
+    if (
+      nextProps.name === undefined &&
+      nextProps.text === undefined &&
+      nextProps.list === undefined
+    ) {
+      return true;
+    }
+
+    if (
+      nextProps.name === this.props.name &&
+      nextProps.text === this.props.text &&
+      nextProps.list === this.props.list &&
+      nextProps.onSubmit === this.props.onSubmit
+    ) {
+      return false;
+    }
+
+    return true;
   }
 
   onButtonClick = () => {
     const { onSubmit } = this.props;
     
+    this.rule = {
+      text: this.state.inputValue,
+      name: this.state.inputValue,
+      list: []
+    };
+
     this.parse();
 
     onSubmit(this.rule);
   }
 
-  onNameInput = (e) => {
+  onNameChange = (e) => {
     const value = e.target.value;
-    this.rule.group = value;
-    this.rule.text  = value;
-    this.rule.list  = [];
+
+    this.setState({
+      inputValue: value
+    });
   }
 
   onTextChange = (e) => {
@@ -34,7 +107,9 @@ export default class Editor extends React.Component {
 
     if (value) {
       this.timer = setTimeout(() => {
-        this.textareaValue = value;
+        this.setState({
+          textareaValue: value
+        });
       }, 50);
     }
   }
@@ -88,16 +163,7 @@ export default class Editor extends React.Component {
   }
 
   rulesRender () {
-    const { list } = this.props;
-    let content;
-
-    if (Array.isArray(list)) {
-      content = list.map((li) => {
-        const disable = li.disable ? '# ' : '';
-
-        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
-      }).join('\n');
-    }
+    const { textareaValue } = this.state;
 
     return (
       <div className={classNamespace('text')}>
@@ -106,15 +172,16 @@ export default class Editor extends React.Component {
           cols="30" 
           rows="10" 
           onChange={this.onTextChange}
-          placeholder="请输入规则">
-          {content}
+          placeholder="请输入规则"
+          value={textareaValue || ''}>
         </textarea>
       </div>
     );
   }
 
   render () {
-    const { text, group } = this.props;
+    const { text, name,  group } = this.props;
+    const { inputValue } = this.state;
 
     return (
       <div className={classNamespace()}>
@@ -124,7 +191,7 @@ export default class Editor extends React.Component {
               分组
             </div>
             <div className={classNamespace('value')}>
-              <input onInput={this.onNameInput} value={text} type="text" className={classNamespace('input')} placeholder="请输入分组名称" />
+              <input onChange={this.onNameChange} value={inputValue} type="text" className={classNamespace('input')} placeholder="请输入分组名称" />
             </div>
           </div>
           {this.rulesRender()}

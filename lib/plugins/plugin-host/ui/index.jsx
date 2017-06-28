@@ -45,18 +45,22 @@ class Host extends Component {
     dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
-      onSubmit: this.onRuleSubmit
+      defaultProps: {
+        onSubmit: this.onRuleSubmit
+      }
     });
   }
 
   rulesEditer = (rule, onSubmit) => {
     const { dispatch } = this.props;
 
-    dispatch(assign({
+    dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
-      onSubmit
-    }, rule));
+      defaultProps: assign({
+        onSubmit: this.onRuleSubmit
+      }, rule)
+    });
   }
 
   appenderRender () {

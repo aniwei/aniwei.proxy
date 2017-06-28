@@ -47,14 +47,16 @@ class Simulator extends React.Component {
 
   }
 
-  onAppenderClick = (rule) => {
+  onAppenderClick = () => {
     const { dispatch } = this.props;
 
     dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
-      onSubmit: this.onRuleSubmit,
-      rule
+      defaultProps: {
+        onSubmit: this.onRuleSubmit,
+        rule
+      }
     });
   }
 

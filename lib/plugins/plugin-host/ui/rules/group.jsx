@@ -29,7 +29,7 @@ export default class Rules extends React.Component {
 
     return list.map((li, i) => {
       const { ip, hostname, disable } = li;
-      const spanElement = hostname.map(name => <span className={classNamesapce('name')} key={i}>{name}</span>);
+      const spanElement = hostname.map((name, idx) => <span className={classNamesapce('name')} key={idx}>{name}</span>);
       const classes = classnames({
         [classNamesapce('item')]: true,
         [classNamesapce('item', 'enable')]: !disable
