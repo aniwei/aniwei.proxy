@@ -27,9 +27,7 @@ export default class Rules extends React.Component {
   onGroupEdit = (rule, index) => {
     const { rulesEditer } = this.props;
 
-    rulesEditer(rule, () => {
-      debugger;
-    });
+    rulesEditer(rule, index);
   }
 
   updateRules (rules) {

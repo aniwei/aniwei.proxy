@@ -14,12 +14,53 @@ import Rules from './rules';
 const classNamespace = namespace('host');
 
 class Host extends Component {
-  onRuleSubmit = (rule) => {
+  onRuleAppended = (rule) => {
     const { settings, dispatch } = this.props;
     const { rules } = settings;
     
     rules[rules.length] = rule;
     
+    this.rulesUpdate(rules);
+  }
+
+  onRuleUpdated (rule, index) {
+    const { settings } = this.props;
+    const { rules } = settings;
+
+    rules[index] = rule;
+
+    this.rulesUpdate(rules);
+  }
+
+  onAppenderClick = () => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'LAYER_OVERLAYED',
+      component: Editor,
+      defaultProps: {
+        onSubmit: this.onRuleAppended
+      }
+    });
+  }
+
+  rulesEditer = (rule, index) => {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'LAYER_OVERLAYED',
+      component: Editor,
+      defaultProps: assign({
+        onSubmit: (rule) => {
+          this.onRuleUpdated(rule, index);
+        }
+      }, rule)
+    });
+  }
+
+  rulesUpdate (rules) {
+    const { dispatch } = this.props;
+
     fetch('/plugin/host/update', {
       method: 'post',
       headers: {
@@ -36,30 +77,6 @@ class Host extends Component {
       });
 
       history.back();
-    });
-  }
-
-  onAppenderClick = () => {
-    const { dispatch } = this.props;
-
-    dispatch({
-      type: 'LAYER_OVERLAYED',
-      component: Editor,
-      defaultProps: {
-        onSubmit: this.onRuleSubmit
-      }
-    });
-  }
-
-  rulesEditer = (rule, onSubmit) => {
-    const { dispatch } = this.props;
-
-    dispatch({
-      type: 'LAYER_OVERLAYED',
-      component: Editor,
-      defaultProps: assign({
-        onSubmit: this.onRuleSubmit
-      }, rule)
     });
   }
 

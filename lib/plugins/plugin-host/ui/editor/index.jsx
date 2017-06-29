@@ -10,68 +10,51 @@ export default class Editor extends React.Component {
   constructor (props) {
     super(props);    
 
-    const { list } = props;
-    let content;
-
-    if (Array.isArray(list)) {
-      content = list.map((li) => {
-        const disable = li.disable ? '# ' : '';
-
-        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
-      }).join('\n');
-    }
-
+    const { list, name, text } = props;
+    
     this.state = {
-      inputValue: this.props.text || this.props.name,
-      textareaValue: content
+      inputValue: text || name,
+      textareaValue: this.toTextareaValue(list)
     };
-
-    this.rule = {};
   }
 
   componentWillReceiveProps (nextProps) {
-    const { list, name, text } = nextProps;
-    let content;
+    const state = {};
 
-    ['text', 'name', 'list'].forEach((key) => {
-      this.rule[key] = nextProps[key];
-    });
-
-    if (Array.isArray(list)) {
-      content = list.map((li) => {
-        const disable = li.disable ? '# ' : '';
-
-        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
-      }).join('\n');
+    if (
+      'text' in nextProps ||
+      'name' in nextProps
+    ) {
+      state.inputValue = nextProps.text || nextProps.name;
+    } else {
+      state.inputValue = '';
     }
 
-    this.setState({
-      textareaValue: content,
-      inputValue: text || name
-    });
+    if ('list' in nextProps) {
+      state.textareaValue = this.toTextareaValue(nextProps.list);
+    } else {
+      state.textareaValue = '';
+    }
+
+    this.setState(state);
   }
 
   shouldComponentUpdate (nextProps, nextState) {
+    const { inputValue, textareaValue } = this.state;
+    const { name, text, list, onSubmit } = this.props;
+
     if (!(
-      nextState.inputValue === this.state.inputValue &&
-      nextState.textareaValue === this.state.textareaValue
+      nextState.inputValue === inputValue &&
+      nextState.textareaValue === textareaValue
     )) {
       return true;
     }
 
     if (
-      nextProps.name === undefined &&
-      nextProps.text === undefined &&
-      nextProps.list === undefined
-    ) {
-      return true;
-    }
-
-    if (
-      nextProps.name === this.props.name &&
-      nextProps.text === this.props.text &&
-      nextProps.list === this.props.list &&
-      nextProps.onSubmit === this.props.onSubmit
+      nextProps.name === name &&
+      nextProps.text === text &&
+      nextProps.list === list &&
+      nextProps.onSubmit === onSubmit
     ) {
       return false;
     }
@@ -80,17 +63,21 @@ export default class Editor extends React.Component {
   }
 
   onButtonClick = () => {
-    const { onSubmit } = this.props;
-    
-    this.rule = {
+    const { onSubmit, list } = this.props;
+    const rule = {
       text: this.state.inputValue,
-      name: this.state.textareaValue,
+      name: this.state.inputValue,
       list: []
     };
 
-    this.parse();
+    rule.list = this.json();
 
-    onSubmit(this.rule);
+    if (
+      rule.name &&
+      rule.list.length > 0
+    ) {
+      onSubmit(rule);
+    }
   }
 
   onNameChange = (e) => {
@@ -114,10 +101,24 @@ export default class Editor extends React.Component {
     }
   }
 
-  parse () {
+  toTextareaValue (list) {
+    let content;
+
+    if (Array.isArray(list)) {
+      content = list.map((li) => {
+        const disable = li.disable ? '# ' : '';
+
+        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
+      }).join('\n');
+    }
+
+    return content || '';
+  }
+
+  json () {
     const value = this.state.textareaValue || '';
     const valueArray = value.split(/[\n\r]+/g);
-    const list = this.rule.list;
+    const list = [];
 
     if (valueArray.length > 0) {
       valueArray.forEach((line) => {
@@ -160,6 +161,8 @@ export default class Editor extends React.Component {
         }
       });
     }
+
+    return list;
   }
 
   rulesRender () {
@@ -182,6 +185,7 @@ export default class Editor extends React.Component {
   render () {
     const { text, name,  group } = this.props;
     const { inputValue } = this.state;
+    const buttonText = name ? '更新规则' : '添加规则';
 
     return (
       <div className={classNamespace()}>
@@ -196,7 +200,7 @@ export default class Editor extends React.Component {
           </div>
           {this.rulesRender()}
         </div>
-        <Button type="primary" onClick={this.onButtonClick}>添加规则</Button>
+        <Button type="primary" onClick={this.onButtonClick}>{buttonText}</Button>
       </div>
     );
   };

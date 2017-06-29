@@ -84,10 +84,15 @@ export default class Text extends React.Component {
   }
 
   onBeautify = () => {
-    const type = this.contentType();
+    let type = this.contentType();
+
+    type = type === 'javascript' ? 'js' : type;
+
+    const method = `${type}_beautify`;
+    const content = beautify[`${type}_beautify`](this.state.previewContent);
 
     this.setState({
-      text: beautify[`${type}_beautify`](this.state.previewContent)
+      previewContent: content
     });
   }
 
