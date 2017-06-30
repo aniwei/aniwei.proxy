@@ -12,7 +12,11 @@ class Requester extends React.Component {
 
   componentWillRecevieProps (nextProps) {
     this.sizeUpdate();
-  }  
+  } 
+
+  shouldComponentUpdate () {
+    return true;
+  } 
 
   sizeUpdate () {
     const { dispatch } = this.props;
