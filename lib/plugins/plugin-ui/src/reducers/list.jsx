@@ -1,4 +1,4 @@
-import { assign, clone } from 'lodash';
+import { assign, clone, cloneDeep } from 'lodash';
 import constants from '../constants';
 
 const __initState__ = window.__initState__;
@@ -42,7 +42,7 @@ const reducers = {
 
     search.toggled = !action.toggled;
 
-    return clone(state);
+    return cloneDeep(state);
   },
 
   [constants.LIST_TOGGLED]: (state, action) => {
@@ -54,7 +54,7 @@ const reducers = {
       assign(subjects[ref], subject);
     }
 
-    return clone(state);
+    return cloneDeep(state);
   },
 
   [constants.LIST_PUSH]: (state, action) => {
@@ -100,7 +100,7 @@ const reducers = {
       }
     });
 
-    return clone(state);
+    return cloneDeep(state);
   },
 
   [constants.LIST_UPDATE]: (state, action) => {
@@ -124,7 +124,7 @@ const reducers = {
     list.forEach(forEach);
     action.proxy.list.forEach(forEach);
 
-    return clone(state);
+    return cloneDeep(state);
   }
 } 
 

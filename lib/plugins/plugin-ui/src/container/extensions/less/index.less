@@ -5,6 +5,7 @@
   z-index: 11;
   top: 0;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   &-item {
     overflow: hidden;
@@ -13,19 +14,19 @@
     cursor: pointer;
     position: relative;
     background: #2e3238;
-    max-height: 64px;
+    max-height: 1.71rem;
     transition: all .5s;
     // margin-top: 15px;
 
     &-data-title {
       color: #6b6f7c;
       font-size: 13px;
-      padding: 12px 0;
+      padding: 0.32rem 0;
       font-weight: bold;
     }
 
     &-data-cell {
-      min-height: 20px;
+      min-height: 0.53rem;
       display: flex;
       flex-direction: row;
       position: relative;
@@ -53,8 +54,8 @@
 
     &-meta {
       overflow: hidden;
-      height: 40px;
-      margin: 12px 18px 11px;
+      height: 1.07rem;
+      margin: 0.32rem 0.48rem 0.29rem;
     }
 
     &-overview {
@@ -69,7 +70,7 @@
 
       &-footer {
         color: #6b6f7c;
-        padding-top: 12px;
+        padding-top: 0.32rem;
         text-align: center;
       }
 
@@ -79,7 +80,7 @@
       }
 
       &-button {
-        padding-top: 12px;
+        padding-top: 0.32rem;
         max-width: 10rem;
         display: flex;
       }
@@ -110,38 +111,39 @@
     &-group {
       background: #292d32;
       padding-bottom: 10px;
+
       &-title {
         background: #2f3239;
-        padding: 12px 18px 12px 18px;
+        padding: 0.32rem 0.48rem;
         position: relative;
-        height: 20px;
+        height: 0.53rem;
         color: #888;
         font-size: 13px;
       }
 
       &-image {
         position: absolute;
-        left: 18px;
-        height: 20px;
-        width: 20px;
-        border-radius: 10px;
+        left: 0.48rem;
+        height: 0.53rem;
+        width: 0.53rem;
+        border-radius: 0.27rem;
         background: #fff;
         text-align: center;
         overflow: hidden;
-        line-height: 20px;
+        line-height: 0.53rem;
       }
 
       &-subject {
         // margin-right: 120px;
-        height: 20px;
-        line-height: 20px;
+        height: 0.53rem;
+        line-height: 0.53rem;
       }
 
       &-server {
         position: absolute;
-        right: 18px;
-        width: 110px;
-        top: 12px;
+        right: 0.48rem;
+        width: 2.93rem;
+        top: 0.32rem;
         text-align: right;
       }
 
@@ -157,24 +159,24 @@
 
     &-image {
       position: absolute;
-      top: 12px;
-      left: 18px;
-      height: 40px;
-      width: 40px;
+      top: 0.32rem;
+      left: 0.48rem;
+      height: 1.07rem;
+      width: 1.07rem;
       border-radius: 3px;
       background: #fff;
     }
 
     &-avtor {
       position: absolute;
-      top: 12px;
-      left: 18px;
-      height: 40px;
-      width: 40px;
-      border-radius: 20px;
+      top: 0.32rem;
+      left: 0.48rem;
+      height: 1.07rem;
+      width: 1.07rem;
+      border-radius: 0.53rem;
       background: #6b6f7c;
       font-size: 22px;
-      line-height: 40px;
+      line-height: 1.07rem;
       text-align: center;
       color: #fff;
       overflow: hidden;
@@ -182,11 +184,11 @@
 
     &-subject {
       position: relative;
-      margin-left: 50px;
+      margin-left: 1.33rem;
     }
 
     &-desc {
-      margin-right: 40px;
+      margin-right: 1.07rem;
     }
 
     &_active &-server {
@@ -197,11 +199,11 @@
       position: absolute;
       right: 0;
       top: 0;
-      width: 110px;
+      width: 2.93rem;
       color: #6b6f7c;
       font-size: 13px;
       text-align: right;
-      line-height: 20px;
+      line-height: 0.53rem;
     }
 
     &-ip {
@@ -216,7 +218,7 @@
       flex: 1;
       font-size: 13px;
       color: #fff;
-      line-height: 20px;
+      line-height: 0.53rem;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -224,7 +226,7 @@
 
     &-desc-brief {
       flex: 1;
-      line-height: 20px;
+      line-height: 0.53rem;
       color: #989898;
       font-size: 13px;
       overflow: hidden;
@@ -235,12 +237,12 @@
 
   &-search {
     &-bar {
-      margin: 0 18px;
+      margin: 0 0.48rem;
       position: relative;
 
       &-icon {
         position: absolute;
-        right: 10px;
+        right: 0.27rem;
         top: 50%;
         transform: translateY(-50%);
         font-size: 24px;
@@ -250,8 +252,8 @@
       &-input {
         background: #26292e;
         border-radius: 0;
-        height: 32px;
-        line-height: 32px;
+        height: 0.85rem;
+        line-height: 0.85rem;
         font-size: 13px;
         color: #fff;
         border: 0;

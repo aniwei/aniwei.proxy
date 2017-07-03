@@ -38,6 +38,16 @@ class List extends React.Component {
     });
   }
 
+  shouldComponentUpdate (nextProps) {
+    if (
+      nextProps.list === this.props.list
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
   onSubjectClick = (li) => {
     const { dispatch } = this.props;
 
