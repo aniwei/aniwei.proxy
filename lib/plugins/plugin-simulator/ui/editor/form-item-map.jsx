@@ -1,12 +1,13 @@
 import React, { createElement } from 'react';
-import { Subject, Listview, Item, Text, Select, Tag } from 'aniwei-proxy-extension-context';
+import Item from './form/form-item';
+import Listview from './form/form-list';
+import Text from './form/form-text';
+import Select from './form/form-select';
 
 function Group (props) {
   return (
-    <Item vertical>
-      <Item.Body>
-
-      </Item.Body>
+    <Item>
+      <Text />
     </Item>
   );
 }

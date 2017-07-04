@@ -14,7 +14,7 @@ const classNamespace = namespace('sim');
 const rule = [
   { 
     key: 'group', 
-    text: '选择分组',
+    text: '规则名称',
     formItem: [
       { component: 'Group', key: 'group', value: '' }
     ]

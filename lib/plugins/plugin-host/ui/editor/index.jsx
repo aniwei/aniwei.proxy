@@ -89,16 +89,11 @@ export default class Editor extends React.Component {
   }
 
   onTextChange = (e) => {
-    const value = e.target.value || ''
-    clearTimeout(this.timer);
+    const value = e.target.value || '';
 
-    if (value) {
-      this.timer = setTimeout(() => {
-        this.setState({
-          textareaValue: value
-        });
-      }, 50);
-    }
+    this.setState({
+      textareaValue: value
+    });
   }
 
   toTextareaValue (list) {

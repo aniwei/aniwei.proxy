@@ -1,9 +1,9 @@
 import React, { createElement, PropTypes } from 'react';
 import { clone } from 'lodash';
 import { register, namespace } from 'aniwei-proxy-extension-context';
-import { Button } from 'aniwei-proxy-extension-context';
 
 import FormItem from './form-item';
+import Button from './button';
 
 import 'whatwg-fetch';
 
@@ -44,11 +44,9 @@ class Editor extends React.Component {
     return (
       <div className={classNamespace()}>
         <FormItem dataSource={rule} />
-        <div className={classNamespace('button')}>
-          <Button onClick={this.onSubmit} type="primary">
-            添加
-          </Button>
-        </div>
+        <Button onClick={this.onSubmit} type="primary">
+          添加规则
+        </Button>
       </div>
     );
   }
