@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import './less/index.less';
+// import './less/index.less';
 import util from '../../util';
 
 const dataNamespace = util.namespace('app__cell');

@@ -2,8 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import { Link, Route } from 'react-router-dom';
 import queryString from 'query-string';
-import Scroll from 'react-iscroll';
-import iScroll from 'iscroll';
 
 // import Overview from './overview';
 

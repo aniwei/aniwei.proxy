@@ -27,7 +27,7 @@
     "color": "^0.11.3",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
-    "controls-context": "0.0.1",
+    "controls-context": "0.0.12",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.27.3",
     "domain-name-parser": "^2.3.0",

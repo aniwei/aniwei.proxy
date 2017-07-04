@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import classnames from 'classnames';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import queryString from 'query-string';

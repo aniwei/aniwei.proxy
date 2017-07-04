@@ -1,4 +1,4 @@
-import React from 'React';
+import React, { createElement } from 'React';
 
 const Logo = () => {
   return (

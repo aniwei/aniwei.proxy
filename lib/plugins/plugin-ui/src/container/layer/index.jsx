@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 
 import util from '../../util';
-import './less/index.less';
+// import './less/index.less';
 
 const classNamespace = util.namespace('app__layer');
 

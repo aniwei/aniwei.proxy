@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import classnames from 'classnames';
+import { register } from 'controls-context';
 
-import './less/index.less';
+// import './less/index.less';
 
 import Logo from './logo';
 import Search from './search';
 import Menu from './menu';
 
-export default class Navigator extends React.Component {
+// const menus = [
+//   {key: 'send', route: 'list', text: '请求数据', active: false, component: List},
+//   {key: 'app', route: 'extensions', text: '设置', active: false, component: Extensions},
+//   {key: 'setting', route: 'settings', text: '设置', active: false, component: Settings}  
+// ];
+
+class Navigator extends React.Component {
   render () {
     const { className, menus } = this.props;
 
@@ -23,3 +30,5 @@ export default class Navigator extends React.Component {
     );
   }
 }
+
+export default register({}, Navigator);

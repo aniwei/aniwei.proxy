@@ -2,12 +2,11 @@ import React from 'react';
 import { assign } from 'lodash';
 
 
-const editor = window.monaco.editor;
-
 export default class CodeEditor extends React.Component {
   componentDidMount () {
     const codeView = this.refs.codeView;
     const { value } = this.props;
+    const editor = window.monaco.editor;
 
     if (codeView) {
       this.editor = editor.create(codeView, assign({}, this.props));

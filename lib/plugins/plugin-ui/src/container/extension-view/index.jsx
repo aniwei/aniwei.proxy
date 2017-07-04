@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import queryString from 'query-string';
 
-import './less/index.less';
+// import './less/index.less';
 
 import util from '../../util';
 

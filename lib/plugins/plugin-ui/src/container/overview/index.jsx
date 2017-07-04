@@ -9,7 +9,7 @@ import util from '../../util';
 import Header from './header';
 import Preview from './preview';
 
-import './less/index.less';
+// import './less/index.less';
 
 const classNamespace = util.namespace('app__overview');
 

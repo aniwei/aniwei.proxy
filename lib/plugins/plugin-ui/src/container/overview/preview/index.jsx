@@ -13,7 +13,6 @@ import Video from './video';
 import Audio from './audio';
 
 const classNamespace = util.namespace('app__overview-preview');
-const initState = window.__initState__;
 
 const isApplicationStream = (type) => {
   return 'application/octet-stream' === type;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
-import './less/index.less';
+// import './less/index.less';
 
 import SearchBar from './search';
 import Item from './item';

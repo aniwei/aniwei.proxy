@@ -4,18 +4,13 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/seti.css';
-import './less/index.less';
+// import './less/index.less';
 
 import SearchBar from './search';
 import Tools from './tools';
 import Item from './item';
 import constants from '../../constants';
 import util from '../../util';
-
-const initState = window.__initState__;
-const { hostname, port } = location;
 
 const classNameSpace = util.namespace('app__list');
 
