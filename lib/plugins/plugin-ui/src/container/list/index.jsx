@@ -48,6 +48,8 @@ class List extends React.Component {
     return true;
   }
 
+
+
   onSubjectClick = (li) => {
     const { dispatch } = this.props;
 
@@ -65,6 +67,17 @@ class List extends React.Component {
     dispatch({
       type: constants.LIST_SEARCH_TOGGLED,
       toggled
+    });
+  };
+
+  onPinClick = (li) => {
+    const { dispatch } = this.props;
+
+    li.pinned = !li.pinned;
+
+    dispatch({
+      type: constants.LIST_PINNED,
+      subject: li
     });
   };
 
@@ -123,6 +136,16 @@ class List extends React.Component {
         [classNameSpace('item-group', 'invisible')]: !!li.toggled
       });
 
+      const itemClass = classnames({
+        [classNameSpace('item-group-subject-tools-item')]: true,
+        [classNameSpace('item-group-subject-tools-item', 'selected')]: !!li.toggled
+      });
+
+      const itemPinClass = classnames({
+        [classNameSpace('item-group-subject-tools-item')]: true,
+        [classNameSpace('item-group-subject-tools-item', 'selected')]: !!li.pinned
+      });
+
       return (
         <div className={classes} key={index}>
           <div className={classNameSpace('item-group-title')}>
@@ -130,7 +153,15 @@ class List extends React.Component {
               <img src={`/ico?url=${li.subject}`} alt={li.subject} className={classNameSpace('item-group-subject-ico')}/>
               <div className={classNameSpace('item-group-subject-text')}>
                 {li.subject} 
-                <i className="iconfont icon-more-fill app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>
+                {/*<i className="iconfont icon-more-fill app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>*/}
+                <div className={classNameSpace('item-group-subject-tools')}>
+                  <div className={itemPinClass}>
+                    <i className="ti-pin-alt" onClick={() => this.onPinClick(li)}></i>
+                  </div>
+                  <div className={itemClass}>
+                    <i className="ti-split-v" onClick={() => this.onSubjectClick(li)}></i>
+                  </div>
+                </div>
               </div>
               {/*<span className={classNameSpace('item-group-number')}>{li.list.length}</span>*/}
             </div>

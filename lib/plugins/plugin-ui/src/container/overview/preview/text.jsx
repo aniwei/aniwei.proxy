@@ -39,7 +39,7 @@ export default class Text extends React.Component {
 
   shouldComponentUpdate (nextProps) {
     if (
-      nextProps.preivew === this.state.previewContent
+      nextProps.preview === this.state.preview
     ) {
       return false;
     }

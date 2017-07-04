@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import classnames from 'classnames';
 import queryString from 'query-string';
 import urlParser from 'url-parse';
@@ -16,11 +16,12 @@ const classNamespace = util.namespace('app__overview');
 class Overview extends React.Component {
   previewRender (data) {
     const { dispatch } = this.props;
-    const { id, type, url, previewContent } = data;
+    const { id, code, type, url, previewContent } = data;
     const props = {
       id,
       url,
       type,
+      code,
       dispatch,
       preview: previewContent
     };
@@ -43,7 +44,7 @@ class Overview extends React.Component {
       });
     }
 
-    const { code, url, path, method, ip, route, message, requestHeaders, responseHeaders } = data;
+    const { id, code, url, path, method, ip, route, message, requestHeaders, responseHeaders } = data;
     const urlParsed = urlParser(url);
     const props = [];
 
@@ -105,7 +106,7 @@ class Overview extends React.Component {
     }
 
     return (
-      <Header list={props} location={location} />
+      <Header list={props} location={location} id={id} />
     );
   }
   
@@ -162,11 +163,22 @@ class Overview extends React.Component {
 
       if (refs) {
         return (
-          <Route path="/" render={(location) => {
+          <Route render={(location) => {
             const overviewSelectedTab = query.overviewSelectedTab || tabs[0].key;
-            const render = () => this[`${overviewSelectedTab}Render`](refs);
+            const elements = ['header', 'preview'].map((key, i) => {
+              const element = this[`${key}Render`](refs);
+              return cloneElement(element, {
+                hidden: !(key === overviewSelectedTab),
+                key,
+              });
+            });  
+          
 
-            return render();
+            return (
+              <div className={classNamespace('content')}>
+                {elements}
+              </div>
+            );
           }} />
         );
       }
@@ -177,10 +189,7 @@ class Overview extends React.Component {
       const search = queryString.stringify(query);
 
       return (
-        <Redirect to={{
-          pathname: location.pathname,
-          search: `?${search}`
-        }}/>
+        <Redirect to={`${location.pathname}?${search}`} />
       );
     }
   }
@@ -200,7 +209,6 @@ class Overview extends React.Component {
 
     return (
       <div className={classes}>
-        {/*<div className={classNamespace('mask')}></div>*/}
         <div className={classNamespace('inner')}>
           <Link to={uri}>
             <i className={classnames({
@@ -211,13 +219,8 @@ class Overview extends React.Component {
           </Link>
 
           {this.tabsRender()}
-
-          <div className={classNamespace('content')}>
-            {this.routeRender()}
-          </div>
+          {this.routeRender()}
         </div>
-
-        
       </div>
     );
   }

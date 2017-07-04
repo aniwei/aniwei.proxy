@@ -4,7 +4,7 @@ import Listview from './form/form-list';
 import Text from './form/form-text';
 import Select from './form/form-select';
 
-function Group (props) {
+function Name (props) {
   return (
     <Item>
       <Text />
@@ -78,7 +78,7 @@ function ResponseContent (props) {
 }
 
 export default {
-  Group,
+  Name,
   MatchType,
   MatchContent,
   ResponseType,

@@ -43,12 +43,14 @@ const isText = function (type) {
   });
 }
 
+const textType = 'text/html text/css text/javascript text/plain application/javascript application/x-javascript application/json'.split(' ');
+
 const mimeType = (type, pathname) => {
   const list = [
     { element: Image, is: isImage, ext: 'bmp gif jpeg jpg svg+xml png'.split(' ') },
     { element: Audio, is: isAudio, ext: 'ogg mp3 mp4 wav'.split(' ') },
     { element: Video, is: isVideo, ext: 'ogg mp4 webm'.split(' ') },
-    { element: Text, is: isText, ext: 'text/html text/css text/javascript text/plain application/javascript application/x-javascript application/json'.split(' ') }
+    { element: Text, is: isText, ext: textType }
   ];
   let element;
   let ext;
@@ -103,12 +105,36 @@ const Empty = () => {
 }
 
 class Preview extends React.Component {
+  shouldComponentUpdate (nextProps) {
+    const isText = textType.indexOf(nextProps.type);
+
+    if (isText > -1) {
+      if (
+        nextProps.hidden === this.props.hidden &&
+        nextProps.id === this.props.id &&
+        nextProps.preview === this.props.preview &&
+        !(nextProps.preview === undefined)
+      ) {
+        return false;
+      }
+    } else {
+      if (
+        nextProps.hidden === this.props.hidden && 
+        nextProps.id === this.props.id
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   contentType () {
-    const { id, type, url, preview, dispatch } = this.props;
+    const { id, code, type, url, preview, dispatch } = this.props;
     const urlParsed = urlParser(url);
     let element = mimeType(type, urlParsed.pathname);
 
-    if (type === undefined) {
+    if (type === undefined || code === '304' || code === 304) {
       return (
         <Empty />
       );
@@ -124,9 +150,18 @@ class Preview extends React.Component {
   }
 
   render () {
+    const { hidden } = this.props;
+    let style = {};
+
+    if (hidden) {
+      style.visiable = 'hidden';
+      style.zIndex = 0;
+    } else {
+      style.zIndex = 10;
+    }
 
     return (
-      <div className="app__overview-preview">
+      <div className="app__overview-preview" style={style}>
         {this.contentType()}
       </div>
     );

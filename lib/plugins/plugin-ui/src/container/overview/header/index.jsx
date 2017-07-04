@@ -9,7 +9,17 @@ import Cell from '../../../components/cell';
 const classNamespace = util.namespace('app__overview-header');
 
 class Header extends React.Component {
-  
+  shouldComponentUpdate (nextProps) {
+    if (
+      this.props.id === nextProps.id &&
+      this.props.hidden === nextProps.hidden
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
   subjectRender () {
     const { list, location } = this.props;
     const query = queryString.parse(location.search);
@@ -60,14 +70,24 @@ class Header extends React.Component {
   listRender (list, index) {
     return list.map((li, i) => {
       return (
-        <Cell key={index} {...li} />
+        <Cell {...li} key={i} />
       );
     });
   }
 
   render () {
+    const { hidden } = this.props;
+    let style = {};
+
+    if (hidden) {
+      style.visiable = 'hidden';
+      style.zIndex = 0;
+    } else {
+      style.zIndex = 10;
+    }
+
     return (
-      <div className={classNamespace()}>
+      <div className={classNamespace()} style={style}>
         <div className={classNamespace('inner')}>
           {this.subjectRender()}
         </div>

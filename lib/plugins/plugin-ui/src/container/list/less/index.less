@@ -236,6 +236,37 @@
           position: relative;
         }
 
+        &-tools {
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 0.53rem;
+          width: 1.06rem;
+          background-color: #26292e;
+          border-radius: 3px;
+          overflow: hidden;
+          font-size: 0;
+
+          &-item {
+            display: inline-block;
+            height: 0.53rem;
+            width: 0.53rem;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s;
+
+            &_selected {
+              background-color: #5cad47;
+              color: #fff;
+            }
+
+            [class^="ti-"] {
+              line-height: 0.53rem;
+            }
+          }
+        }
+
         &-icon {
           display: inline-block;
           position: absolute;

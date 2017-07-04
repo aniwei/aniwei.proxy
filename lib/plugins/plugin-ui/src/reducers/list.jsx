@@ -57,6 +57,18 @@ const reducers = {
     return cloneDeep(state);
   },
 
+  [constants.LIST_PINNED]: (state, action) => {
+    const { keys, table, subjectKeys, subjects } = state;
+    const { subject } = action.subject;
+    const ref = subjectKeys[subject];
+
+    if (typeof ref === 'number') {
+      assign(subjects[ref], subject);
+    }
+
+    return cloneDeep(state);
+  },
+
   [constants.LIST_PUSH]: (state, action) => {
     const { keys, table, subjectKeys, subjects } = state;
 

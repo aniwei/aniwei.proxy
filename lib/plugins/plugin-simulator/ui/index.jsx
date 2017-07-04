@@ -16,7 +16,7 @@ const rule = [
     key: 'group', 
     text: '规则名称',
     formItem: [
-      { component: 'Group', key: 'group', value: '' }
+      { component: 'Name', key: 'group', value: '' }
     ]
   }, {
     key: 'match', 
