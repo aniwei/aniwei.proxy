@@ -6,6 +6,13 @@ import 'whatwg-fetch';
 
 const __initState__ = window.__initState__;
 const initState = {
+  status: {
+    length: 0,
+    http: 0,
+    https: 0,
+    domain: [],
+    type: []
+  },
   keys: {},
   table: [],
   subjectKeys: {},
@@ -13,26 +20,26 @@ const initState = {
   pinnedSubjects: {},
   pinnedKeys: __initState__.listSetting.pinnedKeys || [],
   search: {},
-  tools: __initState__.listSetting.tools,
-  // tools: {
-  //   list: [
-  //     {
-  //       subject: '控制工具',
-  //       list: [
-  //         { key: 'on-off', icon: 'ti-control-record', action: 'LIST_RECORD' },
-  //         { key: 'cache', icon: 'ti-server', action: 'LIST_CACHE_CTRL' },
-  //       ]
-  //     },
-  //     {
-  //       subject: '数据工具',
-  //       list: [
-  //         { key: 'clear', icon: 'ti-trash', action: 'LIST_ALL_CLEAR' },
-  //         { key: 'fold', icon: 'ti-split-v', action: 'LIST_ALL_TOGGLED' },
-  //         { key: 'save', icon: 'ti-save', action: 'LIST_ALL_SAVE', href: '/settings/list/export' }
-  //       ]
-  //     }
-  //   ]
-  // },
+  // tools: __initState__.listSetting.tools,
+  tools: {
+    list: [
+      {
+        subject: '控制工具',
+        list: [
+          { key: 'on-off', icon: 'ti-control-record', action: 'LIST_RECORD' },
+          { key: 'cache', icon: 'ti-server', action: 'LIST_CACHE_CTRL' },
+        ]
+      },
+      {
+        subject: '数据工具',
+        list: [
+          { key: 'clear', icon: 'ti-trash', action: 'LIST_ALL_CLEAR' },
+          { key: 'fold', icon: 'ti-split-v', action: 'LIST_ALL_TOGGLED' },
+          { key: 'save', icon: 'ti-save', action: 'LIST_ALL_SAVE', href: '/settings/list/export' }
+        ]
+      }
+    ]
+  },
   overviewTabs: [
     { key: 'header', text: 'Header' },
     { key: 'preview', text: 'Preview' },
@@ -88,7 +95,14 @@ const reducers = {
       table: [],
       subjectKeys: {},
       subjects: [],
-      pinnedSubjects: {}
+      pinnedSubjects: {},
+      status: {
+        length: 0,
+        https: 0,
+        http: 0,
+        domain: [],
+        type: []
+      }
     });
 
     return cloneDeep(state);
@@ -160,7 +174,7 @@ const reducers = {
   },
 
   [constants.LIST_PUSH]: (state, action) => {
-    const { keys, table, subjectKeys, subjects, pinnedKeys, pinnedSubjects, tools } = state;
+    const { keys, table, subjectKeys, subjects, pinnedKeys, pinnedSubjects, tools, status } = state;
 
     action.proxy.list.forEach((proxy) => {
       const { id, hostname, path, url, method, protocol, port, requestHeaders } = proxy;
@@ -184,7 +198,11 @@ const reducers = {
 
       keys[id] = table.length;
       table.push(newProxy);
-      
+
+      status.length = table.length;
+      protocol === 'http:' || protocol === 'http' ?
+        status.http++ : status.https++;
+
       const key = `${protocol}//${hostname}${port ? ':' + port : ''}`;
 
       let index = subjectKeys[key];
@@ -218,6 +236,9 @@ const reducers = {
 
         subjects[index].list.push(newProxy);
       }
+
+      status.domain = Object.keys(subjectKeys || {});
+
     });
 
     return cloneDeep(state);

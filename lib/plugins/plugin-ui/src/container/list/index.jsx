@@ -197,7 +197,7 @@ class List extends React.Component {
   }
 
   render () {
-    const { search, location, list, pinnedList, pinnedKeys, tools, dispatch } = this.props;
+    const { search, location, list, pinnedList, pinnedKeys, tools, status, dispatch } = this.props;
     const qs = queryString.parse(location.search);
     const classes = classnames({
       [classNameSpace('toolbar')]: true,
@@ -209,7 +209,12 @@ class List extends React.Component {
         <div className={classes}>
           <SearchBar {...search} onToggled={this.onToggled} onSearch={this.onSearch} location={location}/>
           <Tools tools={tools} dispatch={dispatch} />
+
+           <div className={classNameSpace('status')}>
+            {status.length} requests | {status.http} http | {status.https} https | {status.domain.length} domains
+          </div>
         </div>
+        
 
         <div className={classNameSpace('view')}>
           {this.groupRender(pinnedList)}
@@ -222,7 +227,7 @@ class List extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { list, socket } = state;
-  const { subjects, keys, search, pinnedSubjects, pinnedKeys, tools } = list;
+  const { subjects, keys, search, pinnedSubjects, pinnedKeys, tools, table, status } = list;
 
   let pinnedList = [];
 
@@ -243,7 +248,8 @@ const mapStateToProps = (state, ownProps) => {
     pinnedList,
     keys,
     socket,
-    search
+    search,
+    status
   };
 }
 
