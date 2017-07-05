@@ -13,25 +13,26 @@ const initState = {
   pinnedSubjects: {},
   pinnedKeys: __initState__.listSetting.pinnedKeys || [],
   search: {},
-  tools: {
-    list: [
-      {
-        subject: '控制工具',
-        list: [
-          { key: 'on-off', icon: 'ti-control-record', action: 'LIST_RECORD' },
-          { key: 'cache', icon: 'ti-server', action: 'LIST_CACHE_CTRL' },
-        ]
-      },
-      {
-        subject: '数据工具',
-        list: [
-          { key: 'clear', icon: 'ti-trash', action: 'LIST_ALL_CLEAR' },
-          { key: 'fold', icon: 'ti-split-v', action: 'LIST_ALL_TOGGLED' },
-          { key: 'save', icon: 'ti-save', action: 'LIST_ALL_SAVE', href: '/settings/list/export' }
-        ]
-      }
-    ]
-  },
+  tools: __initState__.listSetting.tools,
+  // tools: {
+  //   list: [
+  //     {
+  //       subject: '控制工具',
+  //       list: [
+  //         { key: 'on-off', icon: 'ti-control-record', action: 'LIST_RECORD' },
+  //         { key: 'cache', icon: 'ti-server', action: 'LIST_CACHE_CTRL' },
+  //       ]
+  //     },
+  //     {
+  //       subject: '数据工具',
+  //       list: [
+  //         { key: 'clear', icon: 'ti-trash', action: 'LIST_ALL_CLEAR' },
+  //         { key: 'fold', icon: 'ti-split-v', action: 'LIST_ALL_TOGGLED' },
+  //         { key: 'save', icon: 'ti-save', action: 'LIST_ALL_SAVE', href: '/settings/list/export' }
+  //       ]
+  //     }
+  //   ]
+  // },
   overviewTabs: [
     { key: 'header', text: 'Header' },
     { key: 'preview', text: 'Preview' },
@@ -44,23 +45,19 @@ const initState = {
 
 let others = [];
 
+const sycnTools = (tools) => {
+  fetch('/settings/list/tools', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      tools
+    })
+  });
+}
+
 const reducers = {
-  [constants.LIST_SYNC]: (state, action) => {
-    const { tools } = state;
-
-    fetch('/settings/list/tools', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        tools
-      })
-    });
-
-    return state;
-  },
-
   [constants.LIST_RECORD]: (state, action) => {
     const { tools } = state;
     const record = !tools.record;
@@ -68,7 +65,7 @@ const reducers = {
     tools.record = record;
     action.tool.selected = record;
 
-    this[constants.LIST_SYNC](state, action);
+    sycnTools(tools);
 
     return cloneDeep(state);
   },
@@ -80,7 +77,7 @@ const reducers = {
     tools.disableCache = disableCache;
     action.tool.selected = disableCache;
 
-    this[constants.LIST_SYNC](state, action)
+    sycnTools(tools);
 
     return cloneDeep(state);
   },
@@ -107,7 +104,7 @@ const reducers = {
 
     tools.toggled = toggled;
 
-    this[constants.LIST_SYNC](state, action)
+    sycnTools(tools);
 
     return cloneDeep(state);
   },
