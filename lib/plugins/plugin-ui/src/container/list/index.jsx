@@ -8,6 +8,8 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/seti.css';
 import './less/index.less';
 
+import 'whatwg-fetch';
+
 import SearchBar from './search';
 import Tools from './tools';
 import Item from './item';
@@ -48,8 +50,6 @@ class List extends React.Component {
     return true;
   }
 
-
-
   onSubjectClick = (li) => {
     const { dispatch } = this.props;
 
@@ -71,14 +71,27 @@ class List extends React.Component {
   };
 
   onPinClick = (li) => {
-    const { dispatch } = this.props;
+    const { dispatch, pinnedKeys } = this.props;
 
-    li.pinned = !li.pinned;
+    const index = pinnedKeys.indexOf(li.subject);
 
-    dispatch({
+    index > -1 ?
+      pinnedKeys.splice(index, 1) : pinnedKeys.push(li.subject);
+
+    fetch('/settings/list/pinned', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        pinnedKeys
+      })
+    })
+    .then(res => res.json())
+    .then(res => dispatch({
       type: constants.LIST_PINNED,
-      subject: li
-    });
+      subject: li.subject
+    }));
   };
 
   onSearch = (value) => {
@@ -126,14 +139,20 @@ class List extends React.Component {
     });
   }
 
-  groupRender () {
-    const { list } = this.props;
+  groupRender (list, keys) {
+
+    if (keys && keys.length > 0) {
+      list = list.filter((li) => {
+        return !(keys.indexOf(li.subject) > -1)
+      });
+    }
 
     const groupElement = list.map((li, index) => {
       const itemElement = this.itemRender(li.list, index);
       const classes = classnames({
         [classNameSpace('item-group')]: true,
-        [classNameSpace('item-group', 'invisible')]: !!li.toggled
+        [classNameSpace('item-group', 'invisible')]: !!li.toggled,
+        [classNameSpace('item-group', 'pinned')]: !!li.pinned
       });
 
       const itemClass = classnames({
@@ -178,7 +197,7 @@ class List extends React.Component {
   }
 
   render () {
-    const { search, location } = this.props;
+    const { search, location, list, pinnedList, pinnedKeys, tools, dispatch } = this.props;
     const qs = queryString.parse(location.search);
     const classes = classnames({
       [classNameSpace('toolbar')]: true,
@@ -189,11 +208,12 @@ class List extends React.Component {
       <div className={classNameSpace()}>
         <div className={classes}>
           <SearchBar {...search} onToggled={this.onToggled} onSearch={this.onSearch} location={location}/>
-          <Tools />
+          <Tools tools={tools} dispatch={dispatch} />
         </div>
 
         <div className={classNameSpace('view')}>
-          {this.groupRender()}
+          {this.groupRender(pinnedList)}
+          {this.groupRender(list, pinnedKeys)}
         </div>
       </div>
     );
@@ -202,10 +222,25 @@ class List extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { list, socket } = state;
-  const { subjects, keys, search } = list;
+  const { subjects, keys, search, pinnedSubjects, pinnedKeys, tools } = list;
+
+  let pinnedList = [];
+
+  if (Object.keys(pinnedSubjects).length > 0) {
+    const pins = pinnedKeys.map((name) => {
+      return pinnedSubjects[name];
+    });
+
+    if (pins.length > 0) {
+      pinnedList = pins.sort((a, b) => a.position > b.position);
+    }
+  }
 
   return {
+    tools: tools,
     list: subjects,
+    pinnedKeys,
+    pinnedList,
     keys,
     socket,
     search

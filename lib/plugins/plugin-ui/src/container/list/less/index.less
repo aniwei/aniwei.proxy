@@ -96,6 +96,7 @@
         font-weight: bolder;
         background: #26292e;
         padding-left: 0.4rem;
+        transition: all 0.5s;
 
         // &:after {
         //   position: absolute;
@@ -181,6 +182,7 @@
         height: 0.53rem;
         color: #888;
         font-size: 13px;
+        transition: all 0.5s;
       }
 
       &-image {
@@ -242,7 +244,7 @@
           top: 0;
           height: 0.53rem;
           width: 1.06rem;
-          background-color: #26292e;
+          // background-color: #26292e;
           border-radius: 3px;
           overflow: hidden;
           font-size: 0;
@@ -257,7 +259,7 @@
             transition: all 0.5s;
 
             &_selected {
-              background-color: #5cad47;
+              background-color: #26292e;
               color: #fff;
             }
 
@@ -297,6 +299,18 @@
             &-icon {
               transform: rotate(180deg);
             }
+          }
+        }
+      }
+
+      &_pinned {
+        .app__list-item-group {
+          &-title {
+            background-color: #1e2023;
+          }
+
+          &-content {
+            background-color: #1e2023;
           }
         }
       }
@@ -433,9 +447,48 @@
       }
       
     }
+    
 
-    &-toolbar {
+    &-tools {
+      overflow: hidden;
       max-height: 0;
+      margin: 0 0.48rem;
+
+      &-item {
+        color: #999;
+        font-size: 16px;
+        display: inline-block;
+        padding: 8px;
+        border-radius: 3px;
+
+        &:active,
+        &_selected {
+          background-color: #26292e;
+        }
+
+      }
+
+      &-group {
+        font-size: 0;
+        display: inline-block;
+        padding: 0 5px;
+        position: relative;
+
+        &:first-child {
+          padding-left: 0;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 5px;
+          bottom: 5px;
+          width: 1px;
+          background: #26292e;
+        }
+      }
     }
   }
 

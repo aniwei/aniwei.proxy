@@ -1,23 +1,37 @@
 import { assign, clone, cloneDeep } from 'lodash';
 import constants from '../constants';
 
+import 'whatwg-fetch';
+
+
 const __initState__ = window.__initState__;
 const initState = {
   keys: {},
   table: [],
   subjectKeys: {},
   subjects: [],
+  pinnedSubjects: {},
+  pinnedKeys: __initState__.listSetting.pinnedKeys || [],
   search: {},
-  tools: [
-    {
-      subject: '通用工具',
-      list: [
-        {
-          key: '' 
-        }
-      ]
-    }
-  ],
+  tools: {
+    list: [
+      {
+        subject: '控制工具',
+        list: [
+          { key: 'on-off', icon: 'ti-control-record', action: 'LIST_RECORD' },
+          { key: 'cache', icon: 'ti-server', action: 'LIST_CACHE_CTRL' },
+        ]
+      },
+      {
+        subject: '数据工具',
+        list: [
+          { key: 'clear', icon: 'ti-trash', action: 'LIST_ALL_CLEAR' },
+          { key: 'fold', icon: 'ti-split-v', action: 'LIST_ALL_TOGGLED' },
+          { key: 'save', icon: 'ti-save', action: 'LIST_ALL_SAVE', href: '/settings/list/export' }
+        ]
+      }
+    ]
+  },
   overviewTabs: [
     { key: 'header', text: 'Header' },
     { key: 'preview', text: 'Preview' },
@@ -31,6 +45,73 @@ const initState = {
 let others = [];
 
 const reducers = {
+  [constants.LIST_SYNC]: (state, action) => {
+    const { tools } = state;
+
+    fetch('/settings/list/tools', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        tools
+      })
+    });
+
+    return state;
+  },
+
+  [constants.LIST_RECORD]: (state, action) => {
+    const { tools } = state;
+    const record = !tools.record;
+
+    tools.record = record;
+    action.tool.selected = record;
+
+    this[constants.LIST_SYNC](state, action);
+
+    return cloneDeep(state);
+  },
+
+  [constants.LIST_CACHE_CTRL]: (state, action) => {
+    const { tools } = state;
+    const disableCache = !tools.disableCache;
+
+    tools.disableCache = disableCache;
+    action.tool.selected = disableCache;
+
+    this[constants.LIST_SYNC](state, action)
+
+    return cloneDeep(state);
+  },
+
+  [constants.LIST_ALL_CLEAR]: (state, action) => {
+    assign(state, {
+      keys: {},
+      table: [],
+      subjectKeys: {},
+      subjects: [],
+      pinnedSubjects: {}
+    });
+
+    return cloneDeep(state);
+  },
+
+  [constants.LIST_ALL_TOGGLED]: (state, action) => {
+    const { subjects, tools } = state;
+    const toggled = !action.tool.selected;
+
+    subjects.forEach(subject => subject.toggled = toggled);
+
+    action.tool.selected = toggled;
+
+    tools.toggled = toggled;
+
+    this[constants.LIST_SYNC](state, action)
+
+    return cloneDeep(state);
+  },
+
   [constants.LIST_OVERLAYED]: (state, action) => {
     state.overviewData = action.overviewData;
 
@@ -41,6 +122,7 @@ const reducers = {
     const { search } = state;
 
     search.toggled = !action.toggled;
+    
 
     return cloneDeep(state);
   },
@@ -58,19 +140,30 @@ const reducers = {
   },
 
   [constants.LIST_PINNED]: (state, action) => {
-    const { keys, table, subjectKeys, subjects } = state;
-    const { subject } = action.subject;
-    const ref = subjectKeys[subject];
+    const { keys, table, subjectKeys, subjects, pinnedSubjects, pinnedKeys } = state;
+    const { subject } = action;
+    const key = subjectKeys[subject];
 
-    if (typeof ref === 'number') {
-      assign(subjects[ref], subject);
+    if (typeof key === 'number') {
+      const object = subjects[key];
+      const index = pinnedKeys.indexOf(subject);
+
+      if (index > -1) {
+        object.pinned = true;
+        pinnedSubjects[subject] = object;
+      } else {
+        object.pinned = false;
+        delete pinnedSubjects[subject];
+      }
+
+      assign(object, action.subject);
     }
 
     return cloneDeep(state);
   },
 
   [constants.LIST_PUSH]: (state, action) => {
-    const { keys, table, subjectKeys, subjects } = state;
+    const { keys, table, subjectKeys, subjects, pinnedKeys, pinnedSubjects, tools } = state;
 
     action.proxy.list.forEach((proxy) => {
       const { id, hostname, path, url, method, protocol, port, requestHeaders } = proxy;
@@ -98,16 +191,34 @@ const reducers = {
       const key = `${protocol}//${hostname}${port ? ':' + port : ''}`;
 
       let index = subjectKeys[key];
+      const pinned = pinnedKeys.indexOf(key) > -1;
 
       if (index === undefined) {
         let ref = {
           subject: key,
-          list: [newProxy]
+          list: [newProxy],
+          pinned
         };
+
+        if (pinned) {
+          pinnedSubjects[key] = ref;
+        }
+
+        if (tools.toggled) {
+          ref.toggled = true;
+        }
 
         subjectKeys[key] = subjects.length;
         subjects.push(ref);
       } else {
+        if (pinned) {
+          pinnedSubjects[key] = subjects[index];
+        }
+
+        if (tools.toggled) {
+          subjects[index].toggled = true;
+        }
+
         subjects[index].list.push(newProxy);
       }
     });
@@ -116,13 +227,24 @@ const reducers = {
   },
 
   [constants.LIST_UPDATE]: (state, action) => {
-    const { keys, table } = state;
+    const { keys, table, pinnedKeys, pinnedSubjects, tools } = state;
     const forEach = (proxy) => {
       const { id } = proxy;
-
       const ref = table[keys[id]];
 
       if (ref) {
+        const subject = ref.subject;
+
+        if (tools.toggled) {
+          ref.toggled = true;
+        }
+
+        if (pinnedKeys.indexOf(subject) > -1) {
+          ref.pinned = true;
+
+          pinnedSubjects[subject] = ref;
+        }
+
         assign(ref, proxy);
       } else {
         others.push(proxy);
