@@ -111,6 +111,8 @@ const reducers = {
       }
     });
 
+    fetch('/settings/list/clear');
+
     return cloneDeep(state);
   },
 

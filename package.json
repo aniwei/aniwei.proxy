@@ -32,6 +32,7 @@
     "domain-name-parser": "^2.3.0",
     "express": "^4.14.0",
     "file-loader": "^0.10.1",
+    "fs-extra": "^3.0.1",
     "hbs": "^4.0.1",
     "icojs": "^0.7.2",
     "inline-style-prefixer": "^2.0.1",
