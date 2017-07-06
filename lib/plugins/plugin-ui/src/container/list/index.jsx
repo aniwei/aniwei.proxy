@@ -94,12 +94,12 @@ class List extends React.Component {
     }));
   };
 
-  onSearch = (value) => {
-    const { dispatch } = this.porps;
+  onSearch = (search) => {
+    const { dispatch } = this.props;
 
     dispatch({
-      type: constants.LIST_ONSEARCH,
-      value
+      type: constants.LIST_SEARCH,
+      search
     });
   }
 
@@ -140,6 +140,7 @@ class List extends React.Component {
   }
 
   groupRender (list, keys) {
+    const { search } = this.props;
 
     if (keys && keys.length > 0) {
       list = list.filter((li) => {
@@ -148,7 +149,27 @@ class List extends React.Component {
     }
 
     const groupElement = list.map((li, index) => {
-      const itemElement = this.itemRender(li.list, index);
+      let list;
+
+      if (search.length > 0) {
+        list = li.list.filter((li) => {
+          const { url } = li;
+
+          if (search.some((s) => {
+            return url.indexOf(s) > -1;
+          })) {
+            return true;
+          }
+        });
+      } else {
+        list = li.list;
+      }
+
+      if (list.length === 0) {
+        return null;
+      }
+
+      const itemElement = this.itemRender(list, index);
       const classes = classnames({
         [classNameSpace('item-group')]: true,
         [classNameSpace('item-group', 'invisible')]: !!li.toggled,
@@ -172,7 +193,6 @@ class List extends React.Component {
               <img src={`/ico?url=${li.subject}`} alt={li.subject} className={classNameSpace('item-group-subject-ico')}/>
               <div className={classNameSpace('item-group-subject-text')}>
                 {li.subject} 
-                {/*<i className="iconfont icon-more-fill app__list-item-group-subject-icon" onClick={() => this.onSubjectClick(li)}></i>*/}
                 <div className={classNameSpace('item-group-subject-tools')}>
                   <div className={itemPinClass}>
                     <i className="ti-pin-alt" onClick={() => this.onPinClick(li)}></i>
@@ -182,7 +202,6 @@ class List extends React.Component {
                   </div>
                 </div>
               </div>
-              {/*<span className={classNameSpace('item-group-number')}>{li.list.length}</span>*/}
             </div>
           </div>
          
@@ -196,6 +215,65 @@ class List extends React.Component {
     return groupElement;
   }
 
+  statusBarRender () {
+    const { http, https, type, domain, length } = this.props.status;
+
+    return (
+      <div className={classNameSpace('status')}>
+        <div className={classnames({
+          [classNameSpace('status-item')]: true,
+          [classNameSpace('status-requests')]: true
+        })}>
+          <i className="ti-comment-alt"></i>
+          <span className={classNameSpace('status-value')}>
+            {length}
+          </span>
+        </div>
+
+        <div className={classnames({
+          [classNameSpace('status-item')]: true,
+          [classNameSpace('status-http')]: true
+        })}>
+          <i className="ti-unlock"></i>
+          <span className={classNameSpace('status-value')}>
+            {http.length}
+          </span>
+        </div>
+
+        <div className={classnames({
+          [classNameSpace('status-item')]: true,
+          [classNameSpace('status-https')]: true
+        })}>
+          <i className="ti-lock"></i>
+          <span className={classNameSpace('status-value')}>
+            {https.length}
+          </span>
+        </div>
+
+        <div className={classnames({
+          [classNameSpace('status-item')]: true,
+          [classNameSpace('status-domains')]: true
+        })}>
+          <i className="ti-world"></i>
+          <span className={classNameSpace('status-value')}>
+            {domain.length}
+          </span>
+        </div>   
+
+        <div className={classnames({
+          [classNameSpace('status-item')]: true,
+          [classNameSpace('status-type')]: true
+        })}>
+          <i className="ti-files"></i>
+          <span className={classNameSpace('status-value')}>
+            {type.length}
+          </span>
+        </div>    
+    
+      </div>
+    );
+  }
+
   render () {
     const { search, location, list, pinnedList, pinnedKeys, tools, status, dispatch } = this.props;
     const qs = queryString.parse(location.search);
@@ -207,19 +285,16 @@ class List extends React.Component {
     return (
       <div className={classNameSpace()}>
         <div className={classes}>
-          <SearchBar {...search} onToggled={this.onToggled} onSearch={this.onSearch} location={location}/>
+          <SearchBar {...search} onToggled={this.onToggled} onSearch={this.onSearch} location={location} />
           <Tools tools={tools} dispatch={dispatch} />
-
-           <div className={classNameSpace('status')}>
-            {status.length} requests | {status.http} http | {status.https} https | {status.domain.length} domains
-          </div>
         </div>
-        
 
         <div className={classNameSpace('view')}>
           {this.groupRender(pinnedList)}
           {this.groupRender(list, pinnedKeys)}
         </div>
+        
+        {this.statusBarRender()}
       </div>
     );
   }
@@ -227,7 +302,7 @@ class List extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { list, socket } = state;
-  const { subjects, keys, search, pinnedSubjects, pinnedKeys, tools, table, status } = list;
+  const { subjects, keys, pinnedSubjects, pinnedKeys, tools, table, status, search } = list;
 
   let pinnedList = [];
 
@@ -246,6 +321,7 @@ const mapStateToProps = (state, ownProps) => {
     list: subjects,
     pinnedKeys,
     pinnedList,
+    search,
     keys,
     socket,
     search,

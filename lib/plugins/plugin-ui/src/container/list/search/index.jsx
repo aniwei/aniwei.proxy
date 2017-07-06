@@ -4,8 +4,41 @@ import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 
 class SearchBar extends React.Component {
-  onSearchClick = () => {
+  constructor () {
+    super();
 
+    this.state = {
+      searchText: ''
+    };
+  }
+
+  onChange = (e) => {
+    this.setState({
+      searchText: e.target.value
+    });
+
+    this.onSearch();
+  }
+
+  onSearch = () => {
+    const { onSearch } = this.props;
+    const { searchText } = this.state;
+
+    clearTimeout(this.timer);
+    
+    this.timer = setTimeout(() => {
+      onSearch(searchText.split(' '));
+    }, 200);
+  }
+
+  onCearClick = () => {
+    const { onSearch } = this.props;
+
+    this.setState({
+      searchText: ''
+    });
+
+    onSearch([]);
   }
 
   onToggleClick = () => {
@@ -29,8 +62,8 @@ class SearchBar extends React.Component {
     return (
       <div className="app__list-search-bar">
         <div className="app__list-search-bar-input">
-          <i className="iconfont icon-search app__list-search-bar-input-icon" onClick={this.onSearchClick}></i>
-          <input type="text" className="app__list-search-bar-input-text" placeholder="搜索" />
+          <i className="iconfont icon-close app__list-search-bar-input-icon" onClick={this.onCearClick}></i>
+          <input type="text" className="app__list-search-bar-input-text" value={this.state.searchText} placeholder="搜索" onChange={this.onChange} />
         </div>
         <Link to={`${location.pathname}?${queryString.stringify(qs)}`}>
           <i className="iconfont icon-more-fill app__list-search-bar-icon" onClick={this.onToggleClick}></i>

@@ -22,6 +22,7 @@ actionConstants('LIST_TOGGLED');
 actionConstants('LIST_PINNED');
 actionConstants('LIST_OVERLAYED');
 actionConstants('LIST_SEARCH_TOGGLED');
+actionConstants('LIST_SEARCH');
 actionConstants('LIST_PREVIEW_UPDATE');
 actionConstants('LIST_ALL_CLEAR');
 actionConstants('LIST_ALL_TOGGLED');

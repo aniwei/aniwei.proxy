@@ -14,14 +14,45 @@
   &-view {
     flex: 1;
     background: #26292e;
-    // padding-top: 0.33rem;
+    padding-bottom: 1rem;
   }
 
   &-status {
-    position: relative;
+    position: fixed;
     padding: 12px 0.48rem 0 0.48rem;
     color: #999;
     font-size: 12px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #2e3238;
+    z-index: 10;
+
+    &-item {
+      color: #999;
+      font-size: 16px;
+      display: inline-block;
+      padding: 8px;
+      border-radius: 3px;
+      position: relative;
+      margin-right: 10px;
+
+      &_selected {
+        backgroud-color: #26292e;
+      }
+    }
+
+    &-value {
+      position: absolute;
+      height: 0.33rem;
+      line-height: 0.4rem;
+      right: 0;
+      top: 0;
+      font-size: 12px;
+      background: #26292e;
+      border-radius: 12px;
+      text-align: center;
+    }
   }
 
   &-item {
@@ -246,6 +277,7 @@
         &-text {
           font-size: 15px;
           margin-left: 0.8rem;
+          padding-right: 1.06rem;
           position: relative;
         }
 
@@ -533,7 +565,7 @@
           right: 0.27rem;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 24px!important;
+          font-size: 16px!important;
           color: #999;
         }
 
