@@ -21,7 +21,7 @@ const initState = window.__initState__;
 const menus = [
   {key: 'send', route: 'list', text: '请求数据', active: false, component: List},
   {key: 'app', route: 'extensions', text: '设置', active: false, component: Extensions},
-  {key: 'setting', route: 'settings', text: '设置', active: false, component: Settings}  
+  {key: 'setting', route: 'settings', text: '设置', active: false, component: Settings}
 ];
 
 const socket = SocketClient(`http://${initState.ip}:${initState.port}`);

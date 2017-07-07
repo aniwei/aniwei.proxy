@@ -7,11 +7,37 @@ import 'whatwg-fetch';
 const __initState__ = window.__initState__;
 const initState = {
   status: {
-    length: 0,
-    http: [],
-    https: [],
-    domain: [],
-    type: []
+    keys: ['length', 'http', 'https', 'domain', 'type', 'code'],
+    length: {
+      key: 'length',
+      icon: 'ti-comment-alt',
+      value: 0
+    },
+    https: {
+      key: 'https',
+      icon: 'ti-lock',
+      value: []
+    },
+    http: {
+      key: 'http',
+      icon: 'ti-unlock',
+      value: []
+    },
+    domain: {
+      key: 'domain',
+      icon: 'ti-world',
+      value: []
+    },
+    type: {
+      key: 'type',
+      icon: 'ti-files',
+      value: []
+    },
+    code: {
+      key: 'code',
+      icon: 'ti-shortcode',
+      value: []
+    }
   },
   keys: {},
   table: [],
@@ -102,13 +128,7 @@ const reducers = {
       subjectKeys: {},
       subjects: [],
       pinnedSubjects: {},
-      status: {
-        length: 0,
-        https: [],
-        http: [],
-        domain: [],
-        type: []
-      }
+      status: initState.status
     });
 
     fetch('/settings/list/clear');
@@ -207,9 +227,9 @@ const reducers = {
       keys[id] = table.length;
       table.push(newProxy);
 
-      status.length = table.length;
+      status.length.value = table.length;
       protocol === 'http:' || protocol === 'http' ?
-        status.http.push(key) : status.https.push(key);
+        status.http.value.push(key) : status.https.value.push(key);
 
       const key = `${protocol}//${hostname}${port ? ':' + port : ''}`;
 
@@ -245,7 +265,7 @@ const reducers = {
         subjects[index].list.push(newProxy);
       }
 
-      status.domain = Object.keys(subjectKeys || {});
+      status.domain.value = Object.keys(subjectKeys || {});
     });
 
     return cloneDeep(state);
@@ -271,8 +291,14 @@ const reducers = {
         }
 
         if (proxy.type) {
-          if (status.type.indexOf(proxy.type) === -1) {
-            status.type.push(proxy.type);
+          if (status.type.value.indexOf(proxy.type) === -1) {
+            status.type.value.push(proxy.type);
+          }
+        }
+
+        if (proxy.code) {
+          if (status.code.value.indexOf(proxy.code) === -1) {
+            status.code.value.push(proxy.code);
           }
         }
 

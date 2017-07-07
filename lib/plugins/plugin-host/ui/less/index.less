@@ -25,6 +25,62 @@
     }
   } 
 
+  &-iframe {
+    position: absolute;
+    top: 0.48rem;
+    left: 0.48rem;
+    right: 0.48rem;
+    bottom: 0.48rem;
+    border: none;
+  }
+
+  &-navigation {
+    text-align: center;
+    font-size: 0;
+    color: #999;
+
+    &-item {
+      position: relative;
+      display: inline-block;
+      padding: 10px 15px;
+      transition: all .5s;
+      font-size: 14px;
+      border-right: 1px solid #2e3238;
+
+      [class*="ti"] {
+        vertical-align: middle;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+
+      &::after {
+        transition: all .5s;
+      }
+
+      &_selected {
+        color: #fff;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 2px;
+          background-color: #5cad47;
+          width: 100%;
+        }
+      }
+
+      &-text {
+        font-size: 14px;
+        margin-left: 5px;
+        vertical-align: middle;
+      }
+    }
+  }
+
   &-listview {
     position: relative;
     margin-top: 0.4rem;

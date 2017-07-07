@@ -40,6 +40,12 @@ class List extends React.Component {
     });
   }
 
+  componentWillUnmount () {
+    const { socket } = this.props;
+    
+    socket.off('ui/request');
+  }
+
   shouldComponentUpdate (nextProps) {
     if (
       nextProps.list === this.props.list
@@ -216,62 +222,25 @@ class List extends React.Component {
   }
 
   statusBarRender () {
-    const { http, https, type, domain, length } = this.props.status;
+    const { status } = this.props;
+    const { keys } = status;
 
-    return (
-      <div className={classNameSpace('status')}>
+    return keys.map((key) => {
+      const li = status[key];
+      const value = Array.isArray(li.value) ? li.value.length : li.value;
+
+      return (
         <div className={classnames({
           [classNameSpace('status-item')]: true,
-          [classNameSpace('status-requests')]: true
+          [classNameSpace(`status-${key}`)]: true
         })}>
-          <i className="ti-comment-alt"></i>
+          <i className={li.icon}></i>
           <span className={classNameSpace('status-value')}>
-            {length}
+            {value}
           </span>
         </div>
-
-        <div className={classnames({
-          [classNameSpace('status-item')]: true,
-          [classNameSpace('status-http')]: true
-        })}>
-          <i className="ti-unlock"></i>
-          <span className={classNameSpace('status-value')}>
-            {http.length}
-          </span>
-        </div>
-
-        <div className={classnames({
-          [classNameSpace('status-item')]: true,
-          [classNameSpace('status-https')]: true
-        })}>
-          <i className="ti-lock"></i>
-          <span className={classNameSpace('status-value')}>
-            {https.length}
-          </span>
-        </div>
-
-        <div className={classnames({
-          [classNameSpace('status-item')]: true,
-          [classNameSpace('status-domains')]: true
-        })}>
-          <i className="ti-world"></i>
-          <span className={classNameSpace('status-value')}>
-            {domain.length}
-          </span>
-        </div>   
-
-        <div className={classnames({
-          [classNameSpace('status-item')]: true,
-          [classNameSpace('status-type')]: true
-        })}>
-          <i className="ti-files"></i>
-          <span className={classNameSpace('status-value')}>
-            {type.length}
-          </span>
-        </div>    
-    
-      </div>
-    );
+      );
+    });
   }
 
   render () {
@@ -285,7 +254,7 @@ class List extends React.Component {
     return (
       <div className={classNameSpace()}>
         <div className={classes}>
-          <SearchBar {...search} onToggled={this.onToggled} onSearch={this.onSearch} location={location} />
+          <SearchBar value={search.join(' ')} onToggled={this.onToggled} onSearch={this.onSearch} location={location} />
           <Tools tools={tools} dispatch={dispatch} />
         </div>
 
@@ -293,8 +262,9 @@ class List extends React.Component {
           {this.groupRender(pinnedList)}
           {this.groupRender(list, pinnedKeys)}
         </div>
-        
-        {this.statusBarRender()}
+        <div className={classNameSpace('status')}>
+          {this.statusBarRender()}
+        </div>
       </div>
     );
   }
@@ -309,12 +279,14 @@ const mapStateToProps = (state, ownProps) => {
   if (Object.keys(pinnedSubjects).length > 0) {
     const pins = pinnedKeys.map((name) => {
       return pinnedSubjects[name];
-    });
+    }).filter(res => res);
 
     if (pins.length > 0) {
       pinnedList = pins.sort((a, b) => a.position > b.position);
     }
   }
+
+  console.log(pinnedList);
 
   return {
     tools: tools,
@@ -324,7 +296,6 @@ const mapStateToProps = (state, ownProps) => {
     search,
     keys,
     socket,
-    search,
     status
   };
 }

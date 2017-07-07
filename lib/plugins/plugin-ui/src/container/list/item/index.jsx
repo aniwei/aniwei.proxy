@@ -94,10 +94,25 @@ export default class Item extends React.Component {
       element = <i className={`seti-${extension} seti`}></i>;
     }
 
+    let color;
+
+    if (code >= 200 && code <= 300) {
+      color = 'success';
+    } else {
+      if (code >= 400 ) {
+        color = 'error';
+      }
+    }
+
+    const codeClasses = classnames({
+      [classNameSpace('visual', color)]: !!color,
+      [classNameSpace('visual')]: true
+    });
+
     return (
       <Link to={route}>
         <div className={classNameSpace('meta')}>
-          <div className={classNameSpace('visual')}>
+          <div className={codeClasses}>
             {code || '-'}
           </div>
           

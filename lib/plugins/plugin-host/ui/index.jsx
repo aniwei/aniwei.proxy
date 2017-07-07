@@ -1,5 +1,6 @@
 import React, { createElement, PropTypes, Component } from 'react';
 import queryString from 'query-string';
+import classnames from 'classnames';
 import { assign } from 'lodash';
 import { clone } from 'lodash';
 import { Link } from 'react-router-dom';
@@ -10,6 +11,7 @@ import './less/index.less';
 
 import Editor from './editor';
 import Rules from './rules';
+import Helpful from './helpful';
 
 const classNamespace = namespace('host');
 
@@ -42,6 +44,43 @@ class Host extends Component {
         onSubmit: this.onRuleAppended
       }
     });
+  }
+
+  navigationItemClick (item, e) {
+    const { dispatch, settings, location } = this.props;
+    const { navigations } = settings;
+    const qs = queryString.parse(location.search);
+
+    qs.layer = 'visiable';
+
+    dispatch({
+      type: 'EXTENSION_HOST_TAB_CHANGE',
+      navigations
+    });
+
+    switch (item.action) {
+      case 'HELPFUL':
+        fetch('/plugin/host/README.md')
+          .then(res => res.text())
+          .then(res => {
+            dispatch({
+              type: 'LAYER_OVERLAYED',
+              component: Helpful,
+              defaultProps: {
+                html: res
+              } 
+            });
+
+            window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
+          });
+
+        break;
+        
+      default:
+        navigations.forEach(nav => nav.selected = false);
+        item.selected = !item.selected;
+        break;
+    }
   }
 
   rulesEditer = (rule, index) => {
@@ -124,9 +163,37 @@ class Host extends Component {
     );
   }
 
+  navigationRender () {
+    const { settings, } = this.props;
+    const { navigations } = settings;
+
+    const elements = navigations.map((nav, index) => {
+      const selected = nav.selected;
+      const classes = classnames({
+        [classNamespace('navigation-item', 'selected')]: selected,
+        [classNamespace('navigation-item')]: true
+      });
+
+      return (
+        <div className={classes} key={nav.key} onClick={(e) => this.navigationItemClick(nav, e)}>
+          <i className={nav.icon}></i>
+          <span className={classNamespace('navigation-item-text')}>{nav.text}</span>
+        </div>
+      );
+    });
+
+    return (
+      <div className={classNamespace('navigation')}>
+        {elements}
+      </div>
+    );
+  }
+
   render () {
     return (
       <div className={classNamespace()}>
+        
+        {this.navigationRender()}
         {this.listviewRender()}
         {this.appenderRender()}
       </div>
@@ -149,6 +216,10 @@ const reducers = {
 
     // settings.rules[index] = action.rule;
 
+    return clone(state);
+  },
+
+  [`TAB_CHANGE`]: (state, action) => {
     return clone(state);
   }
 };

@@ -4,11 +4,11 @@ import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 
 class SearchBar extends React.Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
 
     this.state = {
-      searchText: ''
+      searchText: props.value
     };
   }
 

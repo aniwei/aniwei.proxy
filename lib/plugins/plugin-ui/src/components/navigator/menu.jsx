@@ -17,7 +17,7 @@ class Menu extends React.Component {
         [`app__navigator-menu-item-icon`]: true,
         [`icon-${menu.key}-${fillStyle}`]: true
       });  
-      const url = `/${menu.route}${location.search}`;
+      const url = `${menu.route}${location.search}`;
 
       return (
         <li className="app__navigator-menu-item" key={menu.key}>
@@ -27,6 +27,21 @@ class Menu extends React.Component {
         </li>
       );
     });
+
+    query.feedback = 'visiable';
+
+    const feedbackURI = `${location.pathname}?${queryString.stringify(query)}`;
+
+    listElement.push(
+      <li className="app__navigator-menu-item" key="feedback">
+        <NavLink className="app__navigator-menu-item-link" to={feedbackURI} activeClassName={`icon-mobile-full`}>
+          <i className={classnames({
+            ['iconfont app__navigator-menu-item-icon']: true,
+            [`icon-mobile-line`]: true
+          })}></i>
+        </NavLink>
+      </li>
+    );
 
     if (query.menu) {
       delete query.menu;

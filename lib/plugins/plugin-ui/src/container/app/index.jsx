@@ -19,6 +19,7 @@ import Extensions from '../extensions';
 import ExtensionsView from '../extension-view';
 import Welcome from '../welcome';
 import Layer from '../layer';
+import Feedback from '../feedback';
 
 import actions from '../../actions';
 
@@ -54,6 +55,7 @@ class App extends React.Component {
           </div>
           <Route path="/" component={Overview} />
           <Route path="/" component={Layer} />
+          <Route path="/" component={Feedback} />
         </div>  
       </HashRouter>
     );
