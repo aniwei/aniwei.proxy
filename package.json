@@ -132,6 +132,7 @@
   "organizationUnit": "Created by aniwei",
   "keyword": [],
   "scripts": {
-    "commit": "git add . && git commit -m ${info} && git push origin dev/0.0.11"
+    "commit": "git add . && git commit -m ${info} && git push origin dev/0.0.11",
+    "start": "./node_modules/.bin/pm2 start ./bin/start --name aniwei.proxy"
   }
 }

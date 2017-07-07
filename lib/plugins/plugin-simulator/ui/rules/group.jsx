@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { namespace } from 'aniwei-proxy-extension-context';
 import 'whatwg-fetch';
 
-const classNamesapce = namespace('host-rules');
+const classNamesapce = namespace('sim-rules');
 
 export default class Rules extends React.Component {
   constructor () {

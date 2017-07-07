@@ -33,7 +33,7 @@ export default class Rules extends React.Component {
   updateRules (rules) {
     const { dispatch } = this.props;
 
-    fetch('/plugin/host/update', {
+    fetch('/plugin/simulator/update', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ export default class Rules extends React.Component {
     })
     .then(res => res.json())
     .then(res => dispatch({
-      type: 'EXTENSION_HOST_RULE_UPDATE'
+      type: 'EXTENSION_SIMULATOR_RULE_UPDATE'
     }));
   }
 

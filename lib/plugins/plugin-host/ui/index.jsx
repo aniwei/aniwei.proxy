@@ -5,7 +5,8 @@ import { assign } from 'lodash';
 import { clone } from 'lodash';
 import { Link } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
-import { register, namespace } from 'aniwei-proxy-extension-context';
+import { register, namespace, Components } from 'aniwei-proxy-extension-context';
+
 
 import './less/index.less';
 
@@ -13,6 +14,7 @@ import Editor from './editor';
 import Rules from './rules';
 import Helpful from './helpful';
 
+const { Navigation, View } = Components;
 const classNamespace = namespace('host');
 
 class Host extends Component {
@@ -46,41 +48,37 @@ class Host extends Component {
     });
   }
 
-  navigationItemClick (item, e) {
+  onNavigationItemClick = (item, e) => {
     const { dispatch, settings, location } = this.props;
     const { navigations } = settings;
-    const qs = queryString.parse(location.search);
 
-    qs.layer = 'visiable';
+    if (item.action === 'HELPFUL') {
+      return fetch('/plugin/host/README.md')
+        .then(res => res.text())
+        .then(res => {
+          dispatch({
+            type: 'LAYER_OVERLAYED',
+            component: Helpful,
+            defaultProps: {
+              html: res
+            } 
+          });
+
+          const qs = queryString.parse(location.search);
+          qs.layer = 'visiable';
+
+          window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
+        });
+    }
+
+    navigations.list.forEach(nav => nav.selected = false);
+    navigations.selectedKey = item.key;
+    item.selected = !item.selected;
 
     dispatch({
       type: 'EXTENSION_HOST_TAB_CHANGE',
       navigations
     });
-
-    switch (item.action) {
-      case 'HELPFUL':
-        fetch('/plugin/host/README.md')
-          .then(res => res.text())
-          .then(res => {
-            dispatch({
-              type: 'LAYER_OVERLAYED',
-              component: Helpful,
-              defaultProps: {
-                html: res
-              } 
-            });
-
-            window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
-          });
-
-        break;
-        
-      default:
-        navigations.forEach(nav => nav.selected = false);
-        item.selected = !item.selected;
-        break;
-    }
   }
 
   rulesEditer = (rule, index) => {
@@ -163,39 +161,42 @@ class Host extends Component {
     );
   }
 
+  settingsRender () {
+
+  }
+
+  viewsRender () {
+    const { settings } = this.props;
+    const { navigations } = settings;
+    const { selectedKey } = navigations;
+
+    return (
+      <View selectedKey={selectedKey}>
+        <View.Item key="rules">
+          {this.listviewRender()}
+          {this.appenderRender()}
+        </View.Item>
+        <View.Item key="settings">
+          {this.settingsRender()}
+        </View.Item>
+      </View>
+    );
+  }
+
   navigationRender () {
     const { settings, } = this.props;
     const { navigations } = settings;
 
-    const elements = navigations.map((nav, index) => {
-      const selected = nav.selected;
-      const classes = classnames({
-        [classNamespace('navigation-item', 'selected')]: selected,
-        [classNamespace('navigation-item')]: true
-      });
-
-      return (
-        <div className={classes} key={nav.key} onClick={(e) => this.navigationItemClick(nav, e)}>
-          <i className={nav.icon}></i>
-          <span className={classNamespace('navigation-item-text')}>{nav.text}</span>
-        </div>
-      );
-    });
-
     return (
-      <div className={classNamespace('navigation')}>
-        {elements}
-      </div>
+      <Navigation list={navigations.list} onSelect={this.onNavigationItemClick} />
     );
   }
 
   render () {
     return (
       <div className={classNamespace()}>
-        
         {this.navigationRender()}
-        {this.listviewRender()}
-        {this.appenderRender()}
+        {this.viewsRender()}
       </div>
     );
   }
@@ -203,19 +204,6 @@ class Host extends Component {
 
 const reducers = {
   [`RULE_UPDATE`]: (state, action) => {
-    // let cmpt;
-
-    // state.some((cmp) => {
-    //   if (cmp.name === 'host') {
-    //     return cmpt = cmp;
-    //   }
-    // });
-
-    // const { settings } = cmpt;
-    // const index = action.index;
-
-    // settings.rules[index] = action.rule;
-
     return clone(state);
   },
 

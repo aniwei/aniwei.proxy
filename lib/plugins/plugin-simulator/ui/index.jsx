@@ -1,15 +1,18 @@
 import React, { createElement } from 'react';
+import classnames from 'classnames';
 import queryString from 'query-string';
 import { clone } from 'lodash';
-import { register, namespace } from 'aniwei-proxy-extension-context';
+import { register, namespace, Components } from 'aniwei-proxy-extension-context';
 import { Link } from 'react-router-dom';
 
 import Editor from './editor';
+import Helpful from './helpful';
 
 import './less/index.less';
 import 'whatwg-fetch';
 
 const classNamespace = namespace('sim');
+const { Navigation, View } = Components;
 
 const rule = [
   { 
@@ -60,22 +63,6 @@ class Simulator extends React.Component {
     });
   }
 
-  tagRender () {
-    const { settings } = this.props;
-    const { rules } = settings;
-
-    return rules.map((li, index) => {
-      return (
-        <Tag key={li.subject} text={li.name} />
-      );
-    });
-  }
-
-  groupRender () {
-    const { settings } = this.props;
-    const { rules } = settings;
-  }
-
   appenderRender () {
     const { location } = this.props;
     const qs = queryString.parse(location.search);
@@ -107,12 +94,89 @@ class Simulator extends React.Component {
     );
   }
 
+  listviewRender () {
+    const { location, settings, dispatch } = this.props;
+    const qs = queryString.parse(location.search);
+
+    qs.layer = 'visiable';
+
+    const uri = `${location.pathname}?${queryString.stringify(qs)}`;
+    let element;
+
+    if (
+      settings.rules && 
+      settings.rules.length > 0
+    ) {
+      const props = {
+        rules: settings.rules,
+        rulesEditer: this.rulesEditer,
+        location,
+        dispatch
+      };
+
+      element = <Rules {...props} />;
+    }
+
+    return (
+      <div className={classNamespace('listview')}>
+        {element}
+      </div>
+    );
+  }
+
+  navigationRender () {
+    const { settings, } = this.props;
+    const { navigations } = settings;
+
+    return (
+      <Navigation list={navigations.list} onSelect={this.onNavigationItemClick}/>
+    );
+  }
+
+  onNavigationItemClick (item, e) {
+    const { dispatch, settings, location } = this.props;
+    const { navigations } = settings;
+    const qs = queryString.parse(location.search);
+
+    qs.layer = 'visiable';
+
+    dispatch({
+      type: 'EXTENSION_HOST_TAB_CHANGE',
+      navigations
+    });
+
+    switch (item.action) {
+      case 'HELPFUL':
+        fetch('/plugin/host/README.md')
+          .then(res => res.text())
+          .then(res => {
+            dispatch({
+              type: 'LAYER_OVERLAYED',
+              component: Helpful,
+              defaultProps: {
+                html: res
+              } 
+            });
+
+            window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
+          });
+
+        break;
+        
+      default:
+        navigations.list.forEach(nav => nav.selected = false);
+        navigations.selected = item.key;
+        item.selected = !item.selected;
+        break;
+    }
+  }
+
   render () {
     return (
       <div className={classNamespace()}>
+        {this.navigationRender()}
+        {this.listviewRender()}
         {this.appenderRender()}
-        {this.ruleRender()}
-        {this.tagRender()}
       </div>
     );
   }

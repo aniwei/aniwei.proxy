@@ -1,7 +1,7 @@
 import React, { createElement } from 'react';
 import { namespace } from 'aniwei-proxy-extension-context';
 
-const classNamespace = namespace('host');
+const classNamespace = namespace('sim');
 
 export default class Helpful extends React.Component {
   render () {

@@ -1,6 +1,6 @@
 import React, { createElement, PropTypes } from 'react';
 import { clone } from 'lodash';
-import { register, namespace } from 'aniwei-proxy-extension-context';
+import { namespace } from 'aniwei-proxy-extension-context';
 
 import FormItem from './form-item';
 import Button from './button';
