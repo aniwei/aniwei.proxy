@@ -3,18 +3,17 @@ import queryString from 'query-string';
 import classnames from 'classnames';
 import { assign } from 'lodash';
 import { clone } from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { register, namespace, Components } from 'aniwei-proxy-extension-context';
 
 
 import './less/index.less';
 
-import Editor from './editor';
-import Rules from './rules';
-import Helpful from './helpful';
+// import Editor from './editor';
 
-const { Navigation, View } = Components;
+
+const { Navigation, View, Rule, Helper, Editor } = Components;
 const classNamespace = namespace('host');
 
 class Host extends Component {
@@ -53,22 +52,18 @@ class Host extends Component {
     const { navigations } = settings;
 
     if (item.action === 'HELPFUL') {
-      return fetch('/plugin/host/README.md')
-        .then(res => res.text())
-        .then(res => {
-          dispatch({
-            type: 'LAYER_OVERLAYED',
-            component: Helpful,
-            defaultProps: {
-              html: res
-            } 
-          });
+      const qs = queryString.parse(location.search);
+      qs.layer = 'visiable';
 
-          const qs = queryString.parse(location.search);
-          qs.layer = 'visiable';
+      window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
 
-          window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
-        });
+      return dispatch({
+        type: 'LAYER_OVERLAYED',
+        component: Helper,
+        defaultProps: {
+          src: '/plugin/host/README.md'
+        } 
+      });
     }
 
     navigations.list.forEach(nav => nav.selected = false);
@@ -95,8 +90,27 @@ class Host extends Component {
     });
   }
 
-  rulesUpdate (rules) {
-    const { dispatch } = this.props;
+  singleRuleUpdate () {
+    const { dispatch, settings } = this.props;
+    const { rules } = settings;
+
+    fetch('/plugin/host/update', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rules: rules
+      })
+    })
+    .then(res => res.json())
+    .then(res => dispatch({
+      type: 'EXTENSION_HOST_RULE_UPDATE'
+    }));
+  }
+
+  rulesUpdate () {
+    const { dispatch, rules } = this.props;
 
     fetch('/plugin/host/update', {
       method: 'post',
@@ -117,6 +131,12 @@ class Host extends Component {
     });
   }
 
+  onRuleSelect = (rule, index) => {
+    rule.disable = !rule.disable;
+
+    this.singleRuleUpdate();
+  }
+
   appenderRender () {
     const { location } = this.props;
     const qs = queryString.parse(location.search);
@@ -133,6 +153,7 @@ class Host extends Component {
 
   listviewRender () {
     const { location, settings, dispatch } = this.props;
+    const { rules } = settings;
     const qs = queryString.parse(location.search);
 
     qs.layer = 'visiable';
@@ -141,28 +162,29 @@ class Host extends Component {
     let element;
 
     if (
-      settings.rules && 
-      settings.rules.length > 0
+      rules && 
+      rules.length > 0
     ) {
       const props = {
-        rules: settings.rules,
-        rulesEditer: this.rulesEditer,
-        location,
-        dispatch
+        list: rules,
       };
 
-      element = <Rules {...props} />;
+      element = <Rule {...props} onSelect={this.onRuleSelect} />;
     }
 
     return (
-      <div className={classNamespace('listview')}>
+      <div className={classNamespace('rules')}>
         {element}
       </div>
     );
   }
 
   settingsRender () {
-
+    return (
+      <div>
+        Hello World
+      </div>
+    );
   }
 
   viewsRender () {
@@ -170,9 +192,64 @@ class Host extends Component {
     const { navigations } = settings;
     const { selectedKey } = navigations;
 
+    const form = {
+      button: {
+        type: 'default',
+        text: '提交'
+      },
+      subjects: [
+        {
+          title: '规则名称',
+          desc: '这是规则说明',
+          name: 'group',
+          list: {
+            type: 'input',
+            name: 'name',
+            required: true,
+            value: 'hello world',
+            defaultProps: {
+              type: 'text',
+              placeholder: 'hello'
+            }
+          }
+        },
+        {
+          title: '规则名称',
+          desc: '这是规则说明',
+          name: 'rule',
+          list: [{
+            type: 'select',
+            name: 'name',
+            required: true,
+            value: 'hello',
+            options: [
+              { text: '选项 1', value: 1 },
+              { text: '选项 2', value: 2 },
+              { text: '选项 3', value: 3 }
+            ],
+            defaultProps: {
+
+            }
+          }, {
+            type: 'input',
+            name: 'name',
+            required: true,
+            value: 'hello world',
+            defaultProps: {
+              type: 'text',
+              multiLine: true,
+              placeholder: 'hello'
+            }
+          }]
+        }
+      ]
+    }
+
     return (
       <View selectedKey={selectedKey}>
         <View.Item key="rules">
+          <Editor form={form} />
+
           {this.listviewRender()}
           {this.appenderRender()}
         </View.Item>

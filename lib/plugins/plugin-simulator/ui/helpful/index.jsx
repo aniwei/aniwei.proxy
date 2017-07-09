@@ -5,6 +5,8 @@ const classNamespace = namespace('sim');
 
 export default class Helpful extends React.Component {
   render () {
+    const { src } = this.props
+
     return (
       <div className={classNamespace('iframe')}>
         <iframe frameBorder="0" height="100%" width="100%" src="/plugin/host/README.md">
