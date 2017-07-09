@@ -220,6 +220,7 @@ class Host extends Component {
           list: [{
             type: 'select',
             name: 'name',
+            text: '匹配类型',
             required: true,
             value: 'hello',
             options: [
@@ -248,8 +249,6 @@ class Host extends Component {
     return (
       <View selectedKey={selectedKey}>
         <View.Item key="rules">
-          <Editor form={form} />
-
           {this.listviewRender()}
           {this.appenderRender()}
         </View.Item>
