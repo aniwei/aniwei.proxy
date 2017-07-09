@@ -194,7 +194,7 @@ class Host extends Component {
 
     const form = {
       button: {
-        type: 'default',
+        loading: true,
         text: '提交'
       },
       subjects: [
@@ -249,6 +249,8 @@ class Host extends Component {
     return (
       <View selectedKey={selectedKey}>
         <View.Item key="rules">
+          <Editor form={form} />
+
           {this.listviewRender()}
           {this.appenderRender()}
         </View.Item>
