@@ -5,45 +5,88 @@ import { clone } from 'lodash';
 import { register, namespace, Components } from 'aniwei-proxy-extension-context';
 import { Link } from 'react-router-dom';
 
-import Editor from './editor';
-import Helpful from './helpful';
-
 import './less/index.less';
 import 'whatwg-fetch';
 
 const classNamespace = namespace('sim');
-const { Navigation, View } = Components;
+const { Navigation, View, Editor } = Components;
 
-const rule = [
-  { 
-    key: 'group', 
-    text: '规则名称',
-    formItem: [
-      { component: 'Name', key: 'group', value: '' }
-    ]
-  }, {
-    key: 'match', 
-    text: '匹配规则',
-    formItem: [
-      { component: 'MatchType', key: 'type', value: '1', options: [
-        { name: 'regexp', value: '1', text: '正则表达式'}, 
-        { name: 'string', value: '2', text: '字符串'}
-      ]},
-      { component: 'MatchContent', key: 'content', value: '' }
-    ]
-  }, {
-    key: 'response', 
-    text: '响应规则',
-    formItem: [
-      { component: 'ResponseType', key: 'type', value: '1', options: [
-        { name: 'local', value: '1', text: '本地文件'},
-        { name: 'service', value: '2', text: '服务'},
-        { name: 'json', value: '3', text: '自定义'}
-      ]},
-      { component: 'ResponseContent', key: 'content', value: '' }
+const dataFormatter = () => {
+  return {
+    button: {
+      primary: true,
+      text: '添加规则'
+    },
+    subjects: [
+      {
+        title: '规则名称',
+        name: 'name',
+        list: {
+          type: 'input',
+          required: true,
+          value: '接口',
+          defaultProps: {
+            type: 'text',
+            placeholder: '请输入规则名称'
+          }
+        }
+      },
+      {
+        title: '匹配规则',
+        desc: '规则格式: (#?) 127.0.0.1 localhsot local.com',
+        name: 'match',
+        list: [{
+          type: 'select',
+          value: '',
+          name: 'type',
+          options: [
+            { value: '1', text: '正则表达式' },
+            { value: '2', text: '字符串' }
+          ],
+          defaultProps: {}
+        }, {
+          type: 'input',
+          value: '1',
+          name: 'content',
+          options: [
+            { value: '1', text: '字符批评' },
+            { value: '2', text: '正则匹配' }
+          ],
+          defaultProps: {
+            multiLine: true,
+            placeholder: '请输入匹配规则'
+          }
+        }]
+      }, {
+        title: '规则响应',
+        desc: '规则格式: (#?) 127.0.0.1 localhsot local.com',
+        name: 'response',
+        list: [{
+          type: 'select',
+          value: '',
+          name: 'type',
+          options: [
+            { value: '1', text: '' },
+            { value: '2', text: '字符串' }
+          ],
+          defaultProps: {}
+        }, {
+          type: 'input',
+          value: '1',
+          name: 'content',
+          options: [
+            { value: '1', text: '字符批评' },
+            { value: '2', text: '正则匹配' }
+          ],
+          defaultProps: {
+            multiLine: true,
+            placeholder: '请输入匹配规则'
+          }
+        }]
+      }
     ]
   }
-];
+}
 
 class Simulator extends React.Component {
   onRuleSubmit = () => {
@@ -52,13 +95,14 @@ class Simulator extends React.Component {
 
   onAppenderClick = () => {
     const { dispatch } = this.props;
+    const form = dataFormatter();
 
     dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
       defaultProps: {
         onSubmit: this.onRuleSubmit,
-        rule
+        form
       }
     });
   }

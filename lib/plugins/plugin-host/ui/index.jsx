@@ -1,7 +1,7 @@
 import React, { createElement, PropTypes, Component } from 'react';
 import queryString from 'query-string';
 import classnames from 'classnames';
-import { assign } from 'lodash';
+import { assign, cloneDeep } from 'lodash';
 import { clone } from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
@@ -10,13 +10,137 @@ import { register, namespace, Components } from 'aniwei-proxy-extension-context'
 
 import './less/index.less';
 
-// import Editor from './editor';
-
-
 const { Navigation, View, Rule, Helper, Editor } = Components;
 const classNamespace = namespace('host');
+const dataFormatter = () => {
+  return {
+    button: {
+      primary: true,
+      text: '添加规则'
+    },
+    subjects: [
+      {
+        title: '规则名称',
+        name: 'name',
+        list: {
+          type: 'input',
+          required: true,
+          value: '开发环境',
+          defaultProps: {
+            type: 'text',
+            placeholder: '请输入规则名称'
+          }
+        }
+      },
+      {
+        title: '规则内容',
+        desc: '规则格式: (#?) 127.0.0.1 localhsot local.com',
+        name: 'rule',
+        list: [{
+          type: 'input',
+          value: '',
+          defaultProps: {
+            type: 'text',
+            multiLine: true,
+            placeholder: '请输入规则内容'
+          }
+        }]
+      }
+    ]
+  }
+}
 
 class Host extends Component {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
+
+  onSubmit = (res) => {
+    const json = res.json();
+  }
+
+  valueSetter = (name, subject) => {
+    switch (name) {
+      case 'rule':
+        return this.ruleValueSetter(subject);
+      default: 
+        break;
+    }
+  }
+
+  ruleValueSetter (list) {
+    let content;
+
+    if (Array.isArray(list)) {
+      content = list.map((li) => {
+        const disable = li.disable ? '# ' : '';
+
+        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
+      }).join('\n');
+    }
+
+    return content || '';
+  }
+
+  valueGetter = (name, subject) => {
+    switch (name) {
+      case 'rule':
+        return this.ruleValueGetter(subject.value || '');
+      default:
+        break;
+    }
+  }
+
+  ruleValueGetter (value) {
+    const valueArray = value.split(/[\n\r]+/g);
+    const list = [];
+
+    if (valueArray.length > 0) {
+      valueArray.forEach((line) => {
+        const lineValue = line.trim() || ''; 
+        const valueSplit = line.split(/\s+/g);
+        const rip = /(\d+\.){3}\d+/g;
+        let firstValue = valueSplit.shift().trim();
+        let disable = false;
+
+        if (valueSplit.length > 0) {
+          if (firstValue === '#') {
+            disable = true;
+
+            firstValue = valueSplit.shift().trim();
+          }
+
+          if (rip.test(firstValue)) {
+            const hostname = valueSplit.filter(v => v.trim());
+
+            if (hostname.length > 0) {
+              let li;
+
+              if(!list.some((l) => {
+                if (
+                  l.ip === firstValue && 
+                  l.disable === disable &&
+                  l.hostname.sort().toString() === hostname.sort().toString()
+                ) {
+                  return li = l;
+                }
+              })) {
+                list.push({
+                  ip: firstValue,
+                  hostname,
+                  disable
+                });
+              }
+            }
+          }
+        }
+      });
+    }
+
+    return list;
+  }
+
+
   onRuleAppended = (rule) => {
     const { settings, dispatch } = this.props;
     const { rules } = settings;
@@ -37,12 +161,16 @@ class Host extends Component {
 
   onAppenderClick = () => {
     const { dispatch } = this.props;
+    const form = dataFormatter();
 
     dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
       defaultProps: {
-        onSubmit: this.onRuleAppended
+        onSubmit: this.onSubmit,
+        valueGetter: this.valueGetter,
+        valueSetter: this.valueSetter,
+        form
       }
     });
   }
@@ -76,18 +204,56 @@ class Host extends Component {
     });
   }
 
-  rulesEditer = (rule, index) => {
-    const { dispatch } = this.props;
+  onRuleEdit = (rule, index) => {
+    const { dispatch, location } = this.props;
+    const { router } = this.context;
+    const form = dataFormatter();
+    const qs = queryString.parse(location.search);
+    const history = router.history;
 
+    form.button.text = '更新规则';
+
+    form.subjects.forEach((subject) => {
+      let list = subject.list;
+      let name;
+
+      list = Array.isArray(list) ? list : [list];
+
+      if (list.length === 1) {
+        name = subject.name;
+      }
+
+      list.forEach((li) => {
+        name = name || li.name;
+
+        switch (name) {
+          case 'name':
+            li.value = rule.text;
+            break;
+
+          case 'rule':
+            li.value = rule.list;
+            break;
+        }
+      });
+    });
+    
     dispatch({
       type: 'LAYER_OVERLAYED',
       component: Editor,
-      defaultProps: assign({
-        onSubmit: (rule) => {
-          this.onRuleUpdated(rule, index);
-        }
-      }, rule)
+      defaultProps: {
+        onSubmit: this.onSubmit,
+        valueGetter: this.valueGetter,
+        valueSetter: this.valueSetter,
+        form
+      }
     });
+
+    qs.layer = 'visiable';
+
+    const uri = `${location.pathname}?${queryString.stringify(qs)}`;
+
+    history.push(uri);
   }
 
   singleRuleUpdate () {
@@ -169,7 +335,7 @@ class Host extends Component {
         list: rules,
       };
 
-      element = <Rule {...props} onSelect={this.onRuleSelect} />;
+      element = <Rule {...props} onSelect={this.onRuleSelect} onEdit={this.onRuleEdit} />;
     }
 
     return (
@@ -192,65 +358,9 @@ class Host extends Component {
     const { navigations } = settings;
     const { selectedKey } = navigations;
 
-    const form = {
-      button: {
-        loading: true,
-        text: '提交'
-      },
-      subjects: [
-        {
-          title: '规则名称',
-          desc: '这是规则说明',
-          name: 'group',
-          list: {
-            type: 'input',
-            name: 'name',
-            required: true,
-            value: 'hello world',
-            defaultProps: {
-              type: 'text',
-              placeholder: 'hello'
-            }
-          }
-        },
-        {
-          title: '规则名称',
-          desc: '这是规则说明',
-          name: 'rule',
-          list: [{
-            type: 'select',
-            name: 'name',
-            text: '匹配类型',
-            required: true,
-            value: 'hello',
-            options: [
-              { text: '选项 1', value: 1 },
-              { text: '选项 2', value: 2 },
-              { text: '选项 3', value: 3 }
-            ],
-            defaultProps: {
-
-            }
-          }, {
-            type: 'input',
-            name: 'name',
-            required: true,
-            value: 'hello world',
-            defaultProps: {
-              type: 'text',
-              multiLine: true,
-              placeholder: 'hello'
-            }
-          }]
-        }
-      ]
-    }
-
     return (
       <View selectedKey={selectedKey}>
         <View.Item key="rules">
-          <Editor form={form} />
-
           {this.listviewRender()}
           {this.appenderRender()}
         </View.Item>
