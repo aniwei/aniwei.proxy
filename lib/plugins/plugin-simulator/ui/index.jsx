@@ -9,7 +9,7 @@ import './less/index.less';
 import 'whatwg-fetch';
 
 const classNamespace = namespace('sim');
-const { Navigation, View, Editor } = Components;
+const { Navigation, View, Editor, Helper, Rule } = Components;
 
 const dataFormatter = () => {
   return {
@@ -40,18 +40,14 @@ const dataFormatter = () => {
           value: '',
           name: 'type',
           options: [
-            { value: '1', text: '正则表达式' },
-            { value: '2', text: '字符串' }
+            { value: 'regexp', text: '正则表达式' },
+            { value: 'string', text: '字符串' }
           ],
           defaultProps: {}
         }, {
           type: 'input',
-          value: '1',
+          value: 'regexp',
           name: 'content',
-          options: [
-            { value: '1', text: '字符批评' },
-            { value: '2', text: '正则匹配' }
-          ],
           defaultProps: {
             multiLine: true,
             placeholder: '请输入匹配规则'
@@ -63,24 +59,21 @@ const dataFormatter = () => {
         name: 'response',
         list: [{
           type: 'select',
-          value: '',
+          value: 'service',
           name: 'type',
           options: [
-            { value: '1', text: '' },
-            { value: '2', text: '字符串' }
+            { value: 'service', text: '服务' },
+            { value: 'file', text: '本地文件' },
+            { value: 'code', text: '自定义' }
           ],
           defaultProps: {}
         }, {
           type: 'input',
-          value: '1',
+          value: '',
           name: 'content',
-          options: [
-            { value: '1', text: '字符批评' },
-            { value: '2', text: '正则匹配' }
-          ],
           defaultProps: {
             multiLine: true,
-            placeholder: '请输入匹配规则'
+            placeholder: '请输入响应内容'
           }
         }]
       }
@@ -89,8 +82,32 @@ const dataFormatter = () => {
 }
 
 class Simulator extends React.Component {
-  onRuleSubmit = () => {
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
 
+  onRuleSubmit = (res) => {
+    debugger;
+  }
+
+  onChange = (li, value, state, subject, update) => {
+    if (subject.name === 'response') {
+      if (li.name === 'type') {
+        subject.list.some((li) => {
+          if (li.name === 'content') {
+            return li.type = value;
+          }
+        });
+
+        state.subjects.some((sub, index) => {
+          if (sub.name === 'response') {
+            return state.subjects[index] = subject;
+          }
+        });
+
+        update(state);
+      }
+    }
   }
 
   onAppenderClick = () => {
@@ -102,6 +119,7 @@ class Simulator extends React.Component {
       component: Editor,
       defaultProps: {
         onSubmit: this.onRuleSubmit,
+        onChange: this.onChange,
         form
       }
     });
@@ -177,50 +195,69 @@ class Simulator extends React.Component {
     );
   }
 
-  onNavigationItemClick (item, e) {
+  onNavigationItemClick = (item, e) => {
     const { dispatch, settings, location } = this.props;
+    const { router } = this.context;
+    const { history } = router;
     const { navigations } = settings;
-    const qs = queryString.parse(location.search);
 
-    qs.layer = 'visiable';
+    if (item.action === 'HELPFUL') {
+      const qs = queryString.parse(location.search);
+      qs.layer = 'visiable';
+
+
+      history.push(`${location.pathname}?${queryString.stringify(qs)}`);
+
+      return dispatch({
+        type: 'LAYER_OVERLAYED',
+        component: Helper,
+        defaultProps: {
+          src: '/plugin/host/README.md'
+        } 
+      });
+    }
+
+    navigations.list.forEach(nav => nav.selected = false);
+    navigations.selectedKey = item.key;
+    item.selected = !item.selected;
 
     dispatch({
       type: 'EXTENSION_HOST_TAB_CHANGE',
       navigations
     });
+  }
 
-    switch (item.action) {
-      case 'HELPFUL':
-        fetch('/plugin/host/README.md')
-          .then(res => res.text())
-          .then(res => {
-            dispatch({
-              type: 'LAYER_OVERLAYED',
-              component: Helpful,
-              defaultProps: {
-                html: res
-              } 
-            });
+  settingsRender () {
+    return (
+      <div>
+        Hello World
+      </div>
+    );
+  }
 
-            window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
-          });
+  viewsRender () {
+    const { settings } = this.props;
+    const { navigations } = settings;
+    const { selectedKey } = navigations;
 
-        break;
-        
-      default:
-        navigations.list.forEach(nav => nav.selected = false);
-        navigations.selected = item.key;
-        item.selected = !item.selected;
-        break;
-    }
+    return (
+      <View selectedKey={selectedKey}>
+        <View.Item key="rules">
+          {this.listviewRender()}
+          {this.appenderRender()}
+        </View.Item>
+        <View.Item key="settings">
+          {this.settingsRender()}
+        </View.Item>
+      </View>
+    );
   }
 
   render () {
     return (
       <div className={classNamespace()}>
         {this.navigationRender()}
-        {this.listviewRender()}
-        {this.appenderRender()}
+        {this.viewsRender()}
       </div>
     );
   }

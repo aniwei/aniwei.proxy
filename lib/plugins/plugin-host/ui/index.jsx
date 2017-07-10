@@ -35,7 +35,7 @@ const dataFormatter = () => {
       {
         title: '规则内容',
         desc: '规则格式: (#?) 127.0.0.1 localhsot local.com',
-        name: 'rule',
+        name: 'list',
         list: [{
           type: 'input',
           value: '',
@@ -56,12 +56,19 @@ class Host extends Component {
   }
 
   onSubmit = (res) => {
+    const { form } = res;
     const json = res.json();
+
+    if (form.type === 'append') {
+      this.onRuleAppended(json);
+    } else {
+      this.onRuleUpdated(json, form.index);
+    }
   }
 
   valueSetter = (name, subject) => {
     switch (name) {
-      case 'rule':
+      case 'list':
         return this.ruleValueSetter(subject);
       default: 
         break;
@@ -84,7 +91,7 @@ class Host extends Component {
 
   valueGetter = (name, subject) => {
     switch (name) {
-      case 'rule':
+      case 'list':
         return this.ruleValueGetter(subject.value || '');
       default:
         break;
@@ -108,6 +115,12 @@ class Host extends Component {
             disable = true;
 
             firstValue = valueSplit.shift().trim();
+          }
+
+          if (firstValue.indexOf('#') === 0) {
+            disable = true;
+
+            firstValue = firstValue.slice(1);
           }
 
           if (rip.test(firstValue)) {
@@ -147,7 +160,7 @@ class Host extends Component {
     
     rules[rules.length] = rule;
     
-    this.rulesUpdate(rules);
+    this.syncRules(rules);
   }
 
   onRuleUpdated (rule, index) {
@@ -156,12 +169,23 @@ class Host extends Component {
 
     rules[index] = rule;
 
-    this.rulesUpdate(rules);
+    this.syncRules(rules);
+  }
+
+  onRuleRemove = (rule, index) => {
+    const { settings } = this.props;
+    const { rules } = settings;
+
+    rules.splice(index, 1);
+
+    this.syncRules(rules);
   }
 
   onAppenderClick = () => {
     const { dispatch } = this.props;
     const form = dataFormatter();
+
+    form.type = 'append';
 
     dispatch({
       type: 'LAYER_OVERLAYED',
@@ -177,13 +201,16 @@ class Host extends Component {
 
   onNavigationItemClick = (item, e) => {
     const { dispatch, settings, location } = this.props;
+    const { router } = this.context;
+    const { history } = router;
     const { navigations } = settings;
 
     if (item.action === 'HELPFUL') {
       const qs = queryString.parse(location.search);
       qs.layer = 'visiable';
 
-      window.location.href = `#${location.pathname}?${queryString.stringify(qs)}`;
+
+      history.push(`${location.pathname}?${queryString.stringify(qs)}`);
 
       return dispatch({
         type: 'LAYER_OVERLAYED',
@@ -212,6 +239,8 @@ class Host extends Component {
     const history = router.history;
 
     form.button.text = '更新规则';
+    form.type = 'edit';
+    form.index = index;
 
     form.subjects.forEach((subject) => {
       let list = subject.list;
@@ -228,10 +257,10 @@ class Host extends Component {
 
         switch (name) {
           case 'name':
-            li.value = rule.text;
+            li.value = rule.name;
             break;
 
-          case 'rule':
+          case 'list':
             li.value = rule.list;
             break;
         }
@@ -275,8 +304,8 @@ class Host extends Component {
     }));
   }
 
-  rulesUpdate () {
-    const { dispatch, rules } = this.props;
+  syncRules (rules) {
+    const { dispatch } = this.props;
 
     fetch('/plugin/host/update', {
       method: 'post',
@@ -335,7 +364,7 @@ class Host extends Component {
         list: rules,
       };
 
-      element = <Rule {...props} onSelect={this.onRuleSelect} onEdit={this.onRuleEdit} />;
+      element = <Rule {...props} onSelect={this.onRuleSelect} onEdit={this.onRuleEdit} onRemove={this.onRuleRemove}/>;
     }
 
     return (
