@@ -42,6 +42,7 @@ class Extensions extends React.Component {
         location,
         description: ext.description,
         settings: ext.settings,
+        defaultSettings: ext.defaultSettings,
         name: ext.name,
         component,
         route: url

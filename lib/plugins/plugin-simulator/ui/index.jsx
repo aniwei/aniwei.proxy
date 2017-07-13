@@ -1,7 +1,7 @@
 import React, { createElement } from 'react';
 import classnames from 'classnames';
 import queryString from 'query-string';
-import { clone } from 'lodash';
+import { clone, assign } from 'lodash';
 import { register, namespace, Components } from 'aniwei-proxy-extension-context';
 import { Link } from 'react-router-dom';
 
@@ -20,8 +20,8 @@ const dataFormatter = () => {
     subjects: [
       {
         title: '规则名称',
-        name: 'name',
         list: {
+          name: 'name',
           type: 'input',
           required: true,
           value: '接口',
@@ -34,20 +34,19 @@ const dataFormatter = () => {
       {
         title: '匹配规则',
         desc: '规则格式: (#?) 127.0.0.1 localhsot local.com',
-        name: 'match',
         list: [{
           type: 'select',
-          value: '',
-          name: 'type',
+          value: 'string',
+          name: 'matchType',
           options: [
-            { value: 'regexp', text: '正则表达式' },
+            { value: 'regular', text: '正则表达式' },
             { value: 'string', text: '字符串' }
           ],
           defaultProps: {}
         }, {
           type: 'input',
-          value: 'regexp',
-          name: 'content',
+          value: '',
+          name: 'matchContent',
           defaultProps: {
             multiLine: true,
             placeholder: '请输入匹配规则'
@@ -56,21 +55,20 @@ const dataFormatter = () => {
       }, {
         title: '规则响应',
         desc: '规则格式: (#?) 127.0.0.1 localhsot local.com',
-        name: 'response',
         list: [{
           type: 'select',
           value: 'service',
-          name: 'type',
+          name: 'responseType',
           options: [
-            { value: 'service', text: '服务' },
-            { value: 'file', text: '本地文件' },
-            { value: 'code', text: '自定义' }
+            { value: 'service', text: '服务地址' },
+            { value: 'input', text: '文件地址' },
+            { value: 'defined', text: '自定义' }
           ],
           defaultProps: {}
         }, {
           type: 'input',
           value: '',
-          name: 'content',
+          name: 'responseContent',
           defaultProps: {
             multiLine: true,
             placeholder: '请输入响应内容'
@@ -87,7 +85,75 @@ class Simulator extends React.Component {
   }
 
   onRuleSubmit = (res) => {
-    debugger;
+    const json = res.json();
+    const rule = {
+      name: json.name,
+      list: [
+        assign({
+          key: json.matchContent,
+          value: [json.responseContent],
+          match: {
+            type: json.matchType,
+            content: json.matchContent
+          },
+          response: {
+            type: json.responseType,
+            content: json.responseContent
+          }
+        }, json)
+      ]
+    };    
+
+    this.onRuleAppended(rule);
+  }
+
+  onRuleEdit = (rule, index) => {
+    const { dispatch, location } = this.props;
+    const { router } = this.context;
+    const form = dataFormatter();
+    const qs = queryString.parse(location.search);
+    const history = router.history;
+
+    form.button.text = '更新规则';
+    form.type = 'edit';
+    form.index = index;
+
+    form.subjects.forEach((subject) => {
+      let list = subject.list;
+
+      list = Array.isArray(list) ? list : [list];
+
+      list.forEach((li) => {
+        li.value = rule[li.name] || rule.list[0][li.name];
+      });
+    });
+    
+    
+    dispatch({
+      type: 'LAYER_OVERLAYED',
+      component: Editor,
+      defaultProps: {
+        onSubmit: this.onRuleSubmit,
+        valueGetter: this.valueGetter,
+        valueSetter: this.valueSetter,
+        form
+      }
+    });
+
+    qs.layer = 'visiable';
+
+    const uri = `${location.pathname}?${queryString.stringify(qs)}`;
+
+    history.push(uri);
+  }
+
+  onRuleAppended (rule) {
+    const { settings } = this.props;
+    const { rules } = settings;
+
+    rules[rules.length] = rule;
+
+    this.rulesSender(rules, () => history.back());
   }
 
   onChange = (li, value, state, subject, update) => {
@@ -110,6 +176,23 @@ class Simulator extends React.Component {
     }
   }
 
+  onRuleSelect = (rule, index) => {
+    const { settings } = this.props;
+    const { rules } = settings;
+    rule.disable = !rule.disable;
+
+    this.rulesSender(rules);
+  }
+
+  onRuleRemove = (rule, index) => {
+    const { settings } = this.props;
+    const { rules } = settings;
+
+    rules.splice(index, 1);
+
+    this.rulesSender(rules, () => history.back());
+  }
+
   onAppenderClick = () => {
     const { dispatch } = this.props;
     const form = dataFormatter();
@@ -118,11 +201,32 @@ class Simulator extends React.Component {
       type: 'LAYER_OVERLAYED',
       component: Editor,
       defaultProps: {
+        valueGetter: this.valueGetter,
+        valueSetter: this.valueSetter,
         onSubmit: this.onRuleSubmit,
         onChange: this.onChange,
         form
       }
     });
+  }
+
+  valueGetter = (name, subject) => {
+
+    switch (name) {
+      case 'responseContent':
+        return encodeURIComponent(subject);
+      default:
+        break;
+    }
+  }
+
+  valueSetter = (name, subject) => {
+    switch (name) {
+      case 'responseContent':
+        return decodeURIComponent(subject);
+      default:
+        break;
+    }
   }
 
   appenderRender () {
@@ -137,6 +241,30 @@ class Simulator extends React.Component {
       <Link to={uri} className={classNamespace('appender')} onClick={this.onAppenderClick}>
       </Link>
     );
+  }
+
+  rulesSender (rules, callback) {
+    const { dispatch } = this.props;
+
+    fetch('/plugin/simulator/update', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rules: rules
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      dispatch({
+        type: 'EXTENSION_SIMULATOR_RULE_UPDATE'
+      });
+
+      if (typeof callback === 'function') {
+        history.back();
+      }
+    });
   }
 
   ruleRender () {
@@ -158,6 +286,7 @@ class Simulator extends React.Component {
 
   listviewRender () {
     const { location, settings, dispatch } = this.props;
+    const { rules } = settings;
     const qs = queryString.parse(location.search);
 
     qs.layer = 'visiable';
@@ -166,29 +295,26 @@ class Simulator extends React.Component {
     let element;
 
     if (
-      settings.rules && 
-      settings.rules.length > 0
+      rules && 
+      rules.length > 0
     ) {
       const props = {
-        rules: settings.rules,
-        rulesEditer: this.rulesEditer,
-        location,
-        dispatch
+        list: rules,
       };
 
-      element = <Rules {...props} />;
+      element = <Rule {...props} onSelect={this.onRuleSelect} onEdit={this.onRuleEdit} onRemove={this.onRuleRemove} />;
     }
 
     return (
-      <div className={classNamespace('listview')}>
+      <div className={classNamespace('rules')}>
         {element}
       </div>
     );
   }
 
   navigationRender () {
-    const { settings, } = this.props;
-    const { navigations } = settings;
+    const { defaultSettings } = this.props;
+    const { navigations } = defaultSettings;
 
     return (
       <Navigation list={navigations.list} onSelect={this.onNavigationItemClick}/>
@@ -236,8 +362,8 @@ class Simulator extends React.Component {
   }
 
   viewsRender () {
-    const { settings } = this.props;
-    const { navigations } = settings;
+    const { defaultSettings } = this.props;
+    const { navigations } = defaultSettings;
     const { selectedKey } = navigations;
 
     return (
@@ -264,15 +390,7 @@ class Simulator extends React.Component {
 }
 
 const reducers = {
-  ['UPDATE_LIST']: (state, action) => {
-    let ext;
-
-    state.some((e) => {
-      if (e.name === 'simulator') {
-        return ext = e;
-      }
-    });
-
+  ['RULE_UPDATE']: (state, action) => {
     return clone(state);
   },
   ['RULE_CREATE']: (state, action) => {

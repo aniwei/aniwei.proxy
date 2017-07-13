@@ -82,7 +82,7 @@ class Host extends Component {
       content = list.map((li) => {
         const disable = li.disable ? '# ' : '';
 
-        return `${disable}${li.ip}     ${li.hostname.join('  ')}`;
+        return `${disable}${li.key}     ${li.value.join('  ')}`;
       }).join('\n');
     }
 
@@ -131,16 +131,16 @@ class Host extends Component {
 
               if(!list.some((l) => {
                 if (
-                  l.ip === firstValue && 
+                  l.key === firstValue && 
                   l.disable === disable &&
-                  l.hostname.sort().toString() === hostname.sort().toString()
+                  l.value.sort().toString() === hostname.sort().toString()
                 ) {
                   return li = l;
                 }
               })) {
                 list.push({
-                  ip: firstValue,
-                  hostname,
+                  key: firstValue,
+                  value: hostname,
                   disable
                 });
               }
@@ -160,7 +160,7 @@ class Host extends Component {
     
     rules[rules.length] = rule;
     
-    this.syncRules(rules);
+    this.rulesSender(rules, () => history.back());
   }
 
   onRuleUpdated (rule, index) {
@@ -169,7 +169,7 @@ class Host extends Component {
 
     rules[index] = rule;
 
-    this.syncRules(rules);
+    this.rulesSender(rules, () => history.back());
   }
 
   onRuleRemove = (rule, index) => {
@@ -178,57 +178,15 @@ class Host extends Component {
 
     rules.splice(index, 1);
 
-    this.syncRules(rules);
+    this.rulesSender(rules, () => history.back());
   }
 
-  onAppenderClick = () => {
-    const { dispatch } = this.props;
-    const form = dataFormatter();
+  onRuleSelect = (rule, index) => {
+    const { settings } = this.props;
+    const { rules } = settings;
+    rule.disable = !rule.disable;
 
-    form.type = 'append';
-
-    dispatch({
-      type: 'LAYER_OVERLAYED',
-      component: Editor,
-      defaultProps: {
-        onSubmit: this.onSubmit,
-        valueGetter: this.valueGetter,
-        valueSetter: this.valueSetter,
-        form
-      }
-    });
-  }
-
-  onNavigationItemClick = (item, e) => {
-    const { dispatch, settings, location } = this.props;
-    const { router } = this.context;
-    const { history } = router;
-    const { navigations } = settings;
-
-    if (item.action === 'HELPFUL') {
-      const qs = queryString.parse(location.search);
-      qs.layer = 'visiable';
-
-
-      history.push(`${location.pathname}?${queryString.stringify(qs)}`);
-
-      return dispatch({
-        type: 'LAYER_OVERLAYED',
-        component: Helper,
-        defaultProps: {
-          src: '/plugin/host/README.md'
-        } 
-      });
-    }
-
-    navigations.list.forEach(nav => nav.selected = false);
-    navigations.selectedKey = item.key;
-    item.selected = !item.selected;
-
-    dispatch({
-      type: 'EXTENSION_HOST_TAB_CHANGE',
-      navigations
-    });
+    this.rulesSender(rules);
   }
 
   onRuleEdit = (rule, index) => {
@@ -285,26 +243,57 @@ class Host extends Component {
     history.push(uri);
   }
 
-  singleRuleUpdate () {
-    const { dispatch, settings } = this.props;
-    const { rules } = settings;
+  onAppenderClick = () => {
+    const { dispatch } = this.props;
+    const form = dataFormatter();
 
-    fetch('/plugin/host/update', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        rules: rules
-      })
-    })
-    .then(res => res.json())
-    .then(res => dispatch({
-      type: 'EXTENSION_HOST_RULE_UPDATE'
-    }));
+    form.type = 'append';
+
+    dispatch({
+      type: 'LAYER_OVERLAYED',
+      component: Editor,
+      defaultProps: {
+        onSubmit: this.onSubmit,
+        valueGetter: this.valueGetter,
+        valueSetter: this.valueSetter,
+        form
+      }
+    });
   }
 
-  syncRules (rules) {
+  onNavigationItemClick = (item, e) => {
+    const { dispatch, defaultSettings, location } = this.props;
+    const { router } = this.context;
+    const { history } = router;
+    const { navigations } = defaultSettings;
+
+    if (item.action === 'HELPFUL') {
+      const qs = queryString.parse(location.search);
+      qs.layer = 'visiable';
+
+
+      history.push(`${location.pathname}?${queryString.stringify(qs)}`);
+
+      return dispatch({
+        type: 'LAYER_OVERLAYED',
+        component: Helper,
+        defaultProps: {
+          src: '/plugin/host/README.md'
+        } 
+      });
+    }
+
+    navigations.list.forEach(nav => nav.selected = false);
+    navigations.selectedKey = item.key;
+    item.selected = !item.selected;
+
+    dispatch({
+      type: 'EXTENSION_HOST_TAB_CHANGE',
+      navigations
+    });
+  }
+
+  rulesSender (rules, callback) {
     const { dispatch } = this.props;
 
     fetch('/plugin/host/update', {
@@ -322,14 +311,10 @@ class Host extends Component {
         type: 'EXTENSION_HOST_RULE_UPDATE'
       });
 
-      history.back();
+      if (typeof callback === 'function') {
+        history.back();
+      }
     });
-  }
-
-  onRuleSelect = (rule, index) => {
-    rule.disable = !rule.disable;
-
-    this.singleRuleUpdate();
   }
 
   appenderRender () {
@@ -364,7 +349,7 @@ class Host extends Component {
         list: rules,
       };
 
-      element = <Rule {...props} onSelect={this.onRuleSelect} onEdit={this.onRuleEdit} onRemove={this.onRuleRemove}/>;
+      element = <Rule {...props} onSelect={this.onRuleSelect} onEdit={this.onRuleEdit} onRemove={this.onRuleRemove} />;
     }
 
     return (
@@ -375,16 +360,22 @@ class Host extends Component {
   }
 
   settingsRender () {
+    const props = {
+      list: [
+        
+      ]
+    }
+
     return (
-      <div>
-        Hello World
+      <div className={classNamespace('settings')}>
+        <Rule editable={false} {...props} onSelect={this.onRuleSelect} />;
       </div>
     );
   }
 
   viewsRender () {
-    const { settings } = this.props;
-    const { navigations } = settings;
+    const { defaultSettings } = this.props;
+    const { navigations } = defaultSettings;
     const { selectedKey } = navigations;
 
     return (
@@ -401,8 +392,8 @@ class Host extends Component {
   }
 
   navigationRender () {
-    const { settings, } = this.props;
-    const { navigations } = settings;
+    const { defaultSettings } = this.props;
+    const { navigations } = defaultSettings;
 
     return (
       <Navigation list={navigations.list} onSelect={this.onNavigationItemClick} />

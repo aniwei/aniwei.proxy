@@ -38,7 +38,7 @@ export default class Item extends React.Component {
   }
 
   contentRender () {
-    const { component, dispatch, name, location, settings, description } = this.props;
+    const { component, dispatch, name, location, settings, description, defaultSettings } = this.props;
     let element = null;
 
     if (component) {
@@ -47,6 +47,7 @@ export default class Item extends React.Component {
         {
           location,
           settings,
+          defaultSettings,
           description,
           dispatch
         }
