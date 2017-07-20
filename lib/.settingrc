@@ -85,24 +85,5 @@
     "key": "hostname",
     "text": "项目名称",
     "value": "aniwei.studio"
-  },
-  "tools": {
-    "list": [
-      {
-        "subject": "控制工具",
-        "list: [
-          { "key": "on-off", "icon": "ti-control-record", "action": "LIST_RECORD" },
-          { "key": "cache", "icon": "ti-server", "action": "LIST_CACHE_CTRL" },
-        ]
-      },
-      {
-        "subject": "数据工具",
-        "list": [
-          { "key": "clear", "icon": "ti-trash", "action": "LIST_ALL_CLEAR" },
-          { "key": "fold", "icon": "ti-split-v", "action": "LIST_ALL_TOGGLED" },
-          { "key": "save", "icon": "ti-save", "action": "LIST_ALL_SAVE", href: "/settings/list/export" }
-        ]
-      }
-    ]
   }
 }
