@@ -1,3 +1,4 @@
-var app = require('./lib/application');
+require('babel-register');
+require('./es6');
 
-module.exports = app;
+console.log(1231)
