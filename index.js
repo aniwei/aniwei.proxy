@@ -1,3 +1,3 @@
-var app = require('./lib/application');
+require('babel-register');
 
-module.exports = app;
+module.exports = require('./lib/app');
