@@ -1,8 +1,8 @@
 {
   "name": "aniwei.proxy",
   "meta": {
-    "project-name": "aniwei.proxy",
-    "cache-path": ".aniwei"
+    "name": "aniwei.proxy",
+    "path": ".aniwei"
   },
   "project": "aniwei.proxy",
   "version": "1.0.0",
@@ -11,6 +11,7 @@
     "aniwei-proxy-extension-context": "^1.0.4",
     "aniwei.usbmux": "^1.0.1",
     "async": "^2.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "brace": "^0.10.0",
