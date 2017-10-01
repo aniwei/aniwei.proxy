@@ -1,7 +1,7 @@
-var aw     = require('../index');
-var app = aw();
+var createApplication = require('../index');
 
-app.then(() => {
-  debugger;
-  app;
-})
+var app = createApplication({
+  port: 8888
+}, function (app) {
+
+});
